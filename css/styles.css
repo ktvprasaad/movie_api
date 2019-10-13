@@ -1,0 +1,10 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: black;
+  font-family: 'Righteous', cursive;
+  color: #c0e1e7;
+  font-weight: 700;
+  line-height: 1;
+}
