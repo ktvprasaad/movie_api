@@ -1,24 +1,120 @@
-URL: /Timestamp: Sun Oct 13 2019 16:42:23 GMT-0400 (EDT)
+URL: /Timestamp: Sun Oct 13 2019 21:07:17 GMT-0400 (EDT)
 
-URL: /img/wf-32x32.pngTimestamp: Sun Oct 13 2019 16:42:23 GMT-0400 (EDT)
+URL: /favicon.icoTimestamp: Sun Oct 13 2019 21:07:18 GMT-0400 (EDT)
 
-URL: /css/styles.cssTimestamp: Sun Oct 13 2019 16:42:23 GMT-0400 (EDT)
+URL: /Timestamp: Sun Oct 13 2019 21:07:59 GMT-0400 (EDT)
 
-URL: /img/wf-16x16.pngTimestamp: Sun Oct 13 2019 16:42:23 GMT-0400 (EDT)
+URL: /css/styles.cssTimestamp: Sun Oct 13 2019 21:07:59 GMT-0400 (EDT)
 
-URL: /Timestamp: Sun Oct 13 2019 16:42:35 GMT-0400 (EDT)
+URL: /img/wf-32x32.pngTimestamp: Sun Oct 13 2019 21:07:59 GMT-0400 (EDT)
 
-URL: /css/styles.cssTimestamp: Sun Oct 13 2019 16:42:35 GMT-0400 (EDT)
+URL: /img/wf-16x16.pngTimestamp: Sun Oct 13 2019 21:07:59 GMT-0400 (EDT)
 
-URL: /img/wf-32x32.pngTimestamp: Sun Oct 13 2019 16:42:35 GMT-0400 (EDT)
+URL: /Timestamp: Sun Oct 13 2019 21:08:43 GMT-0400 (EDT)
 
-URL: /img/wf-16x16.pngTimestamp: Sun Oct 13 2019 16:42:35 GMT-0400 (EDT)
+URL: /img/wf-32x32.pngTimestamp: Sun Oct 13 2019 21:08:43 GMT-0400 (EDT)
 
-URL: /documentation.htmlTimestamp: Sun Oct 13 2019 16:42:43 GMT-0400 (EDT)
+URL: /css/styles.cssTimestamp: Sun Oct 13 2019 21:08:43 GMT-0400 (EDT)
 
-URL: /css/styles.cssTimestamp: Sun Oct 13 2019 16:42:43 GMT-0400 (EDT)
+URL: /img/wf-16x16.pngTimestamp: Sun Oct 13 2019 21:08:43 GMT-0400 (EDT)
 
-URL: /img/wf-32x32.pngTimestamp: Sun Oct 13 2019 16:42:43 GMT-0400 (EDT)
+URL: /Timestamp: Sun Oct 13 2019 21:08:44 GMT-0400 (EDT)
 
-URL: /img/wf-16x16.pngTimestamp: Sun Oct 13 2019 16:42:43 GMT-0400 (EDT)
+URL: /css/styles.cssTimestamp: Sun Oct 13 2019 21:08:44 GMT-0400 (EDT)
+
+URL: /img/wf-32x32.pngTimestamp: Sun Oct 13 2019 21:08:44 GMT-0400 (EDT)
+
+URL: /img/wf-16x16.pngTimestamp: Sun Oct 13 2019 21:08:44 GMT-0400 (EDT)
+
+URL: /Timestamp: Sun Oct 13 2019 21:08:57 GMT-0400 (EDT)
+
+URL: /img/wf-32x32.pngTimestamp: Sun Oct 13 2019 21:08:57 GMT-0400 (EDT)
+
+URL: /css/styles.cssTimestamp: Sun Oct 13 2019 21:08:57 GMT-0400 (EDT)
+
+URL: /img/wf-16x16.pngTimestamp: Sun Oct 13 2019 21:08:57 GMT-0400 (EDT)
+
+URL: /Timestamp: Sun Oct 13 2019 21:09:18 GMT-0400 (EDT)
+
+URL: /img/wf-32x32.pngTimestamp: Sun Oct 13 2019 21:09:19 GMT-0400 (EDT)
+
+URL: /css/styles.cssTimestamp: Sun Oct 13 2019 21:09:19 GMT-0400 (EDT)
+
+URL: /img/wf-16x16.pngTimestamp: Sun Oct 13 2019 21:09:19 GMT-0400 (EDT)
+
+URL: /Timestamp: Sun Oct 13 2019 21:17:42 GMT-0400 (EDT)
+
+URL: /img/wf-32x32.pngTimestamp: Sun Oct 13 2019 21:17:42 GMT-0400 (EDT)
+
+URL: /css/styles.cssTimestamp: Sun Oct 13 2019 21:17:42 GMT-0400 (EDT)
+
+URL: /img/wf-16x16.pngTimestamp: Sun Oct 13 2019 21:17:42 GMT-0400 (EDT)
+
+URL: /Timestamp: Sun Oct 13 2019 21:18:53 GMT-0400 (EDT)
+
+URL: /css/styles.cssTimestamp: Sun Oct 13 2019 21:18:53 GMT-0400 (EDT)
+
+URL: /img/wf-32x32.pngTimestamp: Sun Oct 13 2019 21:18:53 GMT-0400 (EDT)
+
+URL: /img/wf-16x16.pngTimestamp: Sun Oct 13 2019 21:18:53 GMT-0400 (EDT)
+
+URL: /Timestamp: Sun Oct 13 2019 21:18:55 GMT-0400 (EDT)
+
+URL: /img/wf-32x32.pngTimestamp: Sun Oct 13 2019 21:18:55 GMT-0400 (EDT)
+
+URL: /css/styles.cssTimestamp: Sun Oct 13 2019 21:18:55 GMT-0400 (EDT)
+
+URL: /img/wf-16x16.pngTimestamp: Sun Oct 13 2019 21:18:55 GMT-0400 (EDT)
+
+URL: /Timestamp: Sun Oct 13 2019 21:20:36 GMT-0400 (EDT)
+
+URL: /favicon.icoTimestamp: Sun Oct 13 2019 21:20:36 GMT-0400 (EDT)
+
+URL: /Timestamp: Sun Oct 13 2019 21:21:01 GMT-0400 (EDT)
+
+URL: /favicon.icoTimestamp: Sun Oct 13 2019 21:21:02 GMT-0400 (EDT)
+
+URL: /Timestamp: Sun Oct 13 2019 21:21:10 GMT-0400 (EDT)
+
+URL: /favicon.icoTimestamp: Sun Oct 13 2019 21:21:10 GMT-0400 (EDT)
+
+URL: /Timestamp: Sun Oct 13 2019 21:21:18 GMT-0400 (EDT)
+
+URL: /img/wf-32x32.pngTimestamp: Sun Oct 13 2019 21:21:18 GMT-0400 (EDT)
+
+URL: /css/styles.cssTimestamp: Sun Oct 13 2019 21:21:18 GMT-0400 (EDT)
+
+URL: /img/wf-16x16.pngTimestamp: Sun Oct 13 2019 21:21:18 GMT-0400 (EDT)
+
+URL: /Timestamp: Mon Oct 14 2019 09:46:49 GMT-0400 (EDT)
+
+URL: /css/styles.cssTimestamp: Mon Oct 14 2019 09:46:49 GMT-0400 (EDT)
+
+URL: /img/wf-32x32.pngTimestamp: Mon Oct 14 2019 09:46:49 GMT-0400 (EDT)
+
+URL: /img/wf-16x16.pngTimestamp: Mon Oct 14 2019 09:46:49 GMT-0400 (EDT)
+
+URL: /Timestamp: Mon Oct 14 2019 19:11:51 GMT-0400 (EDT)
+
+URL: /css/styles.cssTimestamp: Mon Oct 14 2019 19:11:51 GMT-0400 (EDT)
+
+URL: /img/wf-32x32.pngTimestamp: Mon Oct 14 2019 19:11:51 GMT-0400 (EDT)
+
+URL: /img/wf-16x16.pngTimestamp: Mon Oct 14 2019 19:11:51 GMT-0400 (EDT)
+
+URL: /Timestamp: Mon Oct 14 2019 19:11:53 GMT-0400 (EDT)
+
+URL: /css/styles.cssTimestamp: Mon Oct 14 2019 19:11:53 GMT-0400 (EDT)
+
+URL: /img/wf-32x32.pngTimestamp: Mon Oct 14 2019 19:11:53 GMT-0400 (EDT)
+
+URL: /img/wf-16x16.pngTimestamp: Mon Oct 14 2019 19:11:53 GMT-0400 (EDT)
+
+URL: /Timestamp: Tue Oct 15 2019 13:18:15 GMT-0400 (EDT)
+
+URL: /css/styles.cssTimestamp: Tue Oct 15 2019 13:18:16 GMT-0400 (EDT)
+
+URL: /img/wf-32x32.pngTimestamp: Tue Oct 15 2019 13:18:16 GMT-0400 (EDT)
+
+URL: /img/wf-16x16.pngTimestamp: Tue Oct 15 2019 13:18:16 GMT-0400 (EDT)
 
