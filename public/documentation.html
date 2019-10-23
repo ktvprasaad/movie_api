@@ -1,20 +1,273 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=display-width, initial-scale=1">
-	<title>WebFlix</title>
-	<link rel="shortcut icon" href="img/wf-16x16.png" type="favicon-16x16.png">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
-	<link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="css/styles.css" type="text/css">
+    <title>WebFlix API Documentation</title>
+    <link rel="shortcut icon" href="img/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Caveat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
-<body>
-	<div>
-		<h1><img src="img/wf-32x32.png" alt="WebFlix image">WebFlix</h1>
-		<p>The web application will provide users with access to information about different movies, directors, and genres. Users will be able to sign up, 
-			update their personal information, and create a list of their favorite
-			movies.</p>
-	</div>
+<body style="width: 1200px; margin: auto;" class="main__content">
+    <header class="page-header">
+        <h1><img src="img/wf-32x32.png" alt="WebFlix image">WebFlix - Movies API</h1>
+        <nav class="main-navigation page-header__item">
+            <ul role="menubar" class="navigation-list">
+                <li role="presentation">
+                    <a href="#url" role="menuitem" class="navigation-list__item">URL</a>
+                </li>
+                <li role="presentation">
+                    <a href="#info" role="menuitem" class="navigation-list__item">Info</a>
+                </li>
+                <li role="presentation">
+                    <a href="#parameters" role="menuitem" class="navigation-list__item">Parameters</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <!--<div style="width: 1000px; margin: auto;" class="main__content"> -->
+    <div>
+        <p>The web application provides the users to access the information about different movies, directors, and genres. Users may sign up, update their personal information, create and maintain their favorite movies list. Besides that it provides the users about the main url, authentication and parameters using that how to perform a lot of operations with the WebFlix Online Movie App.</p>
+        <div>
+            <h2><a name="url"></a>Resource URL</h2>
+            <p><a href="#">https://ktvprasaad.github.io/movie_api/</a></p>
+        </div>
+        <div>
+            <h2><a name="info"></a>Resource Information</h2>
+            <table>
+                <tr>
+                    <td>Resource formats</td>
+                    <td>JSON</td>
+                </tr>
+                <tr>
+                    <td>Requires Authentication?</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>Rate Limited?</td>
+                    <td>No</td>
+                </tr>	
+            </table>
+        </div>
+        <div>
+            <h2><a name="parameters"></a>Parameters</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Client Request</th>
+                        <th>HTTP Method</th>
+                        <th>Path/URL</th>
+                        <th>Request Body Data Format</th>
+                        <th>Response Body Data Format</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Get all Movies</td>
+                        <td>GET</td>
+                        <td>/movies</td>
+                        <td>None</td>
+                        <td>
+                            <pre>
+Example of a JSON object holding all the 
+movies :
+
+[
+    movie: { 
+        title: 'Lion King',
+        director:  {
+            name: 'Jon Favreau',
+            bio: 'DOB, Description'
+        },
+        genre: 'Animation/Fantasy ',
+        imageUrl: 'lk.com/lk.jpg'
+    },
+    movie: { 
+    title: 'Toy Story 4',
+    director:  {
+        name: 'Josh Cooley',
+        bio: 'DOB, Description'
+    },
+    genre: 'Adventure ',
+    imageUrl: 'ts.com/ts.jpg'
+    }
+]
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Get specific movie</td>
+                        <td>GET</td>
+                        <td>/movies/:title</td>
+                        <td>None</td>
+                        <td>
+                            <pre>
+Example of a JSON object holding a single 
+movie user searched :
+
+[
+    title: 'Lion King',
+    director:  {
+        name: 'Jon Favreau',
+        bio: 'DOB, Description'
+    },
+    genre: 'Animation/Fantasy ',
+    imageUrl: 'lk.com/lk.jpg'
+]
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Get specific genre description</td>
+                        <td>GET</td>
+                        <td>/genre/:genre</td>
+                        <td>None</td>
+                        <td>
+                            <pre>
+Example of a JSON object holding the 
+description of a particular genre (adventure) :
+
+description: { 
+    Adventure is that usually presents danger,
+    or gives the watcher a sense of excitement.
+}
+
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Get specific director info</td>
+                        <td>GET</td>
+                        <td>/director/:director</td>
+                        <td>None</td>
+                        <td>
+                            <pre>
+A JSON object holding data about the 
+director, structured like :
+
+[
+    director:  {
+        name: 'Josh Cooley',
+        bio: 'DOB, Description'
+    }
+]
+
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Register New User</td>
+                        <td>POST</td>
+                        <td>/user/:userName</td>
+                        <td>
+                            <pre>
+Example of a JSON object holding data 
+about the users to be added, structured 
+like :
+
+{
+    userName : "userName",
+    password: "xxxxxxxx",
+    emailId: "vj@gmail.com",
+    dob: "mm-dd-yyyy"
+}
+                            </pre>
+                        </td>
+                        <td>
+                            <pre>
+Example of a JSON object holding data 
+about the users that was added :
+
+{
+    userName : "userName",
+    password: "xxxxxxxx",
+    emailId: "vj@gmail.com",
+    dob: "mm-dd-yyyy"
+}
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Add movies to users' favorite list</td>
+                        <td>POST</td>
+                        <td>/users/:userName/:movie</td>
+                        <td>None</td>
+                        <td>
+                            <pre>
+Example of a JSON object holding data 
+about the users' favorite movie list 
+that was added :
+
+[
+    movie: { 
+        title: 'Lion King',
+        director:  {
+            name: 'Jon Favreau',
+            bio: 'DOB, Description'
+        },
+        genre: 'Animation/Fantasy '
+    }
+]
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Update users' personal details</td>
+                        <td>PUT</td>
+                        <td>/users/:userName/:password/:emailId/:dob</td>
+                        <td>
+                            <pre>
+Example of a JSON object holding data about 
+the users to be updated, structured like :
+
+{
+    userName : "userName",
+    password: "xxxxxxxx",
+    emailId: "vj@gmail.com",
+    dob: "mm-dd-yyyy"
+}
+                            </pre>
+                        </td>
+                        <td>
+                            <pre>
+Example of a JSON object holding data 
+about the users' personal details 
+that was updated :
+
+{
+    userName : "userName",
+    password: "xxxxxxxx",
+    emailId: "vj@gmail.com",
+    dob: "mm-dd-yyyy"
+}
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Delete movie from the favorite list</td>
+                        <td>DELETE</td>
+                        <td>/users/:userName/:movie</td>
+                        <td>None</td>
+                        <td>
+                            <pre>
+A JSON object holding in users' favorite 
+movie list was deleted.
+                            </pre>
+                        </td>
+                    </tr>				
+                    <tr>
+                        <td>Delete user registeration</td>
+                        <td>DELETE</td>
+                        <td>/users/:userName</td>
+                        <td>None</td>
+                        <td>
+                            <pre>
+A JSON object holding users was deleted.
+                            </pre>
+                        </td>
+                    </tr>										
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>
