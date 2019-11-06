@@ -1,44 +1,17 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const uuid = require('uuid');
+
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
 
 const app = express();
-
 app.use(bodyParser.json());
 
-let top10Movies = [
-    {
-        title: 'Avengers Endgame',
-        director: 'Joe Russo, Anthony Russo',
-        genre: 'Fantasy',
-        imageUrl: 'img/AvengersEndGame.jpg'
-    },
-    {
-        title: 'Toy Story 4',
-        director: 'Josh Cooley',
-        genre: 'Fantasy',
-        imageUrl: 'img/ToyStory4.jpg'
-    },
-    {
-        title: 'Too late to die young',
-        director: 'Dominga Sotomayor Castillo',
-        genre: 'Drama',
-        imageUrl: 'img/TLTDY.jpg'
-    },
-    {
-        title: 'Hotel Mumbai',
-        director: 'Anthony Maras',
-        genre: 'History',
-        imageUrl: 'img/HotelMumbai.jpg'
-    },
-    {
-        title: 'Captain-Marvel',
-        director: 'Anna Boden, Ryan Fleck',
-        genre: 'Scifi',
-        imageUrl: 'img/CaptainMarvel.jpg'
-    },
-]
+mongoose.connect('mongodb://127.0.0.1/WebFlixDB', {useNewUrlParser: true});
 
 //To send all the static files - html,css,images,javascript
 app.use(express.static('public'));
@@ -46,55 +19,156 @@ app.use(express.static('public'));
 app.use(morgan('common'));
 
 //GET requests
-app.get('/',function (req, res) {
-    res.send('Welcome to WebFlix Movies Online!')
+app.get('/',function(req, res) {
+	res.send('Welcome to WebFlix Movies Online!!');
 });
 
-app.get('/movies', function (req, res) {
-    res.json(top10Movies)
+app.get('/movies', function(req, res) {
+	Movies.find().then(function(movies) {
+		res.json(movies);
+	}).catch(function(err) {
+        res.status(500).send('Error: ' + err);
+    });
 });
 
-app.get('/movies/:title', function (req, res) {
-    res.send('Successful GET request returning a specific movie based on title.');
+app.get('/movies/:title', function(req, res){
+	Movies.findOne({ Title: req.params.title }).then( function(movie) {
+        console.log('Movies ' + movie);
+		if (movie) {
+			return res.status(200).json(movie);
+		} else {
+			res.status(500).send(req.params.Title + ' details do not exist!');
+		}
+	}).catch(function(err) {
+		console.error(err);
+		res.status(500).send('Error: ' + error);
+	});
 });
 
-app.get('/genre/:genre', function (req, res) {
-    res.send('Successful GET request returning genre\'s description.');
+app.get('/movies/genre/:genre', function(req, res) {
+	Movies.findOne({'Genre.Name': req.params.genre}).then(function(movie) {
+		if (movie.Genre.Description) {
+			return res.status(400).send(req.params.genre + ' : ' + movie.Genre.Description);
+		} else {
+			res.status(500).send(req.params.genre + ' details do not exist!');
+        }
+	}).catch( function(err) {
+			console.error(err);
+			res.status(500).send('Error: ' + error);
+	});
 });
 
-app.get('/director/:director', function (req, res) {
-    res.send('Successful GET request returning director\'s bio.');
+app.get('/movies/director/:director', function(req, res) {
+	Movies.findOne({'Director.Name': req.params.director}).then( function(movie) {
+		if(movie.Director.Name) {
+			return res.status(400).json(movie.Director);
+		} else {
+			res.status(500).send(req.body.Director + ' details do not exist.');
+		}
+	}).catch( function(err) {
+		console.error(err);
+		res.status(500).send('Error: ' + error);
+	});
+});
+
+app.get('/users', function(req, res) {
+	Users.find().then(function(users) {
+		return res.status(200).json(users);
+	}).catch(function(err) {
+		console.error(err);
+		res.status(500).send('Error: ' + error);
+	})
+});
+
+app.get('/users/:username', function(req,res) {
+	Users.findOne({ username: req.params.username }).then( function(user){
+		return res.status(200).json(user);
+	}).catch( function(err) {
+		console.error(err);
+		res.status(500).send('Error: ' + error);
+	})
 });
 
 //POST requests
-app.post('/users/:userName', function (req, res) {
-    res.send('Successful POST request creating a new user.');
+app.post('/users', function( req, res) {
+	Users.findOne({ username: req.body.username })
+    .then(function(user) {
+		if (user) {
+			return res.status(400).send(req.body.username + ' user already exists!');
+		} else {
+			Users
+            .create({
+				username: req.body.username,
+				password: req.body.password,
+				emailID: req.body.emailID,
+				birth: req.body.birth
+			})
+			.then(function(user) { res.status(201).json(user)})
+			.catch(function(err) {
+				console.error(err);
+				res.status(500).send('Error: ' + error);
+			})
+		}
+	}).catch(function(err){
+		console.error(err);
+		res.status(500).send('Error: ' + error);
+	});
 });
 
-app.post('/users/:userName/:movie', function (req, res) {
-    res.send('Successful POST request creating a favorite movie list for the  user.');
+// PUT requests to update user's details
+app.put('/users/:username', function(req, res) {
+	Users.findOneAndUpdate({username: req.params.username},
+		{$set:{password: req.body.password,
+			   emailID: req.body.emailID,
+			   birth: req.body.birth}},
+         {new: true})
+	.then(function(user) { res.status(200).json(user)})
+	.catch(function(err) {
+		console.error(err);
+		res.status(500).send('Error: ' + error);
+	});
 });
 
-//PUT requests
-app.put('/users/:userName/:password/:emailId/:dob', function (req, res) {
-    res.send('Successful PUT request updating user personal details.');
+//POST requests to add favorite movies to the user
+app.post('/users/:username/movie/:movie', function( req, res) {
+	Users.findOneAndUpdate({ username: req.params.username },{$push:{favoriteMovies: req.params.movie}})
+	.then( function(user) {
+		return res.status(200).json(user);
+	}).catch(function(err){
+		console.error(err);
+		res.status(500).send('Error: ' + error);
+	});
 });
 
-//DELETE requests
-app.delete('/users/:userName/:movie', function (req, res) {
-    res.send('Successful DELETE request removing the specific movie from the user\'s favorite list.');
+// DELETE request to remove movie from their listStyleType
+app.delete('/users/:username/movie/:movie', function(req, res) {
+	Users.findOneAndUpdate({username: req.params.username},
+		{$pull: {favoriteMovies: req.params.movie}})
+	.then(function(user) {
+		res.status(200).json(user)
+	}).catch(function(error) {
+		console.error(error);
+		res.status(500).send('Error: ' + error);
+	});
 });
 
-app.delete('/users/:userName', function (req, res) {
-    res.send('Successful DELETE request removing the user from WebFlix Movie App.');
+// DELETE request to remove movie from their listStyleType
+app.delete('/users/:username', function(req, res) {
+    var unregisteredUser = req.params.username;
+	Users.findOneAndRemove({username: req.params.username})
+	.then(function(user) {
+		res.status(200).send( unregisteredUser + ' has been removed.');
+	}).catch(function(error) {
+		console.error(error);
+		res.status(500).send('Error: ' + error);
+	});
 });
-
 
 app.use(function (err, req, res, next) {
-    console.error(err.stack);
-    res.status(500).send('Something Broken!');
+    console.error(err.stack);
+    res.status(500).send('Something Broken!');
 });
 
 app.listen(8080, function () {
-    console.log('WebFlix is listening on port 8080.')
+    console.log('WebFlix is listening on port 8080.')
 });
