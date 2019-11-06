@@ -45,7 +45,7 @@
                 <tr>
                     <td>Rate Limited?</td>
                     <td>No</td>
-                </tr>	
+                </tr>
             </table>
         </div>
         <div>
@@ -68,27 +68,58 @@
                         <td>None</td>
                         <td>
                             <pre>
-Example of a JSON object holding all the 
+Example of a JSON object holding all the
 movies :
 
 [
-    movie: { 
-        title: 'Lion King',
-        director:  {
-            name: 'Jon Favreau',
-            bio: 'DOB, Description'
+    {
+        "Genre": {
+            "Name": "Thriller",
+            "Description": "It's description."
         },
-        genre: 'Animation/Fantasy ',
-        imageUrl: 'lk.com/lk.jpg'
+        "Director": {
+            "Name": "Jonathan Demme",
+            "Bio": "Robert Jonathan Demme
+            was an American director,
+            producer, and screenwriter.",
+            "Birth": "1944-01-01T00:00:00.000Z",
+            "Death": "2017-01-01T00:00:00.000Z"
+        },
+        "Actors": [
+            "Kasi Lemmings"
+        ],
+        "_id": "5db98770f90a580f64bd30e1",
+        "Title": "Silence of the Lambs",
+        "Description": "A young FBI cadet must
+        receive the help of an incarceated
+        and manipulative cannibal killer.",
+        "ImagePath": "silenceofthelambs.png",
+        "Featured": true
     },
-    movie: { 
-    title: 'Toy Story 4',
-    director:  {
-        name: 'Josh Cooley',
-        bio: 'DOB, Description'
-    },
-    genre: 'Adventure ',
-    imageUrl: 'ts.com/ts.jpg'
+    {
+        "Genre": {
+            "Name": "Comedy",
+            "Description": "It's description."
+        },
+        "Director": {
+            "Name": "Jonathan Demme",
+            "Bio": "Robert Jonathan Demme
+            was an American director,
+            producer, and screenwriter.",
+            "Birth": "1944-01-01T00:00:00.000Z",
+            "Death": "2017-01-01T00:00:00.000Z"
+        },
+        "Actors": [
+            "Kasi Lemmings"
+        ],
+        "_id": "5db98770f90a580f64bd30e1",
+        "Title": "Mask",
+        "Description": "A young FBI cadet must
+        receive the help of an incarceated
+        and manipulative cannibal killer.",
+        "ImagePath": "mask.png",
+        "Featured": true
+
     }
 ]
                             </pre>
@@ -101,35 +132,57 @@ movies :
                         <td>None</td>
                         <td>
                             <pre>
-Example of a JSON object holding a single 
+Example of a JSON object holding a single
 movie user searched :
 
-[
-    title: 'Lion King',
-    director:  {
-        name: 'Jon Favreau',
-        bio: 'DOB, Description'
+
+{
+    "Genre": {
+        "Name": "Thriller",
+        "Description": "Thriller film,
+        also known as suspense film
+        or suspense thriller,is a
+        broad film genre that involves
+        excitement and suspense
+        in the audience."
     },
-    genre: 'Animation/Fantasy ',
-    imageUrl: 'lk.com/lk.jpg'
-]
+    "Director": {
+        "Name": "Jonathan Demme",
+        "Bio": "Robert Jonathan Demme
+        was an American director,
+        producer, and screenwriter.",
+        "Birth": "1944-01-01T00:00:00.000Z",
+        "Death": "2017-01-01T00:00:00.000Z"
+    },
+    "Actors": [
+        "Kasi Lemmings"
+    ],
+    "_id": "5db98770f90a580f64bd30e1",
+    "Title": "Silence of the Lambs",
+    "Description": "A young FBI cadet must
+    receive the help of an incarceated
+    and manipulative cannibal killer.",
+    "ImagePath": "silenceofthelambs.png",
+    "Featured": true
+}
+
                             </pre>
                         </td>
                     </tr>
                     <tr>
                         <td>Get specific genre description</td>
                         <td>GET</td>
-                        <td>/genre/:genre</td>
+                        <td>/movies/genre/:genre</td>
                         <td>None</td>
                         <td>
                             <pre>
-Example of a JSON object holding the 
-description of a particular genre (adventure) :
+Example of a JSON object holding the
+description of a particular genre (Thriller) :
 
-description: { 
-    Adventure is that usually presents danger,
-    or gives the watcher a sense of excitement.
-}
+Thriller : Thriller film, also known as
+suspense film or suspense thriller, is a
+broad film genre that involves excitement
+and suspense in the audience.
 
                             </pre>
                         </td>
@@ -137,51 +190,110 @@ description: {
                     <tr>
                         <td>Get specific director info</td>
                         <td>GET</td>
-                        <td>/director/:director</td>
+                        <td>/movies/director/:director</td>
                         <td>None</td>
                         <td>
                             <pre>
-A JSON object holding data about the 
+A JSON object holding data about the
 director, structured like :
 
+{
+    "Name": "Anthony J. Russo",
+    "Bio": "He is producer and director.",
+    "Birth": "1970-02-03T00:00:00.000Z",
+    "Death": null
+}
+
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Get All Users info</td>
+                        <td>GET</td>
+                        <td>/users</td>
+                        <td>None</td>
+                        <td>
+                            <pre>
+A JSON object holding data about the
+users, structured like :
+
 [
-    director:  {
-        name: 'Josh Cooley',
-        bio: 'DOB, Description'
+    {
+        "favoriteMovies": [
+            "5dba1009f90a580f64bd30e2"
+        ],
+        "_id": "5dba4584f90a580f64bd30ec",
+        "username": "Bobby",
+        "password": "Thr!ller007",
+        "emailID": "bobby@yahoo.co.in",
+        "birth": "1989-10-02T00:00:00.000Z"
+    },
+    {
+        "favoriteMovies": [
+            "5dba417df90a580f64bd30e9",
+            "5dba3ebdf90a580f64bd30e8"
+        ],
+        "_id": "5dba4584f90a580f64bd30ee",
+        "username": "Chip",
+        "password": "Act!0nTime",
+        "emailID": "chocochip@rediffmail.com",
+        "birth": "1992-07-04T00:00:00.000Z"
     }
 ]
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Get Specific User info</td>
+                        <td>GET</td>
+                        <td>/users/:username</td>
+                        <td>None</td>
+                        <td>
+                            <pre>
+A JSON object holding data about the
+users, structured like :
 
+{
+    "favoriteMovies": [
+        "5dba1009f90a580f64bd30e2"
+    ],
+    "_id": "5dba4584f90a580f64bd30ec",
+    "username": "Bobby",
+    "password": "Thr!ller007",
+    "emailID": "bobby@yahoo.co.in",
+    "birth": "1989-10-02T00:00:00.000Z"
+}
                             </pre>
                         </td>
                     </tr>
                     <tr>
                         <td>Register New User</td>
                         <td>POST</td>
-                        <td>/user/:userName</td>
+                        <td>/users</td>
                         <td>
                             <pre>
-Example of a JSON object holding data 
-about the users to be added, structured 
+Example of a JSON object holding data
+about the users to be added, structured
 like :
 
 {
-    userName : "userName",
-    password: "xxxxxxxx",
-    emailId: "vj@gmail.com",
-    dob: "mm-dd-yyyy"
+	"username": "Leo",
+	"password": "abc123XYZ",
+	"emailID": "leo_tall@gmail.com",
+	"birth": new Date("2001-01-15")
 }
                             </pre>
                         </td>
                         <td>
                             <pre>
-Example of a JSON object holding data 
+Example of a JSON object holding data
 about the users that was added :
 
 {
-    userName : "userName",
-    password: "xxxxxxxx",
-    emailId: "vj@gmail.com",
-    dob: "mm-dd-yyyy"
+	"username": "Leo",
+	"password": "abc123XYZ",
+	"emailID": "leo_tall@gmail.com",
+	"birth": new Date("2001-01-15")
 }
                             </pre>
                         </td>
@@ -189,55 +301,63 @@ about the users that was added :
                     <tr>
                         <td>Add movies to users' favorite list</td>
                         <td>POST</td>
-                        <td>/users/:userName/:movie</td>
+                        <td>/users/:username/movie/:movie</td>
                         <td>None</td>
                         <td>
                             <pre>
-Example of a JSON object holding data 
-about the users' favorite movie list 
+Example of a JSON object holding data
+about the users' favorite movie (ref id
+from movies collection)
 that was added :
 
-[
-    movie: { 
-        title: 'Lion King',
-        director:  {
-            name: 'Jon Favreau',
-            bio: 'DOB, Description'
-        },
-        genre: 'Animation/Fantasy '
-    }
-]
-                            </pre>
+{
+    "favoriteMovies": [
+        "5dba1009f90a580f64bd30e2",
+        "5dba3dbff90a580f64bd30e7",
+        "5dba3a9ef90a580f64bd30e6"
+    ],
+    "_id": "5dba4584f90a580f64bd30ec",
+    "username": "Bobby",
+    "password": "Thr!ller007",
+    "emailID": "bobby@yahoo.co.in",
+    "birth": "1989-10-02T00:00:00.000Z"
+}
+                        </pre>
                         </td>
                     </tr>
                     <tr>
                         <td>Update users' personal details</td>
                         <td>PUT</td>
-                        <td>/users/:userName/:password/:emailId/:dob</td>
+                        <td>/users/:username</td>
                         <td>
                             <pre>
-Example of a JSON object holding data about 
+Example of a JSON object holding data about
 the users to be updated, structured like :
 
 {
-    userName : "userName",
-    password: "xxxxxxxx",
-    emailId: "vj@gmail.com",
-    dob: "mm-dd-yyyy"
+    "password": "asdfa1310!",
+    "emailID": "vjxyz@gmail.com",
+    "birth": "1983-01-15T00:00:00.000Z"
 }
                             </pre>
                         </td>
                         <td>
                             <pre>
-Example of a JSON object holding data 
-about the users' personal details 
+Example of a JSON object holding data
+about the users' personal details
 that was updated :
 
 {
-    userName : "userName",
-    password: "xxxxxxxx",
-    emailId: "vj@gmail.com",
-    dob: "mm-dd-yyyy"
+    "favoriteMovies": [
+        "5dba417df90a580f64bd30ea",
+        "5dba1009f90a580f64bd30e2",
+        "5dba417df90a580f64bd30eb"
+    ],
+    "_id": "5dba6a7c071fdd9d9834cef0",
+    "username": "VJ",
+    "password": "asdfa1310!",
+    "emailID": "vjxyz@gmail.com",
+    "birth": "1983-01-15T00:00:00.000Z"
 }
                             </pre>
                         </td>
@@ -245,15 +365,27 @@ that was updated :
                     <tr>
                         <td>Delete movie from the favorite list</td>
                         <td>DELETE</td>
-                        <td>/users/:userName/:movie</td>
+                        <td>/users/:username/movie/:movie</td>
                         <td>None</td>
                         <td>
                             <pre>
-A JSON object holding in users' favorite 
-movie list was deleted.
+A JSON object holding in users' favorite
+movie list was deleted and responds the
+updated document.
+{
+    "favoriteMovies": [
+        "5dba417df90a580f64bd30e9",
+        "5dba3ebdf90a580f64bd30e8"
+    ],
+    "_id": "5dba4584f90a580f64bd30ee",
+    "username": "Chip",
+    "password": "Act!0nTime",
+    "emailID": "chocochip@rediffmail.com",
+    "birth": "1992-07-04T00:00:00.000Z"
+}
                             </pre>
                         </td>
-                    </tr>				
+                    </tr>
                     <tr>
                         <td>Delete user registeration</td>
                         <td>DELETE</td>
@@ -262,9 +394,12 @@ movie list was deleted.
                         <td>
                             <pre>
 A JSON object holding users was deleted.
+
+Example:
+Matt has been removed.
                             </pre>
                         </td>
-                    </tr>										
+                    </tr>
                 </tbody>
             </table>
         </div>
