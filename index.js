@@ -122,10 +122,10 @@ app.post('/users',
 	[check('username', 'Username is required').isLength({min: 5}),
 	check('username','Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
 	check('password','Passowrd is required.').not().isEmpty(),
-	check('emailId','Email does not appear to be valid.').isEmail()], (req,res) => {
+	check('emailID','Email does not appear to be valid.').isEmail()], (req,res) => {
 		var errors = validationResult(req);
 
-		if(!error.isEmpty()) {
+		if(!errors.isEmpty()) {
 			return res.status(422).json({errors: errors.array()});
 		}
 
@@ -138,7 +138,7 @@ app.post('/users',
 				Users
 	            .create({
 					username: req.body.username,
-					password: req.body.password,
+					password: hashedPassword,
 					emailID: req.body.emailID,
 					birth: req.body.birth
 				})

@@ -17,9 +17,14 @@ function generateJWTToken(user) {
 module.exports = (router) => {
     router.post('/login', (req, res) => {
         passport.authenticate('local', {session: false}, (error, user, info) => {
-            if (error || !user) {
-                return res.status(400).json({
-                    message: 'Something is not right',
+            if (error) {
+                return res.status(500).json({
+                    message: error
+                });
+            }
+            if (!user) {
+                return res.status(401).json({
+                    message: 'Username must be at least 5 characters long',
                     user: user
                 });
             }
