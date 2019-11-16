@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); /* To to MongoDB */
+const bcrypt = require('bcrypt'); /* To hash password and compare it with the database */
 
 var movieSchema = mongoose.Schema({
 	Title: {type: String, required: true},
@@ -26,6 +27,13 @@ var userSchema = mongoose.Schema({
 	favoriteMovies: [{type: mongoose.Schema.Types.ObjectId, ref: 'Movie'}]
 });
 
+userSchema.statics.hashPassword = function(password) {
+	return bcrypt.hashSync(password, 10);
+}
+
+userSchema.methods.hashPassword = function(password) {
+	return bcrypt.compareSync(password, this.password);
+}
 
 var Movie = mongoose.model('Movie', movieSchema);
 var User = mongoose.model('User', userSchema);

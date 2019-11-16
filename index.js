@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const { check, validationResult } = require('express-validator'); /* To validate on the server side */
 
 const mongoose = require('mongoose');
 const Models = require('./models.js');
@@ -13,9 +14,28 @@ const Users = Models.User;
 const app = express();
 app.use(bodyParser.json());
 
+/* Cross Origin Resource Sharing */
+const cors = require('cors');
+app.use(cors());
+
 var auth=require('./auth')(app);
+var allowedOrigins = ['http://localhost:8080','http://testsite.com'];
 
 mongoose.connect('mongodb://127.0.0.1/WebFlixDB', {useNewUrlParser: true});
+
+// Content-Security-Policy: default-src 'self'
+
+app.use(cors({
+	origin: function(origin, callback) {
+		if(!origin) return callback(null, true);
+		if(allowedOrigins.indexOf(origin) === -1) {
+			var message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin ;
+			return callback(new Error(message), false);
+		}
+		return callback(null, true);
+	}
+}));
+
 
 //To send all the static files - html,css,images,javascript
 app.use(express.static('public'));
@@ -94,29 +114,41 @@ app.get('/users/:username', passport.authenticate('jwt',{session: false}), funct
 });
 
 //POST requests
-app.post('/users', passport.authenticate('jwt', {session: false}), function( req, res) {
-	Users.findOne({ username: req.body.username })
-    .then(function(user) {
-		if (user) {
-			return res.status(400).send(req.body.username + ' user already exists!');
-		} else {
-			Users
-            .create({
-				username: req.body.username,
-				password: req.body.password,
-				emailID: req.body.emailID,
-				birth: req.body.birth
-			})
-			.then(function(user) { res.status(201).json(user)})
-			.catch(function(err) {
-				console.error(err);
-				res.status(500).send('Error: ' + error);
-			})
+// app.post('/users', passport.authenticate('jwt',{session: false}), function(req,res) {
+app.post('/users',
+	[check('username', 'Username is required').isLength({min: 5}),
+	check('username','Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+	check('password','Passowrd is required.').not().isEmpty(),
+	check('emailId','Email does not appear to be valid.').isEmail()], (req,res) => {
+		var errors = validationResult(req);
+
+		if(!error.isEmpty()) {
+			return res.status(422).json({errors: errors.array()});
 		}
-	}).catch(function(err){
-		console.error(err);
-		res.status(500).send('Error: ' + error);
-	});
+
+		var hashedPassword = Users.hashPassword(req.body.password)
+		Users.findOne({ username: req.body.username })
+	    .then(function(user) {
+			if (user) {
+				return res.status(400).send(req.body.username + ' user already exists!');
+			} else {
+				Users
+	            .create({
+					username: req.body.username,
+					password: req.body.password,
+					emailID: req.body.emailID,
+					birth: req.body.birth
+				})
+				.then(function(user) { res.status(201).json(user)})
+				.catch(function(err) {
+					console.error(err);
+					res.status(500).send('Error: ' + error);
+				})
+			}
+		}).catch(function(err){
+			console.error(err);
+			res.status(500).send('Error: ' + error);
+		});
 });
 
 // PUT requests to update user's details
@@ -173,6 +205,11 @@ app.use(function (err, req, res, next) {
     res.status(500).send('Something Broken!');
 });
 
-app.listen(8080, function () {
-    console.log('WebFlix is listening on port 8080.')
+// app.listen(8080, function () {
+//     console.log('WebFlix is listening on port 8080.')
+// });
+
+var port = process.env.PORT || 3000;
+app.listen(port, '0.0.0.0', function() {
+	console.log('Listening to the port 3000');
 });
