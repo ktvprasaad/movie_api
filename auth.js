@@ -24,7 +24,7 @@ module.exports = (router) => {
             }
             if (!user) {
                 return res.status(401).json({
-                    message: 'Username must be at least 5 characters long',
+                    message: 'Username must be at least 4 characters long',
                     user: user
                 });
             }
