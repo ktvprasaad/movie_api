@@ -158,7 +158,7 @@ app.post('/users',
 app.put('/users/:username', passport.authenticate ('jwt',{session: false}),
 	[check('password','Passowrd is required.').not().isEmpty(),
 	check('emailID','Email does not appear to be valid.').isEmail(),
-	check('birth','Birthdate is not valid.').isDate({format: 'YYYY-MM-DD'})],(req, res) => {
+	check('birth','Birthdate is not valid.').not().isEmpty()],(req, res) => {
 		var errors = validationResult(req);
 
 		if(!errors.isEmpty()) {
