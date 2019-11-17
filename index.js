@@ -129,7 +129,7 @@ app.post('/users',
 			return res.status(422).json({errors: errors.array()});
 		}
 
-		var hashedPassword = Users.hashPassword(req.body.password)
+		var hashedPassword = Users.hashPassword(req.body.password);
 		Users.findOne({ username: req.body.username })
 	    .then(function(user) {
 			if (user) {
@@ -155,17 +155,26 @@ app.post('/users',
 });
 
 // PUT requests to update user's details
-app.put('/users/:username', passport.authenticate ('jwt',{session: false}), function(req, res) {
-	Users.findOneAndUpdate({username: req.params.username},
-		{$set:{password: req.body.password,
-			   emailID: req.body.emailID,
-			   birth: req.body.birth}},
-         {new: true})
-	.then(function(user) { res.status(200).json(user)})
-	.catch(function(err) {
-		console.error(err);
-		res.status(500).send('Error: ' + error);
-	});
+app.put('/users/:username', passport.authenticate ('jwt',{session: false}),
+	[check('password','Passowrd is required.').not().isEmpty(),
+	check('emailID','Email does not appear to be valid.').isEmail(),
+	check('birth','Birthdate is not valid.').not().isEmpty()],(req, res) => {
+		var errors = validationResult(req);
+
+		if(!errors.isEmpty()) {
+			return res.status(422).json({errors: errors.array()});
+		}
+		var hashedPassword = Users.hashPassword(req.body.password)
+		Users.findOneAndUpdate({username: req.params.username},
+			{$set:{password: hashedPassword,
+				   emailID: req.body.emailID,
+				   birth: req.body.birth}},
+	         {new: true})
+		.then(function(user) { res.status(200).json(user)})
+		.catch(function(err) {
+			console.error(err);
+			res.status(500).send('Error: ' + error);
+		});
 });
 
 //POST requests to add favorite movies to the user
