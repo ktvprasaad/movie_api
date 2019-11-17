@@ -22,7 +22,7 @@ var auth=require('./auth')(app);
 var allowedOrigins = ['http://localhost:8080','http://testsite.com'];
 
 // mongoose.connect('mongodb://127.0.0.1/WebFlixDB', {useNewUrlParser: true});
-mongoose.connect('mongodb+srv://webFlixDBadmin:Hyperb0l@@cluster0-3axny.mongodb.net/test?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://webFlixDBadmin:Hyperb0l@@cluster0-3axny.mongodb.net/WebFlixDB?retryWrites=true&w=majority',
 	{useNewUrlParser: true});
 
 
