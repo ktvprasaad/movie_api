@@ -164,7 +164,7 @@ app.put('/users/:username', passport.authenticate ('jwt',{session: false}),
 		if(!errors.isEmpty()) {
 			return res.status(422).json({errors: errors.array()});
 		}
-		var hashedPassword = Users.hashPassword(req.body.password);
+		var hashedPassword = Users.hashPassword(req.body.password)
 		Users.findOneAndUpdate({username: req.params.username},
 			{$set:{password: hashedPassword,
 				   emailID: req.body.emailID,
@@ -179,18 +179,9 @@ app.put('/users/:username', passport.authenticate ('jwt',{session: false}),
 
 //POST requests to add favorite movies to the user
 app.post('/users/:username/movie/:movie', passport.authenticate('jwt',{session: false}), function( req, res) {
-	Movies.findOne({_id: req.params.movie})
-	.then(function(movie) {
-		if (movie) {
-			Users.findOneAndUpdate({ username: req.params.username },{$push:{favoriteMovies: req.params.movie}},{new: true})
-			.then( function(user) {
-				return res.status(200).json(user);
-			}).catch(function(err){
-				console.error(err);
-				res.status(500).send('Error: ' + error);
-			});
-		} else {
-			return res.status(400).send(req.body.movie + 'Movie does not exists to update to user\'s list.');
+	Users.findOneAndUpdate({ username: req.params.username },{$push:{favoriteMovies: req.params.movie}},{new: true})
+	.then( function(user) {
+		return res.status(200).json(user);
 	}).catch(function(err){
 		console.error(err);
 		res.status(500).send('Error: ' + error);
