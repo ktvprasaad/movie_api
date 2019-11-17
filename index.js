@@ -119,7 +119,7 @@ app.get('/users/:username', passport.authenticate('jwt',{session: false}), funct
 //POST requests
 // app.post('/users', passport.authenticate('jwt',{session: false}), function(req,res) {
 app.post('/users',
-	[check('username', 'Username is must with at least 4 chars long.').isLength({min: 4}),
+	[check('username', 'Username must have at least 4 chars long.').isLength({min: 4}),
 	check('username','Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
 	check('password','Passowrd is required.').not().isEmpty(),
 	check('emailID','Email does not appear to be valid.').isEmail()], (req,res) => {
