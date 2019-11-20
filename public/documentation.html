@@ -179,10 +179,12 @@ movie user searched :
 Example of a JSON object holding the
 description of a particular genre (Thriller) :
 
-Thriller : Thriller film, also known as
-suspense film or suspense thriller, is a
-broad film genre that involves excitement
-and suspense in the audience.
+{
+    "Genre": "Thriller film, also known as
+    suspense film or suspense thriller,
+    is a broad film genre that involves
+    excitement and suspense in the audience."
+}
 
                             </pre>
                         </td>
@@ -307,22 +309,9 @@ the users to be updated, structured like :
                         </td>
                         <td>
                             <pre>
-Example of a JSON object holding data
-about the users' personal details
-that was updated :
+Below message will be sent as response :
 
-{
-    "favoriteMovies": [
-        "5dba417df90a580f64bd30ea",
-        "5dba1009f90a580f64bd30e2",
-        "5dba417df90a580f64bd30eb"
-    ],
-    "_id": "5dba6a7c071fdd9d9834cef0",
-    "username": "VJ",
-    "password": "asdfa1310!",
-    "emailID": "vjxyz@gmail.com",
-    "birth": "1983-01-15T00:00:00.000Z"
-}
+Your personal details have been updated.
                             </pre>
                         </td>
                     </tr>
