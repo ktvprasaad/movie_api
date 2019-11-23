@@ -180,7 +180,7 @@ Example of a JSON object holding the
 description of a particular genre (Thriller) :
 
 {
-    "Genre": "Thriller film, also known as
+    "Thriller": "Thriller film, also known as
     suspense film or suspense thriller,
     is a broad film genre that involves
     excitement and suspense in the audience."
@@ -210,29 +210,6 @@ director, structured like :
                         </td>
                     </tr>
                     <tr>
-                        <td>Get Specific User info</td>
-                        <td>GET</td>
-                        <td>/users/:username</td>
-                        <td>None</td>
-                        <td>
-                            <pre>
-A JSON object holding data about the
-users, structured like :
-
-{
-    "favoriteMovies": [
-        "5dba1009f90a580f64bd30e2"
-    ],
-    "_id": "5dba4584f90a580f64bd30ec",
-    "username": "Bobby",
-    "password": "Thr!ller007",
-    "emailID": "bobby@yahoo.co.in",
-    "birth": "1989-10-02T00:00:00.000Z"
-}
-                            </pre>
-                        </td>
-                    </tr>
-                    <tr>
                         <td>Register New User</td>
                         <td>POST</td>
                         <td>/users</td>
@@ -252,15 +229,10 @@ like :
                         </td>
                         <td>
                             <pre>
-Example of a JSON object holding data
+Example of a string holding data
 about the users that was added :
 
-{
-	"username": "Leo",
-	"password": "abc123XYZ",
-	"emailID": "leo_tall@gmail.com",
-	"birth": new Date("2001-01-15")
-}
+Congratulations Jack! Your account has been created.
                             </pre>
                         </td>
                     </tr>
@@ -277,16 +249,12 @@ from movies collection)
 that was added :
 
 {
-    "favoriteMovies": [
-        "5dba1009f90a580f64bd30e2",
-        "5dba3dbff90a580f64bd30e7",
-        "5dba3a9ef90a580f64bd30e6"
-    ],
-    "_id": "5dba4584f90a580f64bd30ec",
-    "username": "Bobby",
-    "password": "Thr!ller007",
-    "emailID": "bobby@yahoo.co.in",
-    "birth": "1989-10-02T00:00:00.000Z"
+    "Username": "Chip",
+    "Email": "chocochip@yahoo.co.in",
+    "Birthday": "2009-12-11T00:00:00.000Z",
+    "Favoritemovies": [
+        "5dba417df90a580f64bd30ea"
+    ]
 }
                         </pre>
                         </td>
@@ -325,16 +293,12 @@ Your personal details have been updated.
 A JSON object holding in users' favorite
 movie list was deleted and responds the
 updated document.
+
 {
-    "favoriteMovies": [
-        "5dba417df90a580f64bd30e9",
-        "5dba3ebdf90a580f64bd30e8"
-    ],
-    "_id": "5dba4584f90a580f64bd30ee",
-    "username": "Chip",
-    "password": "Act!0nTime",
-    "emailID": "chocochip@rediffmail.com",
-    "birth": "1992-07-04T00:00:00.000Z"
+    "Username": "Chip",
+    "Email": "chocochip@yahoo.co.in",
+    "Birthday": "2009-12-11T00:00:00.000Z",
+    "Favoritemovies": []
 }
                             </pre>
                         </td>
@@ -346,10 +310,10 @@ updated document.
                         <td>None</td>
                         <td>
                             <pre>
-A JSON object holding users was deleted.
+A String holding user was deleted.
 
 Example:
-Matt has been removed.
+Jack - your account has been unregistered.
                             </pre>
                         </td>
                     </tr>

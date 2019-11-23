@@ -18,8 +18,8 @@ passport.use(new LocalStrategy({
             return callback(error);
         }
         if (!user) {
-            console.log('incorrect username');
-            return callback(null, false, {message: 'Incorrect username.'});
+            console.log('User ' + username + ' does not exist.');
+            return callback(null, false, {message: 'User does not exist.'});
         }
         if (!user.validatePassword(password)) {
             console.log('incorrect password');
