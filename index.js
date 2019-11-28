@@ -46,7 +46,8 @@ app.get('/movies', function(req, res) {
     });
 });
 
-app.get('/movies/:title', passport.authenticate('jwt', {session: false}), function(req, res){
+// app.get('/movies/:title', passport.authenticate('jwt', {session: false}), function(req, res){
+app.get('/movies/:title', function(req, res){
 	Movies.findOne({ Title: req.params.title }).then( function(movie) {
         console.log('Movies ' + movie);
 		if (movie) {
