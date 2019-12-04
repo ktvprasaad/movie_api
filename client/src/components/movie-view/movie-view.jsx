@@ -33,7 +33,7 @@ export class MovieView extends React.Component {
             );
         }
 
-    	let image=`/img/${movie.ImagePath}`;
+    	let image=`https://webflix-api-2019.herokuapp.com/img/${movie.ImagePath}`;
 
         return (
             <div className="movie-view">

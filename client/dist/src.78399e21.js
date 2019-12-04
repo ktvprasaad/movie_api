@@ -33575,7 +33575,7 @@ function (_React$Component) {
         return _react.default.createElement(_mainView.MainView, null);
       }
 
-      var image = "/img/".concat(movie.ImagePath);
+      var image = "https://webflix-api-2019.herokuapp.com/img/".concat(movie.ImagePath);
       return _react.default.createElement("div", {
         className: "movie-view"
       }, _react.default.createElement("img", {
