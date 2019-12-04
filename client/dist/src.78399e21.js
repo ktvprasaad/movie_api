@@ -33513,6 +33513,8 @@ exports.MovieView = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _mainView = require("../main-view/main-view");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -33544,16 +33546,18 @@ function (_React$Component) {
     _classCallCheck(this, MovieView);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(MovieView).call(this));
-    _this.state = {};
+    _this.state = {
+      movies: false
+    };
     return _this;
   }
 
   _createClass(MovieView, [{
-    key: "onButtonClick",
-    value: function onButtonClick() {
-      this.state = {
-        movie: null
-      };
+    key: "onBackClick",
+    value: function onBackClick() {
+      this.setState({
+        movies: true
+      });
     }
   }, {
     key: "render",
@@ -33563,11 +33567,15 @@ function (_React$Component) {
       var _this$props = this.props,
           movie = _this$props.movie,
           onClick = _this$props.onClick;
-      if (!movie) return _react.default.createElement("div", {
-        className: "main-view"
-      }); // if (!movie) return null;
+      var movies = this.state.movies;
+      console.log(this.state);
+      if (!movie) return null; // To render all movies on click of the 'Back' button
 
-      var image = "../../../../public/img/".concat(movie.ImagePath);
+      if (movies) {
+        return _react.default.createElement(_mainView.MainView, null);
+      }
+
+      var image = "/img/".concat(movie.ImagePath);
       return _react.default.createElement("div", {
         className: "movie-view"
       }, _react.default.createElement("img", {
@@ -33599,9 +33607,8 @@ function (_React$Component) {
         className: "value"
       }, movie.Director.Name)), _react.default.createElement("button", {
         onClick: function onClick() {
-          return _this2.onButtonClick();
-        },
-        className: "main-view"
+          return _this2.onBackClick();
+        }
       }, "Back"));
     }
   }]);
@@ -33610,7 +33617,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.MovieView = MovieView;
-},{"react":"../node_modules/react/index.js"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../main-view/main-view":"components/main-view/main-view.jsx"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33877,7 +33884,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63563" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58293" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
