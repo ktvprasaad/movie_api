@@ -1,42 +1,54 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import { LoginForm } from '../login-form/login-form';
 import { RegistrationView } from '../registration-view/registration-view';
 
-export function LoginView(props) {
-    const [ username, setUsername ] = useState('');
-    const [ password, setPassword ] = useState('');
-    const [ register, setRegsiter ] = useState('');
+export class LoginView extends React.Component {
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        // const { username, password } = this.state;
-        console.log(username, password);
-        /* Send a request to the server for authentication */
-        /* then call props.onLoggedIn(username) */
-        props.onLoggedIn(username);
-    };
+    constructor() {
+        super();
 
-    const handleRegister = (e) => {
-        e.preventDefault();
-        setRegsiter(true);
-        console.log('register');
+        this.state = {
+            signIn: false,
+            signUp: false
+        };
+
+        this.handleSignIn = this.handleSignIn.bind(this);
+        this.handleSignUp = this.handleSignUp.bind(this);
     }
 
-    return (
-        <div className="sign-in">
-        <h2>Sign in</h2>
-        <form>
-            <label>
-                Username:
-                <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-            </label>
-            <label>
-                Password:
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-            </label>
-            <button type="button" onClick={handleLogin}>Login</button>
-        </form>
-        <h2>New User</h2>
-        <button type="button" onClick={handleRegister}>Register</button>
-        </div>
-    );
+    handleSignIn(e) {
+        this.setState({
+            signIn: true,
+            signUp: false
+        });
+    }
+
+    handleSignUp(e) {
+        this.setState({
+            signIn: false,
+            signUp: true
+        });
+    }
+
+    render() {
+
+        const { signIn, signUp } = this.state;
+        const handleSignIn = this.handleSignIn;
+        const handleSignUp = this.handleSignUp;
+
+        if (!signIn && !signUp) {
+            return (
+                <div className='loginView'>
+                    <h2>Welcome to WebFlix Online Movie!!</h2>
+                    <button type="button" onClick={handleSignIn}>SignIn</button>
+                    <button type="button" onClick={handleSignUp}>SignUp</button>
+                </div>
+            );
+        }
+
+        if (signIn) return <LoginForm/>
+
+        if (signUp) return <RegistrationView/>
+    }
 }

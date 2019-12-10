@@ -8,8 +8,8 @@ import { MovieView } from '../movie-view/movie-view';
 
 export class MainView extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             movies: null,
@@ -45,14 +45,7 @@ export class MainView extends React.Component {
         });
     }
 
-    onRegistration(register) {
-        console.log('onRegistration');
-        this.setState({
-            register: true
-        });
-    }
-
-    addNewUser(username, password, email) {
+    onRegistration(username, password, email) {
         console.log(username, password, email);
         this.setState({
             user: username
@@ -64,9 +57,11 @@ export class MainView extends React.Component {
         // before the data is initially loaded
         const { movies, selectedMovie, user, register } = this.state;
 
-        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-
-        if (register) return <RegistrationView onRegistration={register => this.onRegistration(register)} />;
+        if (!user) {
+            return (
+                <LoginView />
+            );
+        };
 
         // Before the movies have been loaded
         if (!movies) return <div className="main-view"/>;
