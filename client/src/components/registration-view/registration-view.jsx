@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { MainView } from '../main-view/main-view';
 
 export function RegistrationView(props) {
@@ -11,7 +12,7 @@ export function RegistrationView(props) {
             console.log(username, password, email);
             // props.onRegistration(username);
             // props.onLoggedIn(username);
-            props.onRegistration(username, password, email);
+            <MainView onRegistration={props => this.onRegistration(props)}/>
     };
 
     return (
