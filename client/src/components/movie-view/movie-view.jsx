@@ -29,7 +29,7 @@ export class MovieView extends React.Component {
         // To render all movies on click of the 'Back' button
         if (movies) {
             return (
-                <MainView/>
+                <div/>
             );
         }
 
