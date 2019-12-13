@@ -47,6 +47,12 @@ export class MainView extends React.Component {
         });
     }
 
+    listAllMovies() {
+        this.setState({
+            selectedMovie: null
+        });
+    }
+
     onLoggedIn(user) {
         this.setState({
             user
@@ -100,7 +106,7 @@ export class MainView extends React.Component {
             </Navbar>
             <Nav className="mr-auto">
                 {selectedMovie
-                    ? <MovieView movie={selectedMovie}/>
+                    ? <MovieView movie={selectedMovie} onClick={() => this.listAllMovies()}/>
                     : movies.map(movie => (
                         <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
                     ))

@@ -41743,8 +41743,6 @@ exports.MovieView = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _mainView = require("../main-view/main-view");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -41770,41 +41768,26 @@ var MovieView =
 function (_React$Component) {
   _inherits(MovieView, _React$Component);
 
-  function MovieView() {
+  function MovieView(props) {
     var _this;
 
     _classCallCheck(this, MovieView);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(MovieView).call(this));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MovieView).call(this, props));
     _this.state = {
-      movies: false
+      movie: false
     };
     return _this;
   }
 
   _createClass(MovieView, [{
-    key: "clickHandler",
-    value: function clickHandler() {
-      this.setState({
-        movies: true
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       var _this$props = this.props,
           movie = _this$props.movie,
-          onClick = _this$props.onClick;
-      var movies = this.state.movies;
-      console.log(this.state);
-      if (!movie) return null; // To render all movies on click of the 'Back' button
-
-      if (movies) {
-        return _react.default.createElement("div", null);
-      }
-
+          _onClick = _this$props.onClick;
+      console.log('props: ', this.props, ' state: ', this.state);
+      if (!movie) return null;
       var image = "https://webflix-api-2019.herokuapp.com/img/".concat(movie.ImagePath);
       return _react.default.createElement("div", {
         className: "movie-view"
@@ -41837,7 +41820,7 @@ function (_React$Component) {
         className: "value"
       }, movie.Director.Name)), _react.default.createElement("button", {
         onClick: function onClick() {
-          return _this2.clickHandler();
+          return _onClick();
         }
       }, "Back"));
     }
@@ -41847,7 +41830,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.MovieView = MovieView;
-},{"react":"../node_modules/react/index.js","../main-view/main-view":"components/main-view/main-view.jsx"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41944,6 +41927,13 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "listAllMovies",
+    value: function listAllMovies() {
+      this.setState({
+        selectedMovie: null
+      });
+    }
+  }, {
     key: "onLoggedIn",
     value: function onLoggedIn(user) {
       this.setState({
@@ -42030,7 +42020,10 @@ function (_React$Component) {
       }, "Search"))), _react.default.createElement(_Nav.default, {
         className: "mr-auto"
       }, selectedMovie ? _react.default.createElement(_movieView.MovieView, {
-        movie: selectedMovie
+        movie: selectedMovie,
+        onClick: function onClick() {
+          return _this3.listAllMovies();
+        }
       }) : movies.map(function (movie) {
         return _react.default.createElement(_movieCard.MovieCard, {
           key: movie._id,

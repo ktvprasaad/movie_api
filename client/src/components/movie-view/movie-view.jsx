@@ -1,37 +1,21 @@
 import React from 'react';
 
-import { MainView } from '../main-view/main-view';
-
 export class MovieView extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
-            movies: false
+            movie: false
         };
-    }
-
-    clickHandler() {
-        this.setState({
-            movies: true
-        })
     }
 
     render() {
         const { movie, onClick } = this.props;
-        const { movies } = this.state;
 
-        console.log(this.state);
+        console.log('props: ', this.props, ' state: ', this.state)
 
         if (!movie) return null;
-
-        // To render all movies on click of the 'Back' button
-        if (movies) {
-            return (
-                <div/>
-            );
-        }
 
     	let image=`https://webflix-api-2019.herokuapp.com/img/${movie.ImagePath}`;
 
@@ -54,7 +38,7 @@ export class MovieView extends React.Component {
                 <span className="label">Director: </span>
                 <span className="value">{movie.Director.Name}</span>
             </div>
-            <button onClick = {() => this.clickHandler()}>Back</button>
+            <button onClick={() => onClick()}>Back</button>
             </div>
         );
     }
