@@ -41290,6 +41290,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
+var _axios = _interopRequireDefault(require("axios"));
+
 var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
@@ -41331,17 +41333,18 @@ function LoginView(props) {
 
 
   var handleLogin = function handleLogin(e) {
-    e.preventDefault(); // const { username, password } = this.state;
+    e.preventDefault();
 
-    console.log(username, password); // const { username } = this.props;
+    _axios.default.post('https://webflix-api-2019.herokuapp.com/login', {
+      Username: username,
+      Password: password
+    }).then(function (response) {
+      var data = response.data;
+      props.onLoggedIn(data);
+    }).catch(function (e) {
+      console.log('Username does not exist!');
+    }); // props.onLoggedIn(username);
 
-    console.log(props);
-    /* Send a request to the server for authentication */
-
-    /* then call props.onLoggedIn(username) */
-    // const { username } = this.props;
-
-    props.onLoggedIn(username);
   };
 
   return _react.default.createElement("div", {
@@ -41390,7 +41393,7 @@ function LoginView(props) {
 //   onClick: PropTypes.func.isRequired
 // };
 // <Form.Text>New User? Click <Button id='registerButton' onClick={handleSignUp}>SignUp</Button>
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Nav":"../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","prop-types":"../node_modules/prop-types/index.js"}],"components/registration-view/registration-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Nav":"../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","prop-types":"../node_modules/prop-types/index.js"}],"components/registration-view/registration-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41450,7 +41453,12 @@ function RegistrationView(props) {
     console.log(props);
     /* Send a request to the server for authentication */
 
-    props.addNewUser(username);
+    if (username > ' ') {
+      console.log('am here ', username);
+      props.addNewUser(username);
+    }
+
+    ;
   };
 
   return _react.default.createElement("div", {
@@ -41908,16 +41916,14 @@ function (_React$Component) {
   _createClass(MainView, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this2 = this;
+      var accessToken = localStorage.getItem('token');
 
-      _axios.default.get('https://webflix-api-2019.herokuapp.com/movies').then(function (response) {
-        // Assign the result to the state
-        _this2.setState({
-          movies: response.data
+      if (accessToken !== null) {
+        this.setState({
+          user: localStorage.getItem('user')
         });
-      }).catch(function (error) {
-        console.log(error);
-      });
+        this.getMovies(accessToken);
+      }
     }
   }, {
     key: "onMovieClick",
@@ -41935,9 +41941,45 @@ function (_React$Component) {
     }
   }, {
     key: "onLoggedIn",
-    value: function onLoggedIn(user) {
+    value: function onLoggedIn(authData) {
+      console.log(authData);
       this.setState({
-        user: user
+        user: authData.user.Username
+      });
+      localStorage.setItem('token', authData.token);
+      localStorage.setItem('user', authData.user.Username);
+      this.getMovies(authData.token);
+    } // 
+    // getMovies(token){
+    //
+    //         headers: {Authorization: `Bearer ${token}`}
+    //     })
+    //     .then(response => {
+    //         this.setSate({
+    //             movies: response.data
+    //         });
+    //     })
+    //     .catch(error => {
+    //         console.log(error);
+    //     });
+    // }
+
+  }, {
+    key: "getMovies",
+    value: function getMovies(token) {
+      var _this2 = this;
+
+      _axios.default.get('https://webflix-api-2019.herokuapp.com/movies', {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        // Assign the result to the state
+        _this2.setState({
+          movies: response.data
+        });
+      }).catch(function (error) {
+        console.log(error);
       });
     }
   }, {

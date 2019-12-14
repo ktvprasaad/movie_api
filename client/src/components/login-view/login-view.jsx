@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
+
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -16,14 +18,20 @@ export function LoginView(props) {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        // const { username, password } = this.state;
-        console.log(username, password);
-        // const { username } = this.props;
-        console.log(props);
-        /* Send a request to the server for authentication */
-        /* then call props.onLoggedIn(username) */
-        // const { username } = this.props;
-        props.onLoggedIn(username);
+
+        axios.post('https://webflix-api-2019.herokuapp.com/login', {
+            Username: username,
+            Password: password
+        })
+        .then(response => {
+            const data = response.data;
+            props.onLoggedIn(data);
+        })
+        .catch( e => {
+            console.log('Username does not exist!');
+        });
+
+        // props.onLoggedIn(username);
     };
 
     return (

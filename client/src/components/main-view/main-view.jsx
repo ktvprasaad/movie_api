@@ -29,16 +29,13 @@ export class MainView extends React.Component {
 
     //One of the "hooks" available in the React component
     componentDidMount() {
-        axios.get('https://webflix-api-2019.herokuapp.com/movies')
-        .then(response => {
-            // Assign the result to the state
-            this.setState({
-                movies: response.data
-            });
-        })
-        .catch(function (error) {
-            console.log(error);
+      let accessToken = localStorage.getItem('token');
+      if (accessToken !== null) {
+        this.setState({
+          user: localStorage.getItem('user')
         });
+        this.getMovies(accessToken);
+      }
     }
 
     onMovieClick(movie) {
@@ -53,9 +50,42 @@ export class MainView extends React.Component {
         });
     }
 
-    onLoggedIn(user) {
+    onLoggedIn(authData) {
+        console.log(authData);
         this.setState({
-            user
+            user:  authData.user.Username
+        });
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('user', authData.user.Username);
+        this.getMovies(authData.token);
+    }
+    // 
+    // getMovies(token){
+    //
+    //         headers: {Authorization: `Bearer ${token}`}
+    //     })
+    //     .then(response => {
+    //         this.setSate({
+    //             movies: response.data
+    //         });
+    //     })
+    //     .catch(error => {
+    //         console.log(error);
+    //     });
+    // }
+
+    getMovies(token) {
+        axios.get('https://webflix-api-2019.herokuapp.com/movies', {
+            headers: { Authorization: `Bearer ${token}`}
+        })
+        .then(response => {
+     // Assign the result to the state
+            this.setState({
+                movies: response.data
+            });
+        })
+        .catch(function (error) {
+            console.log(error);
         });
     }
 

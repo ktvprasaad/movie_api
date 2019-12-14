@@ -36,9 +36,9 @@ app.get('/',function(req, res) {
 	res.send('Welcome to WebFlix Movies Online!!');
 });
 
-// app.get('/movies', passport.authenticate('jwt', {session: false }), function(req, res) {
-// Removed authentication to view the movies list
-app.get('/movies', function(req, res) {
+// To view movies list without authentication
+// app.get('/movies', function(req, res) {
+app.get('/movies', passport.authenticate('jwt', {session: false }), function(req, res) {
 	Movies.find().then(function(movies) {
 		res.json(movies);
 	}).catch(function(err) {

@@ -18,7 +18,10 @@ export function RegistrationView(props) {
         console.log(username, password, email);
         console.log(props);
         /* Send a request to the server for authentication */
-        props.addNewUser(username);
+        if (username > ' ') {
+            console.log('am here ', username);
+            props.addNewUser(username);
+        };
     };
 
     return (
