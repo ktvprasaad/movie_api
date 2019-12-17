@@ -84,7 +84,7 @@ export class MainView extends React.Component {
     }
 
     getUser(token) {
-        axios.get('https://webflix-api-2019.herokuapp.com', {
+        axios.get('https://webflix-api-2019.herokuapp.com/users', {
             headers: { Authorization: `Bearer ${token}`}
         })
         .then(response => {
@@ -135,7 +135,7 @@ export class MainView extends React.Component {
                 <Navbar bg="dark" variant="dark">
                      <Nav className="mr-auto">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href={`/users/${username}`}>Profile</Nav.Link>
+                        <Nav.Link href={`/users/${user}`}>Profile</Nav.Link>
                      </Nav>
                      <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -158,7 +158,7 @@ export class MainView extends React.Component {
                     <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
                     <Route path="/genres/:genreName" render={({match}) => <GenreView genre={movies.find(g => g.Genre.Name === match.params.genreName)}/>}/>
                     <Route path="/description/:directorName" render={({match}) => <DirectorView director={movies.find(d => d.Director.Name === match.params.directorName)}/>}/>
-                    <Route path="/users/:username" render={({match}) => <ProfileView userDetail={users.find(u => u.Username === "Jack")}/>}/>
+                    <Route path="/users/:user" render={({match}) => <ProfileView userDetail={users.find(u => u.Username === match.params.user)}/>}/>
                 </Router>
             </div>
         )

@@ -42275,7 +42275,7 @@ function (_React$Component) {
     value: function getUser(token) {
       var _this3 = this;
 
-      _axios.default.get('https://webflix-api-2019.herokuapp.com', {
+      _axios.default.get('https://webflix-api-2019.herokuapp.com/users', {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -42341,7 +42341,7 @@ function (_React$Component) {
       }, _react.default.createElement(_Nav.default.Link, {
         href: "/"
       }, "Home"), _react.default.createElement(_Nav.default.Link, {
-        href: "/users/".concat(username)
+        href: "/users/".concat(user)
       }, "Profile")), _react.default.createElement(_Form.default, {
         inline: true
       }, _react.default.createElement(_FormControl.default, {
@@ -42418,12 +42418,12 @@ function (_React$Component) {
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
-        path: "/users/:username",
+        path: "/users/:user",
         render: function render(_ref4) {
           var match = _ref4.match;
           return _react.default.createElement(_profileView.ProfileView, {
             userDetail: users.find(function (u) {
-              return u.Username === "Jack";
+              return u.Username === match.params.user;
             })
           });
         }
