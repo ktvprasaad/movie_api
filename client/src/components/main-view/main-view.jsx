@@ -24,7 +24,9 @@ export class MainView extends React.Component {
         this.state = {
             movies: [],
             selectedMovie: null,
+            users: null,
             user: null,
+            userDetail: null,
             register: false,
             genre: null,
             director: null
@@ -39,6 +41,7 @@ export class MainView extends React.Component {
           user: localStorage.getItem('user')
         });
         this.getMovies(accessToken);
+        this.getUser(accessToken);
       }
     }
 
@@ -62,6 +65,7 @@ export class MainView extends React.Component {
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
         this.getMovies(authData.token);
+        this.getUser(authData.token);
     }
 
     getMovies(token) {
@@ -72,6 +76,21 @@ export class MainView extends React.Component {
      // Assign the result to the state
             this.setState({
                 movies: response.data
+            });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    getUser(token) {
+        axios.get('https://webflix-api-2019.herokuapp.com', {
+            headers: { Authorization: `Bearer ${token}`}
+        })
+        .then(response => {
+     // Assign the result to the state
+            this.setState({
+                users: response.data
             });
         })
         .catch(function (error) {
@@ -104,9 +123,11 @@ export class MainView extends React.Component {
 
     render() {
 
-        const { movies, selectedMovie, user, register, genre, director } = this.state;
+        const { movies, selectedMovie, users, user, userDetail, register, genre, director } = this.state;
 
-        console.log(user,':',register,':',movies);
+        let username = user;
+        console.log('UserDetail ', userDetail,' : ', 'user:', user ,' movies: ', movies);
+
         // if (!movies) return <div className="main-view"/>;
 
         return (
@@ -114,7 +135,7 @@ export class MainView extends React.Component {
                 <Navbar bg="dark" variant="dark">
                      <Nav className="mr-auto">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/">Profile</Nav.Link>
+                        <Nav.Link href={`/users/${username}`}>Profile</Nav.Link>
                      </Nav>
                      <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -137,6 +158,7 @@ export class MainView extends React.Component {
                     <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
                     <Route path="/genres/:genreName" render={({match}) => <GenreView genre={movies.find(g => g.Genre.Name === match.params.genreName)}/>}/>
                     <Route path="/description/:directorName" render={({match}) => <DirectorView director={movies.find(d => d.Director.Name === match.params.directorName)}/>}/>
+                    <Route path="/users/:username" render={({match}) => <ProfileView userDetail={users.find(u => u.Username === "Jack")}/>}/>
                 </Router>
             </div>
         )

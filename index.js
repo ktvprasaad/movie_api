@@ -46,6 +46,14 @@ app.get('/movies', passport.authenticate('jwt', {session: false }), function(req
     });
 });
 
+app.get('/users', passport.authenticate('jwt', {session: false }), function(req, res) {
+	Users.find().then(function(users) {
+		res.json(users);
+	}).catch(function(err) {
+        res.status(500).send('Error: ' + err);
+    });
+});
+
 // app.get('/movies/:title', passport.authenticate('jwt', {session: false}), function(req, res){
 app.get('/movies/:title', function(req, res){
 	Movies.findOne({ Title: req.params.title }).then( function(movie) {

@@ -8,22 +8,22 @@ export class ProfileView extends React.Component {
         super(props);
 
         this.state = {
-            user: null
+            userDetail: null
         };
     }
 
     render() {
-        const { user } = this.props;
+        const { userDetail } = this.props;
 
         console.log('Profile props: ', this.props, ' state: ', this.state)
 
-        if (!user) return null;
+        if (!userDetail) return null;
 
         return (
             <div className="profile-view">
             <div className="profile-name">
                 <span className="label">Name: </span>
-                <span className="value">{user.Username}</span>
+                <span className="value">{userDetail.Username}</span>
             </div>
             <Link to="/">
                 <Button variant="link">Back</Button>

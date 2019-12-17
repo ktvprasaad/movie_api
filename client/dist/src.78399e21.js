@@ -41728,9 +41728,7 @@ function (_React$Component) {
   _createClass(MovieCard, [{
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          movie = _this$props.movie,
-          onClick = _this$props.onClick;
+      var movie = this.props.movie;
       var image = "https://webflix-api-2019.herokuapp.com/img/".concat(movie.ImagePath);
       return _react.default.createElement(_Card.default, {
         style: {
@@ -41756,8 +41754,7 @@ MovieCard.propTypes = {
     Title: _propTypes.default.string.isRequired,
     Description: _propTypes.default.string.isRequired,
     ImagePath: _propTypes.default.string.isRequired
-  }).isRequired,
-  onClick: _propTypes.default.func.isRequired
+  }).isRequired
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/movie-view/movie-view.jsx":[function(require,module,exports) {
 "use strict";
@@ -42100,7 +42097,7 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ProfileView).call(this, props));
     _this.state = {
-      user: null
+      userDetail: null
     };
     return _this;
   }
@@ -42108,9 +42105,9 @@ function (_React$Component) {
   _createClass(ProfileView, [{
     key: "render",
     value: function render() {
-      var user = this.props.user;
+      var userDetail = this.props.userDetail;
       console.log('Profile props: ', this.props, ' state: ', this.state);
-      if (!user) return null;
+      if (!userDetail) return null;
       return _react.default.createElement("div", {
         className: "profile-view"
       }, _react.default.createElement("div", {
@@ -42119,7 +42116,7 @@ function (_React$Component) {
         className: "label"
       }, "Name: "), _react.default.createElement("span", {
         className: "value"
-      }, user.Username)), _react.default.createElement(_reactRouterDom.Link, {
+      }, userDetail.Username)), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_Button.default, {
         variant: "link"
@@ -42205,7 +42202,9 @@ function (_React$Component) {
     _this.state = {
       movies: [],
       selectedMovie: null,
+      users: null,
       user: null,
+      userDetail: null,
       register: false,
       genre: null,
       director: null
@@ -42224,6 +42223,7 @@ function (_React$Component) {
           user: localStorage.getItem('user')
         });
         this.getMovies(accessToken);
+        this.getUser(accessToken);
       }
     }
   }, {
@@ -42250,6 +42250,7 @@ function (_React$Component) {
       localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.Username);
       this.getMovies(authData.token);
+      this.getUser(authData.token);
     }
   }, {
     key: "getMovies",
@@ -42264,6 +42265,24 @@ function (_React$Component) {
         // Assign the result to the state
         _this2.setState({
           movies: response.data
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
+    key: "getUser",
+    value: function getUser(token) {
+      var _this3 = this;
+
+      _axios.default.get('https://webflix-api-2019.herokuapp.com', {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        // Assign the result to the state
+        _this3.setState({
+          users: response.data
         });
       }).catch(function (error) {
         console.log(error);
@@ -42298,16 +42317,19 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var _this$state = this.state,
           movies = _this$state.movies,
           selectedMovie = _this$state.selectedMovie,
+          users = _this$state.users,
           user = _this$state.user,
+          userDetail = _this$state.userDetail,
           register = _this$state.register,
           genre = _this$state.genre,
           director = _this$state.director;
-      console.log(user, ':', register, ':', movies); // if (!movies) return <div className="main-view"/>;
+      var username = user;
+      console.log('UserDetail ', userDetail, ' : ', 'user:', user, ' movies: ', movies); // if (!movies) return <div className="main-view"/>;
 
       return _react.default.createElement("div", {
         className: "mainview"
@@ -42319,7 +42341,7 @@ function (_React$Component) {
       }, _react.default.createElement(_Nav.default.Link, {
         href: "/"
       }, "Home"), _react.default.createElement(_Nav.default.Link, {
-        href: "/"
+        href: "/users/".concat(username)
       }, "Profile")), _react.default.createElement(_Form.default, {
         inline: true
       }, _react.default.createElement(_FormControl.default, {
@@ -42332,7 +42354,7 @@ function (_React$Component) {
         variant: "outline-info",
         type: "button",
         onClick: function onClick() {
-          return _this3.handleLogout();
+          return _this4.handleLogout();
         }
       }, "Logout")), _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -42341,10 +42363,10 @@ function (_React$Component) {
           if (!user && register === false) {
             return _react.default.createElement(_loginView.LoginView, {
               onLoggedIn: function onLoggedIn(user) {
-                return _this3.onLoggedIn(user);
+                return _this4.onLoggedIn(user);
               },
               onClick: function onClick() {
-                return _this3.onRegistration();
+                return _this4.onRegistration();
               }
             });
           }
@@ -42361,7 +42383,7 @@ function (_React$Component) {
         render: function render() {
           return _react.default.createElement(_registrationView.RegistrationView, {
             addNewUser: function addNewUser(user) {
-              return _this3.addNewUser(user);
+              return _this4.addNewUser(user);
             }
           });
         }
@@ -42392,6 +42414,16 @@ function (_React$Component) {
           return _react.default.createElement(_directorView.DirectorView, {
             director: movies.find(function (d) {
               return d.Director.Name === match.params.directorName;
+            })
+          });
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        path: "/users/:username",
+        render: function render(_ref4) {
+          var match = _ref4.match;
+          return _react.default.createElement(_profileView.ProfileView, {
+            userDetail: users.find(function (u) {
+              return u.Username === "Jack";
             })
           });
         }
