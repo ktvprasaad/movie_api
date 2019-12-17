@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -30,8 +31,6 @@ export function LoginView(props) {
         .catch( e => {
             console.log('Username does not exist!');
         });
-
-        // props.onLoggedIn(username);
     };
 
     return (
@@ -61,7 +60,10 @@ export function LoginView(props) {
                     Login
                 </Button>
                 <Form.Group controlId='newUser'>
-                    <Form.Text>New User? Click<Button id='registerButton' onClick={() => props.onClick()}>SignUp</Button>
+                    <Form.Text>New User? Click
+                        <Link to="/register">
+                            <Button variant="link">SignUp</Button>
+                        </Link>
                     </Form.Text>
                 </Form.Group>
             </Form>
@@ -70,8 +72,3 @@ export function LoginView(props) {
         </div>
     );
 }
-// LoginView.propTypes = {
-//   onLoggedIn: PropTypes.func.isRequired,
-//   onClick: PropTypes.func.isRequired
-// };
-// <Form.Text>New User? Click <Button id='registerButton' onClick={handleSignUp}>SignUp</Button>

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
@@ -8,11 +8,13 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavItem from 'react-bootstrap/NavItem';
 import FormControl from 'react-bootstrap/FormControl';
 
-
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { GenreView } from '../genre-view/genre-view';
+import { DirectorView } from '../director-view/director-view';
+import { ProfileView } from '../profile-view/profile-view';
 
 export class MainView extends React.Component {
 
@@ -20,10 +22,12 @@ export class MainView extends React.Component {
         super();
 
         this.state = {
-            movies: null,
+            movies: [],
             selectedMovie: null,
             user: null,
-            register: false
+            register: false,
+            genre: null,
+            director: null
         };
     }
 
@@ -59,20 +63,6 @@ export class MainView extends React.Component {
         localStorage.setItem('user', authData.user.Username);
         this.getMovies(authData.token);
     }
-    // 
-    // getMovies(token){
-    //
-    //         headers: {Authorization: `Bearer ${token}`}
-    //     })
-    //     .then(response => {
-    //         this.setSate({
-    //             movies: response.data
-    //         });
-    //     })
-    //     .catch(error => {
-    //         console.log(error);
-    //     });
-    // }
 
     getMovies(token) {
         axios.get('https://webflix-api-2019.herokuapp.com/movies', {
@@ -104,45 +94,51 @@ export class MainView extends React.Component {
         });
     }
 
+    handleLogout() {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        this.setState({
+            user:  null
+        });
+    }
+
     render() {
-        // if the state isn't initialized, this will throw on runtime
-        // before the data is initially loaded
-        const { movies, selectedMovie, user, register } = this.state;
 
-        // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-        if (!user && register === false) {
-             return <LoginView onClick={() => this.onRegistration()} onLoggedIn={user => this.onLoggedIn(user)} />;
-        };
+        const { movies, selectedMovie, user, register, genre, director } = this.state;
 
-        if (register) {
-            return <RegistrationView addNewUser={(user) => this.addNewUser(user)} />;
-        };
-
-        // Before the movies have been loaded
-        if (!movies) return <div className="main-view"/>;
+        console.log(user,':',register,':',movies);
+        // if (!movies) return <div className="main-view"/>;
 
         return (
-            <div className="main-view">
-            <Navbar bg="dark" variant="dark">
-              <Nav className="mr-auto">
-                <Nav.Link href="#">Home</Nav.Link>
-                <Nav.Link href="#">Movies</Nav.Link>
-                <Nav.Link href="#">MyFavourite</Nav.Link>
-              </Nav>
-              <Form inline>
-                <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                <Button variant="outline-info">Search</Button>
-              </Form>
-            </Navbar>
-            <Nav className="mr-auto">
-                {selectedMovie
-                    ? <MovieView movie={selectedMovie} onClick={() => this.listAllMovies()}/>
-                    : movies.map(movie => (
-                        <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
-                    ))
-                }
-            </Nav>
+            <div className="mainview">
+                <Navbar bg="dark" variant="dark">
+                     <Nav className="mr-auto">
+                        <Nav.Link href="/">Home</Nav.Link>
+                        <Nav.Link href="/">Profile</Nav.Link>
+                     </Nav>
+                     <Form inline>
+                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                        <Button variant="outline-info">Search</Button>
+                     </Form>
+                     <Button variant="outline-info" type="button" onClick={() => this.handleLogout()}>
+                        Logout
+                     </Button>
+                </Navbar>
+                <Router>
+                    <Route exact path="/" render={() => {
+                        if (!user && register === false) {
+                            return <LoginView onLoggedIn={user => this.onLoggedIn(user)} onClick={() => this.onRegistration()}/>;
+                        }
+                        return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+                    }}/>
+                    <Route path="/register" render={() => {
+                        return <RegistrationView addNewUser={(user) => this.addNewUser(user)}/>}
+                    }/>
+                    <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
+                    <Route path="/genres/:genreName" render={({match}) => <GenreView genre={movies.find(g => g.Genre.Name === match.params.genreName)}/>}/>
+                    <Route path="/description/:directorName" render={({match}) => <DirectorView director={movies.find(d => d.Director.Name === match.params.directorName)}/>}/>
+                </Router>
             </div>
-        );
+        )
     }
 }

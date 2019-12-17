@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { BrowserRouter as Link } from "react-router-dom";
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -12,16 +14,26 @@ export function RegistrationView(props) {
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ email, setEmail ] = useState('');
+    const [ birthday, setBirthday ] = useState('');
 
     const handleClick = (e) => {
         e.preventDefault();
-        console.log(username, password, email);
-        console.log(props);
-        /* Send a request to the server for authentication */
-        if (username > ' ') {
-            console.log('am here ', username);
-            props.addNewUser(username);
-        };
+        console.log(username, password, email, birthday);
+
+        axios.post('https://webflix-api-2019.herokuapp.com/users',{
+            Username: username,
+            Password: password,
+            Email: email,
+            Birthday: birthday
+        })
+        .then(response => {
+            const data = response.data;
+            console.log(data);
+            window.open('/','_self');
+        })
+        .catch(e => {
+            console.log('error registering the user');
+        });
     };
 
     return (
@@ -53,6 +65,14 @@ export function RegistrationView(props) {
                         value={email}
                         placeholder="Enter Emailid"
                         onChange={e => setEmail(e.target.value)} required />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Birthday</Form.Label>
+                    <Form.Control
+                        type="text"
+                        value={birthday}
+                        placeholder="Enter Date of Birth"
+                        onChange={e => setBirthday(e.target.value)} required />
                 </Form.Group>
                 <Button variant="primary" type="submit" onClick={handleClick}>Register</Button>
             </Form>

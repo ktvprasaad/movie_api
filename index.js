@@ -87,13 +87,27 @@ app.get('/movies/director/:director', passport.authenticate('jwt', {session: fal
 	});
 });
 
+app.get('/users/:username', passport.authenticate('jwt', {session: false}), function(req, res) {
+	Users.findOne({Username: req.params.username}).then( function(user) {
+		if(user) {
+			return res.status(400).json(user);
+		} else {
+			res.status(500).send(req.params.username + ' user\'s details do not exist.');
+		}
+	}).catch( function(err) {
+		console.error(err);
+		res.status(500).send('Error: ' + error);
+	});
+});
+
 //POST requests
 // app.post('/users', passport.authenticate('jwt',{session: false}), function(req,res) {
 app.post('/users',
 	[check('Username', 'Username must have at least 4 chars long.').isLength({min: 4}),
 	check('Username','Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
 	check('Password','Password is required.').not().isEmpty(),
-	check('Email','Email does not appear to be valid.').isEmail()], (req,res) => {
+	check('Email','Email does not appear to be valid.').isEmail(),
+	check('Birthday','Birthday is required.').not().isEmpty()], (req,res) => {
 		var errors = validationResult(req);
 
 		if(!errors.isEmpty()) {
