@@ -11,17 +11,18 @@ export class ProfileView extends React.Component {
 
         this.state = {
             user: null,
-            userDetail: null
+            userDetail: null,
+            token: null
         };
     }
 
     deleteProfile(props) {
-        console.log('target : ', props);
-        axios.delete(`https://webflix-api-2019.herokuapp.com/users/${props.userDetail.Username}`)
+        axios.delete(`https://webflix-api-2019.herokuapp.com/users/${props.userDetail.Username}`, {
+            headers: { Authorization: `Bearer ${props.token}`}
+        })
         .then(response => {
             const data = response.data;
-            console.log(data);
-            props.onUnregister();
+            props.handleLogout();
         })
         .catch(() => {
             console.log('Profile not deleted!');
@@ -29,9 +30,7 @@ export class ProfileView extends React.Component {
     };
 
     render() {
-        const { userDetail } = this.props;
-
-        console.log('Profile props: ', this.props, ' state: ', this.state)
+        const { userDetail, token } = this.props;
 
         if (!userDetail) return null;
 
@@ -59,10 +58,10 @@ export class ProfileView extends React.Component {
             </div>
             <Link to="/">
                 <Button variant="link">Back</Button>
+                <Button variant="primary" type="button" onClick={(props) => this.deleteProfile(this.props)}>
+                    Delete my profile
+                </Button>
             </Link>
-            <Button variant="primary" type="button" onClick={(props) => this.deleteProfile(this.props)}>
-                Delete my profile
-            </Button>
             </div>
         );
     }

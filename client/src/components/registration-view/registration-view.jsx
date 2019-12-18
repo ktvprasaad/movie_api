@@ -63,7 +63,7 @@ export function RegistrationView(props) {
                     <Form.Control
                         type="text"
                         value={email}
-                        placeholder="Enter Emailid"
+                        placeholder="Enter Email Id"
                         onChange={e => setEmail(e.target.value)} required />
                 </Form.Group>
                 <Form.Group>

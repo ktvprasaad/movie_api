@@ -29,7 +29,8 @@ export class MainView extends React.Component {
             userDetail: null,
             register: false,
             genre: null,
-            director: null
+            director: null,
+            token: null
         };
     }
 
@@ -75,7 +76,8 @@ export class MainView extends React.Component {
         .then(response => {
      // Assign the result to the state
             this.setState({
-                movies: response.data
+                movies: response.data,
+                token: token
             });
         })
         .catch(function (error) {
@@ -114,25 +116,21 @@ export class MainView extends React.Component {
     }
 
     handleLogout() {
+        console.log('handleLogout');
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         this.setState({
-            user:  null
-        });
-    }
-
-    onUnregister() {
-        this.setState({
-            user:  null
+            user:  null,
+            token: null
         });
     }
 
     render() {
 
-        const { movies, selectedMovie, users, user, userDetail, register, genre, director } = this.state;
+        const { movies, selectedMovie, users, user, userDetail, register, genre, director, token } = this.state;
 
         let username = user;
-        console.log('UserDetail ', userDetail,' : ', 'user:', user ,' movies: ', movies);
+        console.log('token', token, 'UserDetail ', userDetail,' : ', 'user:', user ,' movies: ', movies);
 
         // if (!movies) return <div className="main-view"/>;
 
@@ -156,7 +154,7 @@ export class MainView extends React.Component {
                         if (!user && register === false) {
                             return <LoginView onLoggedIn={user => this.onLoggedIn(user)} onClick={() => this.onRegistration()}/>;
                         }
-                        return movies.map(m => <MovieCard key={m._id} movie={m} user={user} />)
+                        return movies.map(m => <MovieCard key={m._id} movie={m} user={user} token={token}/>)
                     }}/>
                     <Route path="/register" render={() => {
                         return <RegistrationView addNewUser={(user) => this.addNewUser(user)}/>}
@@ -167,7 +165,7 @@ export class MainView extends React.Component {
                     <Route path="/users/:user" render={
                         ({match}) =>
                             <ProfileView userDetail={users.find(u => u.Username === match.params.user)}
-                                onUnregister={() => this.onUnregister()} />
+                                handleLogout={() => this.handleLogout()} token={token} />
                     }/>
                 </Router>
             </div>

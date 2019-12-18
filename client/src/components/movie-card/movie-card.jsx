@@ -12,16 +12,17 @@ export class MovieCard extends React.Component {
         super(props);
 
         this.state = {
-            movies: [],
             movie: null,
-            users: [],
-            user: null
+            user: null,
+            token: null
         };
     }
 
     addFavMovie(props) {
-        console.log('target : ', props);
-        axios.post(`https://webflix-api-2019.herokuapp.com/users/${props.user}/movies/${props.movie._id}`)
+        console.log('AddFavorite : ', props);
+        axios.post(`https://webflix-api-2019.herokuapp.com/users/${props.user}/movie/${props.movie._id}`,{
+            headers: { Authorization: `Bearer ${props.token}`}
+        })
         .then(response => {
             console.log(response.data);
         })
@@ -31,7 +32,7 @@ export class MovieCard extends React.Component {
     };
 
     render() {
-        const { user, movie } = this.props;
+        const { movie, user, token } = this.props;
 
         let image=`https://webflix-api-2019.herokuapp.com/img/${movie.ImagePath}`;
         return (

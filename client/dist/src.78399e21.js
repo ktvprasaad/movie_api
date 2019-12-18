@@ -41502,7 +41502,7 @@ function RegistrationView(props) {
   })), _react.default.createElement(_Form.default.Group, null, _react.default.createElement(_Form.default.Label, null, "Email"), _react.default.createElement(_Form.default.Control, {
     type: "text",
     value: email,
-    placeholder: "Enter Emailid",
+    placeholder: "Enter Email Id",
     onChange: function onChange(e) {
       return setEmail(e.target.value);
     },
@@ -41728,10 +41728,9 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(MovieCard).call(this, props));
     _this.state = {
-      movies: [],
       movie: null,
-      users: [],
-      user: null
+      user: null,
+      token: null
     };
     return _this;
   }
@@ -41739,9 +41738,13 @@ function (_React$Component) {
   _createClass(MovieCard, [{
     key: "addFavMovie",
     value: function addFavMovie(props) {
-      console.log('target : ', props);
+      console.log('AddFavorite : ', props);
 
-      _axios.default.post("https://webflix-api-2019.herokuapp.com/users/".concat(props.user, "/movies/").concat(props.movie._id)).then(function (response) {
+      _axios.default.post("https://webflix-api-2019.herokuapp.com/users/".concat(props.user, "/movie/").concat(props.movie._id), {
+        headers: {
+          Authorization: "Bearer ".concat(props.token)
+        }
+      }).then(function (response) {
         console.log(response.data);
       }).catch(function () {
         console.log('Movie not updated!');
@@ -41753,8 +41756,9 @@ function (_React$Component) {
       var _this2 = this;
 
       var _this$props = this.props,
+          movie = _this$props.movie,
           user = _this$props.user,
-          movie = _this$props.movie;
+          token = _this$props.token;
       var image = "https://webflix-api-2019.herokuapp.com/img/".concat(movie.ImagePath);
       return _react.default.createElement(_Card.default, {
         style: {
@@ -42132,7 +42136,8 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ProfileView).call(this, props));
     _this.state = {
       user: null,
-      userDetail: null
+      userDetail: null,
+      token: null
     };
     return _this;
   }
@@ -42140,12 +42145,13 @@ function (_React$Component) {
   _createClass(ProfileView, [{
     key: "deleteProfile",
     value: function deleteProfile(props) {
-      console.log('target : ', props);
-
-      _axios.default.delete("https://webflix-api-2019.herokuapp.com/users/".concat(props.userDetail.Username)).then(function (response) {
+      _axios.default.delete("https://webflix-api-2019.herokuapp.com/users/".concat(props.userDetail.Username), {
+        headers: {
+          Authorization: "Bearer ".concat(props.token)
+        }
+      }).then(function (response) {
         var data = response.data;
-        console.log(data);
-        props.onUnregister();
+        props.handleLogout();
       }).catch(function () {
         console.log('Profile not deleted!');
       });
@@ -42155,8 +42161,9 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var userDetail = this.props.userDetail;
-      console.log('Profile props: ', this.props, ' state: ', this.state);
+      var _this$props = this.props,
+          userDetail = _this$props.userDetail,
+          token = _this$props.token;
       if (!userDetail) return null;
       return _react.default.createElement("div", {
         className: "profile-view"
@@ -42195,13 +42202,13 @@ function (_React$Component) {
         to: "/"
       }, _react.default.createElement(_Button.default, {
         variant: "link"
-      }, "Back")), _react.default.createElement(_Button.default, {
+      }, "Back"), _react.default.createElement(_Button.default, {
         variant: "primary",
         type: "button",
         onClick: function onClick(props) {
           return _this2.deleteProfile(_this2.props);
         }
-      }, "Delete my profile"));
+      }, "Delete my profile")));
     }
   }]);
 
@@ -42288,7 +42295,8 @@ function (_React$Component) {
       userDetail: null,
       register: false,
       genre: null,
-      director: null
+      director: null,
+      token: null
     };
     return _this;
   } //One of the "hooks" available in the React component
@@ -42345,7 +42353,8 @@ function (_React$Component) {
       }).then(function (response) {
         // Assign the result to the state
         _this2.setState({
-          movies: response.data
+          movies: response.data,
+          token: token
         });
       }).catch(function (error) {
         console.log(error);
@@ -42389,17 +42398,12 @@ function (_React$Component) {
   }, {
     key: "handleLogout",
     value: function handleLogout() {
+      console.log('handleLogout');
       localStorage.removeItem('user');
       localStorage.removeItem('token');
       this.setState({
-        user: null
-      });
-    }
-  }, {
-    key: "onUnregister",
-    value: function onUnregister() {
-      this.setState({
-        user: null
+        user: null,
+        token: null
       });
     }
   }, {
@@ -42415,9 +42419,10 @@ function (_React$Component) {
           userDetail = _this$state.userDetail,
           register = _this$state.register,
           genre = _this$state.genre,
-          director = _this$state.director;
+          director = _this$state.director,
+          token = _this$state.token;
       var username = user;
-      console.log('UserDetail ', userDetail, ' : ', 'user:', user, ' movies: ', movies); // if (!movies) return <div className="main-view"/>;
+      console.log('token', token, 'UserDetail ', userDetail, ' : ', 'user:', user, ' movies: ', movies); // if (!movies) return <div className="main-view"/>;
 
       return _react.default.createElement("div", {
         className: "mainview"
@@ -42463,7 +42468,8 @@ function (_React$Component) {
             return _react.default.createElement(_movieCard.MovieCard, {
               key: m._id,
               movie: m,
-              user: user
+              user: user,
+              token: token
             });
           });
         }
@@ -42514,9 +42520,10 @@ function (_React$Component) {
             userDetail: users.find(function (u) {
               return u.Username === match.params.user;
             }),
-            onUnregister: function onUnregister() {
-              return _this4.onUnregister();
-            }
+            handleLogout: function handleLogout() {
+              return _this4.handleLogout();
+            },
+            token: token
           });
         }
       })));
@@ -42685,7 +42692,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60149" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50040" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
