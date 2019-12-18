@@ -41686,6 +41686,8 @@ exports.MovieCard = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _axios = _interopRequireDefault(require("axios"));
+
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
@@ -41719,16 +41721,40 @@ var MovieCard =
 function (_React$Component) {
   _inherits(MovieCard, _React$Component);
 
-  function MovieCard() {
+  function MovieCard(props) {
+    var _this;
+
     _classCallCheck(this, MovieCard);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(MovieCard).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MovieCard).call(this, props));
+    _this.state = {
+      movies: [],
+      movie: null,
+      users: [],
+      user: null
+    };
+    return _this;
   }
 
   _createClass(MovieCard, [{
+    key: "addFavMovie",
+    value: function addFavMovie(props) {
+      console.log('target : ', props);
+
+      _axios.default.post("https://webflix-api-2019.herokuapp.com/users/".concat(props.user, "/movies/").concat(props.movie._id)).then(function (response) {
+        console.log(response.data);
+      }).catch(function () {
+        console.log('Movie not updated!');
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var movie = this.props.movie;
+      var _this2 = this;
+
+      var _this$props = this.props,
+          user = _this$props.user,
+          movie = _this$props.movie;
       var image = "https://webflix-api-2019.herokuapp.com/img/".concat(movie.ImagePath);
       return _react.default.createElement(_Card.default, {
         style: {
@@ -41741,7 +41767,13 @@ function (_React$Component) {
         to: "/movies/".concat(movie._id)
       }, _react.default.createElement(_Button.default, {
         variant: "link"
-      }, "Open"))));
+      }, "Open")), _react.default.createElement(_Button.default, {
+        variant: "primary",
+        type: "button",
+        onClick: function onClick(props) {
+          return _this2.addFavMovie(_this2.props);
+        }
+      }, "Add to favorie List")));
     }
   }]);
 
@@ -41756,7 +41788,7 @@ MovieCard.propTypes = {
     ImagePath: _propTypes.default.string.isRequired
   }).isRequired
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/movie-view/movie-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/movie-view/movie-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42061,6 +42093,8 @@ exports.ProfileView = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _axios = _interopRequireDefault(require("axios"));
+
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _reactRouterDom = require("react-router-dom");
@@ -42097,14 +42131,30 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ProfileView).call(this, props));
     _this.state = {
+      user: null,
       userDetail: null
     };
     return _this;
   }
 
   _createClass(ProfileView, [{
+    key: "deleteProfile",
+    value: function deleteProfile(props) {
+      console.log('target : ', props);
+
+      _axios.default.delete("https://webflix-api-2019.herokuapp.com/users/".concat(props.userDetail.Username)).then(function (response) {
+        var data = response.data;
+        console.log(data);
+        props.onUnregister();
+      }).catch(function () {
+        console.log('Profile not deleted!');
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var userDetail = this.props.userDetail;
       console.log('Profile props: ', this.props, ' state: ', this.state);
       if (!userDetail) return null;
@@ -42114,13 +42164,44 @@ function (_React$Component) {
         className: "profile-name"
       }, _react.default.createElement("span", {
         className: "label"
-      }, "Name: "), _react.default.createElement("span", {
+      }, "Username: "), _react.default.createElement("span", {
         className: "value"
-      }, userDetail.Username)), _react.default.createElement(_reactRouterDom.Link, {
+      }, userDetail.Username)), _react.default.createElement("div", {
+        className: "profile-password"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Password: "), _react.default.createElement("span", {
+        className: "value",
+        password: true
+      }, userDetail.Password)), _react.default.createElement("div", {
+        className: "profile-email"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Email: "), _react.default.createElement("span", {
+        className: "value"
+      }, userDetail.Email)), _react.default.createElement("div", {
+        className: "profile-birthday"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Date of Birth: "), _react.default.createElement("span", {
+        className: "value"
+      }, userDetail.Birthday)), _react.default.createElement("div", {
+        className: "profile-favorite"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Favorite Movies: "), _react.default.createElement("span", {
+        className: "value"
+      }, userDetail.Favoritemovies)), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_Button.default, {
         variant: "link"
-      }, "Back")));
+      }, "Back")), _react.default.createElement(_Button.default, {
+        variant: "primary",
+        type: "button",
+        onClick: function onClick(props) {
+          return _this2.deleteProfile(_this2.props);
+        }
+      }, "Delete my profile"));
     }
   }]);
 
@@ -42128,7 +42209,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.ProfileView = ProfileView;
-},{"react":"../node_modules/react/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42202,7 +42283,7 @@ function (_React$Component) {
     _this.state = {
       movies: [],
       selectedMovie: null,
-      users: null,
+      users: [],
       user: null,
       userDetail: null,
       register: false,
@@ -42315,6 +42396,13 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "onUnregister",
+    value: function onUnregister() {
+      this.setState({
+        user: null
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this4 = this;
@@ -42374,7 +42462,8 @@ function (_React$Component) {
           return movies.map(function (m) {
             return _react.default.createElement(_movieCard.MovieCard, {
               key: m._id,
-              movie: m
+              movie: m,
+              user: user
             });
           });
         }
@@ -42424,7 +42513,10 @@ function (_React$Component) {
           return _react.default.createElement(_profileView.ProfileView, {
             userDetail: users.find(function (u) {
               return u.Username === match.params.user;
-            })
+            }),
+            onUnregister: function onUnregister() {
+              return _this4.onUnregister();
+            }
           });
         }
       })));
@@ -42432,7 +42524,8 @@ function (_React$Component) {
   }]);
 
   return MainView;
-}(_react.default.Component);
+}(_react.default.Component); // <Route path='/users/:user/movie/:movie._id' render={(match)} => <MovieCard
+
 
 exports.MainView = MainView;
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Nav":"../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/NavItem":"../node_modules/react-bootstrap/esm/NavItem.js","react-bootstrap/FormControl":"../node_modules/react-bootstrap/esm/FormControl.js","../login-view/login-view":"components/login-view/login-view.jsx","../registration-view/registration-view":"components/registration-view/registration-view.jsx","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx","../genre-view/genre-view":"components/genre-view/genre-view.jsx","../director-view/director-view":"components/director-view/director-view.jsx","../profile-view/profile-view":"components/profile-view/profile-view.jsx"}],"../../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {

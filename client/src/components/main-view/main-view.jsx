@@ -24,7 +24,7 @@ export class MainView extends React.Component {
         this.state = {
             movies: [],
             selectedMovie: null,
-            users: null,
+            users: [],
             user: null,
             userDetail: null,
             register: false,
@@ -121,6 +121,12 @@ export class MainView extends React.Component {
         });
     }
 
+    onUnregister() {
+        this.setState({
+            user:  null
+        });
+    }
+
     render() {
 
         const { movies, selectedMovie, users, user, userDetail, register, genre, director } = this.state;
@@ -150,7 +156,7 @@ export class MainView extends React.Component {
                         if (!user && register === false) {
                             return <LoginView onLoggedIn={user => this.onLoggedIn(user)} onClick={() => this.onRegistration()}/>;
                         }
-                        return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+                        return movies.map(m => <MovieCard key={m._id} movie={m} user={user} />)
                     }}/>
                     <Route path="/register" render={() => {
                         return <RegistrationView addNewUser={(user) => this.addNewUser(user)}/>}
@@ -158,9 +164,15 @@ export class MainView extends React.Component {
                     <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
                     <Route path="/genres/:genreName" render={({match}) => <GenreView genre={movies.find(g => g.Genre.Name === match.params.genreName)}/>}/>
                     <Route path="/description/:directorName" render={({match}) => <DirectorView director={movies.find(d => d.Director.Name === match.params.directorName)}/>}/>
-                    <Route path="/users/:user" render={({match}) => <ProfileView userDetail={users.find(u => u.Username === match.params.user)}/>}/>
+                    <Route path="/users/:user" render={
+                        ({match}) =>
+                            <ProfileView userDetail={users.find(u => u.Username === match.params.user)}
+                                onUnregister={() => this.onUnregister()} />
+                    }/>
                 </Router>
             </div>
         )
     }
 }
+
+// <Route path='/users/:user/movie/:movie._id' render={(match)} => <MovieCard
