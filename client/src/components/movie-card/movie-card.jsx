@@ -16,15 +16,26 @@ export class MovieCard extends React.Component {
             user: null,
             token: null
         };
+
+        // axios instance
+        // keeping it DRY (don't repeat yourself)
+        this.moviesAPI = axios.create({
+            baseURL: 'https://webflix-api-2019.herokuapp.com',
+            headers: {
+                Authorization: `Bearer ${props.token}`
+            }
+        })
     }
 
     addFavMovie(props) {
-        console.log('AddFavorite : ', props);
-        axios.post(`https://webflix-api-2019.herokuapp.com/users/${props.user}/movie/${props.movie._id}`,{
-            headers: { Authorization: `Bearer ${props.token}`}
-        })
+
+        this.moviesAPI.post(`/users/${props.user}/movie/${props.movie._id}`)
+        // null is needed for post
+        // axios.post(`https://webflix-api-2019.herokuapp.com`, null, {
+        //     headers: { Authorization: `Bearer ${props.token}`}
+        // })
         .then(response => {
-            console.log(response.data);
+            console.log('Added movie');
         })
         .catch(() => {
             console.log('Movie not updated!');
@@ -36,7 +47,7 @@ export class MovieCard extends React.Component {
 
         let image=`https://webflix-api-2019.herokuapp.com/img/${movie.ImagePath}`;
         return (
-          <Card style={{ width: "16rem" }}>
+          <Card style={{ width: "12rem" }}>
             <Card.Img variant="top" src={image} />
             <Card.Body>
                 <Card.Title>{movie.Title}</Card.Title>
@@ -45,7 +56,7 @@ export class MovieCard extends React.Component {
                     <Button variant="link">Open</Button>
                 </Link>
                 <Button variant="primary" type="button" onClick={(props) => this.addFavMovie(this.props)}>
-                    Add to favorie List
+                    Add to my Favorite List
                 </Button>
             </Card.Body>
         </Card>

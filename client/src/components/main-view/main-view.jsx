@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
@@ -21,29 +21,24 @@ export class MainView extends React.Component {
     constructor() {
         super();
 
+        let accessToken = localStorage.getItem('token');
+
         this.state = {
             movies: [],
             selectedMovie: null,
             users: [],
-            user: null,
+            user: accessToken ? localStorage.getItem('user') : null,
             userDetail: null,
             register: false,
             genre: null,
             director: null,
-            token: null
+            token: accessToken || null
         };
-    }
 
-    //One of the "hooks" available in the React component
-    componentDidMount() {
-      let accessToken = localStorage.getItem('token');
-      if (accessToken !== null) {
-        this.setState({
-          user: localStorage.getItem('user')
-        });
-        this.getMovies(accessToken);
-        this.getUser(accessToken);
-      }
+        if (accessToken !== null) {
+          this.getMovies(accessToken);
+          this.getUser(accessToken);
+        }
     }
 
     onMovieClick(movie) {
@@ -59,7 +54,6 @@ export class MainView extends React.Component {
     }
 
     onLoggedIn(authData) {
-        console.log(authData);
         this.setState({
             user:  authData.user.Username
         });
@@ -116,7 +110,6 @@ export class MainView extends React.Component {
     }
 
     handleLogout() {
-        console.log('handleLogout');
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         this.setState({
@@ -129,10 +122,10 @@ export class MainView extends React.Component {
 
         const { movies, selectedMovie, users, user, userDetail, register, genre, director, token } = this.state;
 
-        let username = user;
-        console.log('token', token, 'UserDetail ', userDetail,' : ', 'user:', user ,' movies: ', movies);
-
         // if (!movies) return <div className="main-view"/>;
+
+        // 1st render: this.state.token === null, console.log(token) => null, componentDidMount => this.setState(token)
+        // 2nd render: this.state.token === 'e7hhsdif', console.log(token) => 'e7'
 
         return (
             <div className="mainview">
@@ -164,8 +157,15 @@ export class MainView extends React.Component {
                     <Route path="/description/:directorName" render={({match}) => <DirectorView director={movies.find(d => d.Director.Name === match.params.directorName)}/>}/>
                     <Route path="/users/:user" render={
                         ({match}) =>
-                            <ProfileView userDetail={users.find(u => u.Username === match.params.user)}
-                                handleLogout={() => this.handleLogout()} token={token} />
+                            {
+                                // when there isn't a user token, that means the user has been logged out
+                                // redirect back to Home
+                                if (!token) {
+                                    return <Redirect to='/' />
+                                }
+                                return <ProfileView userDetail={users.find(u => u.Username === match.params.user)}
+                                    handleLogout={() => this.handleLogout()} token={token} movies={movies} />
+                            }
                     }/>
                 </Router>
             </div>
