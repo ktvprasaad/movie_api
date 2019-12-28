@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+
 import { Link } from "react-router-dom";
 
 import Form from 'react-bootstrap/Form';
@@ -26,6 +27,7 @@ export function LoginView(props) {
         })
         .then(response => {
             const data = response.data;
+            console.log('Login props:', response.data);
             props.onLoggedIn(data);
         })
         .catch( e => {

@@ -1,5 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+
+import { setUser } from '../../actions/actions';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -190,3 +193,7 @@ export class ProfileView extends React.Component {
         );
     }
 }
+let mapStateToProps = state => {
+    return { movies: state.movies }
+}
+export default connect(mapStateToProps)(ProfileView);

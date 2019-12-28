@@ -1,6 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
+import { setMovies, setUser, setFilter } from '../../actions/actions';
+
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
@@ -8,9 +12,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavItem from 'react-bootstrap/NavItem';
 import FormControl from 'react-bootstrap/FormControl';
 
+import MoviesList from '../movies-list/movies-list';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
-import { MovieCard } from '../movie-card/movie-card';
+// import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { GenreView } from '../genre-view/genre-view';
 import { DirectorView } from '../director-view/director-view';
@@ -24,14 +29,14 @@ export class MainView extends React.Component {
         let accessToken = localStorage.getItem('token');
 
         this.state = {
-            movies: [],
-            selectedMovie: null,
-            users: [],
+            // movies: [],
+            // selectedMovie: null,
+            // users: [],
             user: accessToken ? localStorage.getItem('user') : null,
-            userDetail: null,
+            // userDetail: null,
             register: false,
-            genre: null,
-            director: null,
+            // genre: null,
+            // director: null,
             token: accessToken || null
         };
 
@@ -69,10 +74,11 @@ export class MainView extends React.Component {
         })
         .then(response => {
      // Assign the result to the state
-            this.setState({
-                movies: response.data,
-                token: token
-            });
+            // this.setState({
+            //     movies: response.data,
+            //     token: token
+            // });
+            this.props.setMovies(response.data);
         })
         .catch(function (error) {
             console.log(error);
@@ -85,9 +91,10 @@ export class MainView extends React.Component {
         })
         .then(response => {
      // Assign the result to the state
-            this.setState({
-                users: response.data
-            });
+            // this.setState({
+            //     users: response.data
+            // });
+            this.props.setUser(response.data);
         })
         .catch(function (error) {
             console.log(error);
@@ -120,7 +127,12 @@ export class MainView extends React.Component {
 
     render() {
 
-        const { movies, selectedMovie, users, user, userDetail, register, genre, director, token } = this.state;
+        // const { movies, selectedMovie, users, user, userDetail, register, genre, director, token } = this.state;
+        
+        let { movies } = this.props;
+        let { user, register, token  } = this.state;
+
+        console.log('MainView props:', this.props, 'state :', this.state);
 
         // if (!movies) return <div className="main-view"/>;
 
@@ -147,7 +159,7 @@ export class MainView extends React.Component {
                         if (!user && register === false) {
                             return <LoginView onLoggedIn={user => this.onLoggedIn(user)} onClick={() => this.onRegistration()}/>;
                         }
-                        return movies.map(m => <MovieCard key={m._id} movie={m} user={user} token={token}/>)
+                        return <MoviesList movies={movies}/>;
                     }}/>
                     <Route path="/register" render={() => {
                         return <RegistrationView addNewUser={(user) => this.addNewUser(user)}/>}
@@ -173,4 +185,8 @@ export class MainView extends React.Component {
     }
 }
 
-// <Route path='/users/:user/movie/:movie._id' render={(match)} => <MovieCard
+let mapStateToProps = state => {
+    return { movies: state.movies }
+}
+  
+export default connect(mapStateToProps, { setMovies, setFilter, setUser })(MainView);
