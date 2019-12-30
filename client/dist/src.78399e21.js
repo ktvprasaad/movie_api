@@ -39774,7 +39774,7 @@ if ("development" !== "production") {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setMovies = setMovies;
+exports.default = setMovies;
 exports.setFilter = setFilter;
 exports.setUser = setUser;
 exports.SET_USER = exports.SET_FILTER = exports.SET_MOVIES = void 0;
@@ -43934,7 +43934,7 @@ function MoviesList(props) {
     className: "movies-list"
   }, _react.default.createElement(_visibilityFilterInput.default, {
     visibilityFilter: visibilityFilter
-  }), movies.map(function (m) {
+  }), filteredMovies.map(function (m) {
     return _react.default.createElement(_movieCard.MovieCard, {
       key: m._id,
       movie: m
@@ -44751,6 +44751,36 @@ function (_React$Component) {
   }
 
   _createClass(ProfileView, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var accessToken = localStorage.getItem('token');
+
+      if (accessToken !== null) {
+        this.getUser(accessToken);
+      }
+    }
+  }, {
+    key: "getUser",
+    value: function getUser(token) {
+      var _this2 = this;
+
+      _axios.default.get('https://webflix-api-2019.herokuapp.com/users', {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        // Assign the result to the state
+        // this.setState({
+        //     users: response.data
+        // });
+        console.log('response user:', response.data);
+
+        _this2.props.setUser(response.data);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: "onPasswordChange",
     value: function onPasswordChange(event) {
       this.setState({
@@ -44815,12 +44845,15 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
-      var _this$props = this.props,
-          userDetail = _this$props.userDetail,
-          token = _this$props.token,
-          movies = _this$props.movies; // let image=`https://webflix-api-2019.herokuapp.com/img/${userDetail.movie.ImagePath}`;
+      var _this$state = this.state,
+          userDetail = _this$state.userDetail,
+          token = _this$state.token,
+          movies = _this$state.movies,
+          users = _this$state.users;
+      console.log('ProfileView props: ', this.props);
+      console.log('ProfileView state: ', this.state); // let image=`https://webflix-api-2019.herokuapp.com/img/${userDetail.movie.ImagePath}`;
 
       if (!userDetail) return null;
       return _react.default.createElement("div", {
@@ -44857,7 +44890,7 @@ function (_React$Component) {
         variant: "primary",
         type: "button",
         onClick: function onClick(props) {
-          return _this2.updateProfile(_this2.props);
+          return _this3.updateProfile(_this3.props);
         }
       }, "Update my profile")))))), _react.default.createElement("div", {
         className: "profile-delete"
@@ -44869,7 +44902,7 @@ function (_React$Component) {
         variant: "primary",
         type: "button",
         onClick: function onClick(props) {
-          return _this2.deleteProfile(_this2.props);
+          return _this3.deleteProfile(_this3.props);
         }
       }, "Delete my profile"))), _react.default.createElement("div", {
         className: "favoriteMovies"
@@ -44883,18 +44916,11 @@ function (_React$Component) {
           key: Favoritemovie
         }, _react.default.createElement("p", {
           className: "favoriteMovies"
-        }, _react.default.createElement(_movieCard.MovieCard, {
-          key: Favoritemovie,
-          movie: movies.find(function (movie) {
-            return movie._id == Favoritemovie;
-          }),
-          user: userDetail.Username,
-          token: token
-        }), _react.default.createElement(_Button.default, {
+        }, _react.default.createElement(_movieCard.MovieCard, null), _react.default.createElement(_Button.default, {
           variant: "secondary",
           size: "sm",
           onClick: function onClick(event) {
-            return _this2.removeFavoriteMovie(event, Favoritemovie);
+            return _this3.removeFavoriteMovie(event, Favoritemovie);
           }
         }, "Remove")));
       })))))));
@@ -44902,17 +44928,29 @@ function (_React$Component) {
   }]);
 
   return ProfileView;
-}(_react.default.Component);
+}(_react.default.Component); // const mapStateToProps = state => {
+//     const { movies } = state;
+//     return { movies };
+// };
+
 
 exports.ProfileView = ProfileView;
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    movies: state.movies
+    movies: state.movies,
+    users: state.users
   };
 };
 
-var _default = (0, _reactRedux.connect)(mapStateToProps)(ProfileView);
+var _default = (0, _reactRedux.connect)(mapStateToProps, {
+  setUser: _actions.setUser
+})(ProfileView); //186 <MovieCard key={Favoritemovie} movie={(movies).find(movie => movie._id == Favoritemovie)}
+// user={userDetail.Username} token={token}/>
+//    let user = (users).find(user => user.Username = localStorage.getItem('user'));
+//    console.log(user);
+//    if (!user) return null;
+
 
 exports.default = _default;
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/actions":"actions/actions.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/ListGroup":"../node_modules/react-bootstrap/esm/ListGroup.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
@@ -44931,7 +44969,7 @@ var _reactRedux = require("react-redux");
 
 var _reactRouterDom = require("react-router-dom");
 
-var _actions = require("../../actions/actions");
+var _actions = _interopRequireWildcard(require("../../actions/actions"));
 
 var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
 
@@ -44958,6 +44996,10 @@ var _genreView = require("../genre-view/genre-view");
 var _directorView = require("../director-view/director-view");
 
 var _profileView = require("../profile-view/profile-view");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -45004,9 +45046,8 @@ function (_React$Component) {
     };
 
     if (accessToken !== null) {
-      _this.getMovies(accessToken);
+      _this.getMovies(accessToken); //   this.getUser(accessToken);
 
-      _this.getUser(accessToken);
     }
 
     return _this;
@@ -45052,6 +45093,8 @@ function (_React$Component) {
         //     movies: response.data,
         //     token: token
         // });
+        console.log('response movies:', response.data);
+
         _this2.props.setMovies(response.data);
       }).catch(function (error) {
         console.log(error);
@@ -45071,6 +45114,8 @@ function (_React$Component) {
         // this.setState({
         //     users: response.data
         // });
+        console.log('response user:', response.data);
+
         _this3.props.setUser(response.data);
       }).catch(function (error) {
         console.log(error);
@@ -45114,7 +45159,9 @@ function (_React$Component) {
           user = _this$state.user,
           register = _this$state.register,
           token = _this$state.token;
-      console.log('MainView props:', this.props, 'state :', this.state); // if (!movies) return <div className="main-view"/>;
+      console.log('MainView - props :', this.props);
+      console.log('MainView - state :', this.state);
+      console.log('users :', this.props.users); // if (!movies) return <div className="main-view"/>;
       // 1st render: this.state.token === null, console.log(token) => null, componentDidMount => this.setState(token)
       // 2nd render: this.state.token === 'e7hhsdif', console.log(token) => 'e7'
 
@@ -45214,16 +45261,7 @@ function (_React$Component) {
             });
           }
 
-          return _react.default.createElement(_profileView.ProfileView, {
-            userDetail: users.find(function (u) {
-              return u.Username === match.params.user;
-            }),
-            handleLogout: function handleLogout() {
-              return _this4.handleLogout();
-            },
-            token: token,
-            movies: movies
-          });
+          return _react.default.createElement(_profileView.ProfileView, null);
         }
       })));
     }
@@ -45235,16 +45273,19 @@ function (_React$Component) {
 exports.MainView = MainView;
 
 var mapStateToProps = function mapStateToProps(state) {
+  console.log(state.movies, ' movies : users', state.users);
   return {
-    movies: state.movies
+    movies: state.movies,
+    users: state.users
   };
 };
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, {
-  setMovies: _actions.setMovies,
-  setFilter: _actions.setFilter,
+  setMovies: _actions.default,
   setUser: _actions.setUser
-})(MainView);
+})(MainView); // return <ProfileView userDetail={users.find(u => u.Username === match.params.user)}
+// handleLogout={() => this.handleLogout()} token={token} movies={movies} />
+
 
 exports.default = _default;
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions":"actions/actions.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Nav":"../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/NavItem":"../node_modules/react-bootstrap/esm/NavItem.js","react-bootstrap/FormControl":"../node_modules/react-bootstrap/esm/FormControl.js","../movies-list/movies-list":"components/movies-list/movies-list.jsx","../login-view/login-view":"components/login-view/login-view.jsx","../registration-view/registration-view":"components/registration-view/registration-view.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx","../genre-view/genre-view":"components/genre-view/genre-view.jsx","../director-view/director-view":"components/director-view/director-view.jsx","../profile-view/profile-view":"components/profile-view/profile-view.jsx"}],"reducers/reducers.js":[function(require,module,exports) {
@@ -45389,7 +45430,7 @@ var _redux = require("redux");
 
 var _reactRedux = require("react-redux");
 
-var _mainView = require("./components/main-view/main-view");
+var _mainView = _interopRequireDefault(require("./components/main-view/main-view"));
 
 var _reducers = _interopRequireDefault(require("./reducers/reducers"));
 
@@ -45433,7 +45474,7 @@ function (_React$Component) {
     value: function render() {
       return _react.default.createElement(_reactRedux.Provider, {
         store: store
-      }, _react.default.createElement(_mainView.MainView, null));
+      }, _react.default.createElement(_mainView.default, null));
     }
   }]);
 
@@ -45472,7 +45513,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50057" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50304" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

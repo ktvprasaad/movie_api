@@ -3,7 +3,8 @@ import axios from 'axios';
 
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
-import { setMovies, setUser, setFilter } from '../../actions/actions';
+import setMovies from '../../actions/actions';
+import { setUser } from '../../actions/actions';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -42,7 +43,7 @@ export class MainView extends React.Component {
 
         if (accessToken !== null) {
           this.getMovies(accessToken);
-          this.getUser(accessToken);
+        //   this.getUser(accessToken);
         }
     }
 
@@ -78,6 +79,7 @@ export class MainView extends React.Component {
             //     movies: response.data,
             //     token: token
             // });
+            console.log('response movies:', response.data)
             this.props.setMovies(response.data);
         })
         .catch(function (error) {
@@ -94,6 +96,7 @@ export class MainView extends React.Component {
             // this.setState({
             //     users: response.data
             // });
+            console.log('response user:', response.data)
             this.props.setUser(response.data);
         })
         .catch(function (error) {
@@ -132,8 +135,9 @@ export class MainView extends React.Component {
         let { movies } = this.props;
         let { user, register, token  } = this.state;
 
-        console.log('MainView props:', this.props, 'state :', this.state);
-
+        console.log('MainView - props :' , this.props);
+        console.log('MainView - state :' , this.state);
+        console.log('users :', this.props.users);
         // if (!movies) return <div className="main-view"/>;
 
         // 1st render: this.state.token === null, console.log(token) => null, componentDidMount => this.setState(token)
@@ -175,8 +179,7 @@ export class MainView extends React.Component {
                                 if (!token) {
                                     return <Redirect to='/' />
                                 }
-                                return <ProfileView userDetail={users.find(u => u.Username === match.params.user)}
-                                    handleLogout={() => this.handleLogout()} token={token} movies={movies} />
+                                return <ProfileView />
                             }
                     }/>
                 </Router>
@@ -186,7 +189,10 @@ export class MainView extends React.Component {
 }
 
 let mapStateToProps = state => {
-    return { movies: state.movies }
+    console.log(state.movies, ' movies : users', state.users);
+    return { movies: state.movies, users: state.users }
 }
   
-export default connect(mapStateToProps, { setMovies, setFilter, setUser })(MainView);
+export default connect(mapStateToProps, { setMovies, setUser })(MainView);
+// return <ProfileView userDetail={users.find(u => u.Username === match.params.user)}
+// handleLogout={() => this.handleLogout()} token={token} movies={movies} />

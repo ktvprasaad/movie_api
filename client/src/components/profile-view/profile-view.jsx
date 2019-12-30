@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
-import { setUser } from '../../actions/actions';
+import { setMovies, setUser } from '../../actions/actions';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -41,7 +41,33 @@ export class ProfileView extends React.Component {
                 Authorization: `Bearer ${props.token}`
             }
         })
+
     }
+
+    componentDidMount() {
+        let accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
+          this.getUser(accessToken);
+        }
+    }
+
+    getUser(token) {
+        axios.get('https://webflix-api-2019.herokuapp.com/users', {
+            headers: { Authorization: `Bearer ${token}`}
+        })
+        .then(response => {
+     // Assign the result to the state
+            // this.setState({
+            //     users: response.data
+            // });
+            console.log('response user:', response.data)
+            this.props.setUser(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
 
     onPasswordChange(event) {
         this.setState({
@@ -110,11 +136,14 @@ export class ProfileView extends React.Component {
     };
 
     render() {
-        const { userDetail, token, movies } = this.props;
+        const { userDetail, token, movies, users } = this.state;
+        console.log('ProfileView props: ', this.props);
+        console.log('ProfileView state: ', this.state);
 
         // let image=`https://webflix-api-2019.herokuapp.com/img/${userDetail.movie.ImagePath}`;
 
         if (!userDetail) return null;
+
 
         return (
             <div className="profile-view">
@@ -174,8 +203,7 @@ export class ProfileView extends React.Component {
                                  (<li key={Favoritemovie}>
                                    <p className="favoriteMovies">
                                    {
-                                     <MovieCard key={Favoritemovie} movie={(movies).find(movie => movie._id == Favoritemovie)}
-                                        user={userDetail.Username} token={token}/>
+                                     <MovieCard/>
                                     }
                                    <Button variant="secondary" size="sm" onClick={(event) => this.removeFavoriteMovie(event, Favoritemovie)}>
                                      Remove
@@ -193,7 +221,21 @@ export class ProfileView extends React.Component {
         );
     }
 }
+
+// const mapStateToProps = state => {
+//     const { movies } = state;
+//     return { movies };
+// };
+
 let mapStateToProps = state => {
-    return { movies: state.movies }
+    return { movies: state.movies, users: state.users }
 }
-export default connect(mapStateToProps)(ProfileView);
+
+export default connect(mapStateToProps,{setUser})(ProfileView);
+//186 <MovieCard key={Favoritemovie} movie={(movies).find(movie => movie._id == Favoritemovie)}
+// user={userDetail.Username} token={token}/>
+
+    //    let user = (users).find(user => user.Username = localStorage.getItem('user'));
+    //    console.log(user);
+
+    //    if (!user) return null;

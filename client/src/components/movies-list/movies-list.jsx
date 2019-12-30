@@ -21,7 +21,7 @@ function MoviesList(props) {
 
     return <div className="movies-list">
         <VisibilityFilterInput visibilityFilter={visibilityFilter}/>
-        {movies.map(m => <MovieCard key={m._id} movie={m}/>)}
+        {filteredMovies.map(m => <MovieCard key={m._id} movie={m}/>)}
         </div>;
 }
 
