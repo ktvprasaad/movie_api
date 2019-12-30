@@ -37,9 +37,9 @@ app.get('/client/*', (req,res) => {
 app.use(morgan('common'));
 
 //GET requests
-app.get('/',function(req, res) {
-	res.send('Welcome to WebFlix Movies Online!!');
-});
+// app.get('/',function(req, res) {
+// 	res.send('Welcome to WebFlix Movies Online!!');
+// });
 
 // To view movies list without authentication
 // app.get('/movies', function(req, res) {

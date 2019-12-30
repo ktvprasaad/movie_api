@@ -38,7 +38,7 @@ class ProfileView extends React.Component {
         this.onBirthdayChange = this.onBirthdayChange.bind(this);
 
         this.moviesAPI = axios.create({
-            baseURL: 'https://webflix-api-2019.herokuapp.com',
+            baseURL: 'https://webflix-api-2019.herokuapp.com/client',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
