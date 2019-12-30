@@ -146,8 +146,8 @@ export class MainView extends React.Component {
             <div className="mainview">
                 <Navbar bg="dark" variant="dark">
                      <Nav className="mr-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href={`/users/${user}`}>Profile</Nav.Link>
+                        <Nav.Link href="/client">Home</Nav.Link>
+                        <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                      </Nav>
                      <Button variant="outline-info" type="button" onClick={() => this.handleLogout()}>
                         Logout
