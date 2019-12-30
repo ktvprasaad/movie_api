@@ -1,6 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { setMovies, setUser } from '../../actions/actions';
+
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
@@ -22,20 +26,21 @@ export class MovieCard extends React.Component {
         this.moviesAPI = axios.create({
             baseURL: 'https://webflix-api-2019.herokuapp.com',
             headers: {
-                Authorization: `Bearer ${props.token}`
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
     }
 
     addFavMovie(props) {
 
-        this.moviesAPI.post(`/users/${props.user}/movie/${props.movie._id}`)
+        this.moviesAPI.post(`/users/${localStorage.getItem('user')}/movie/${props.movie._id}`)
         // null is needed for post
         // axios.post(`https://webflix-api-2019.herokuapp.com`, null, {
         //     headers: { Authorization: `Bearer ${props.token}`}
         // })
         .then(response => {
             console.log('Added movie');
+            alert('Movie added to your favorite list.');
         })
         .catch(() => {
             console.log('Movie not updated!');
@@ -44,6 +49,7 @@ export class MovieCard extends React.Component {
 
     render() {
         const { movie, user, token } = this.props;
+        console.log('MovieCard ', this.props);
 
         let image=`https://webflix-api-2019.herokuapp.com/img/${movie.ImagePath}`;
         return (

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
-import { setMovies, setUser } from '../../actions/actions';
+import { setMovies, setUser, setFavorites } from '../../actions/actions';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -13,8 +13,10 @@ import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 
 import { MovieCard } from '../movie-card/movie-card';
+// import { MoviesList } from '../movies-list/movies-list';
 
-export class ProfileView extends React.Component {
+
+class ProfileView extends React.Component {
 
     constructor(props) {
         super(props);
@@ -38,36 +40,10 @@ export class ProfileView extends React.Component {
         this.moviesAPI = axios.create({
             baseURL: 'https://webflix-api-2019.herokuapp.com',
             headers: {
-                Authorization: `Bearer ${props.token}`
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
-
     }
-
-    componentDidMount() {
-        let accessToken = localStorage.getItem('token');
-        if (accessToken !== null) {
-          this.getUser(accessToken);
-        }
-    }
-
-    getUser(token) {
-        axios.get('https://webflix-api-2019.herokuapp.com/users', {
-            headers: { Authorization: `Bearer ${token}`}
-        })
-        .then(response => {
-     // Assign the result to the state
-            // this.setState({
-            //     users: response.data
-            // });
-            console.log('response user:', response.data)
-            this.props.setUser(response.data);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    }
-
 
     onPasswordChange(event) {
         this.setState({
@@ -89,13 +65,14 @@ export class ProfileView extends React.Component {
 
     updateProfile(props) {
 
-        this.moviesAPI.put(`users/${props.userDetail.Username}`,{
+        this.moviesAPI.put(`users/${this.state.userDetail.Username}`,{
             Password: this.state.newPassword,
             Email: this.state.newEmail,
             Birthday: this.state.newBirthday
         })
         .then(response => {
             console.log(response.data);
+            alert('Profile udpated!');
         })
         .catch(() => {
             console.log('Profile not updated!');
@@ -104,31 +81,29 @@ export class ProfileView extends React.Component {
 
     removeFavoriteMovie(e,favoriteMovie) {
 
-        // let movieId = '5dba3742f90a580f64bd30e3';
-        //
-        // this.setState({
-        //     movieId: e.target.value
-        // });
+        console.log('delete :', this.state.userDetail.Username, 'favoriteMovie ' , favoriteMovie);
 
-        console.log('delete :', this.props.userDetail.Username, 'favoriteMovie ' , favoriteMovie);
-
-        this.moviesAPI.delete(`/users/${this.props.userDetail.Username}/movie/${favoriteMovie}`)
+        this.moviesAPI.delete(`/users/${this.state.userDetail.Username}/movie/${favoriteMovie}`)
         .then(response => {
             console.log(response.data);
+            alert('Movie removed from your favorite list.')
         })
         .catch(() => {
             console.log('Movie not removed!');
         });
     }
 
-    deleteProfile(props) {
+    deleteProfile() {
         // axios.delete(`https://webflix-api-2019.herokuapp.com/users/${props.userDetail.Username}`, {
         //     headers: { Authorization: `Bearer ${props.token}`}
         // })
-        this.moviesAPI.delete(`users/${props.userDetail.Username}`)
+        this.moviesAPI.delete(`users/${this.state.userDetail.Username}`)
         .then(response => {
             const data = response.data;
-            props.handleLogout();
+            console.log(response.data);
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            alert('Profile deleted!')
         })
         .catch(() => {
             console.log('Profile not deleted!');
@@ -136,14 +111,17 @@ export class ProfileView extends React.Component {
     };
 
     render() {
-        const { userDetail, token, movies, users } = this.state;
-        console.log('ProfileView props: ', this.props);
-        console.log('ProfileView state: ', this.state);
+        const { userDetail, token } = this.state;
+        const { movies, users } = this.props;
+        console.log(users);
 
-        // let image=`https://webflix-api-2019.herokuapp.com/img/${userDetail.movie.ImagePath}`;
+        if (users !== null ) {
+            this.state.userDetail = users.find(u => u.Username == localStorage.getItem('user'));
+        }
+        
+       // let image=`https://webflix-api-2019.herokuapp.com/img/${userDetail.movie.ImagePath}`;
 
-        if (!userDetail) return null;
-
+        if (!this.state.userDetail) return null;
 
         return (
             <div className="profile-view">
@@ -185,7 +163,7 @@ export class ProfileView extends React.Component {
                 <div className="profile-delete">
                     <Link to="/">
                         <Button variant="link">Back</Button>
-                        <Button variant="primary" type="button" onClick={(props) => this.deleteProfile(this.props)}>
+                        <Button variant="primary" type="button" onClick={() => this.deleteProfile()}>
                             Delete my profile
                         </Button>
                     </Link>
@@ -194,16 +172,17 @@ export class ProfileView extends React.Component {
                     <ListGroup className="list-group-flush" variant="flush">
                        <ListGroup.Item>Favourite Movies:
                         <div>
-                           {userDetail.Favoritemovies.length === 0 &&
+                           {this.state.userDetail.Favoritemovies.length === 0 &&
                              <div className="value">No Favorite Movies have been added</div>
                            }
-                           {userDetail.Favoritemovies.length > 0 &&
+                           {this.state.userDetail.Favoritemovies.length > 0 &&
                              <ul>
-                               {userDetail.Favoritemovies.map(Favoritemovie =>
+                               {this.state.userDetail.Favoritemovies.map(Favoritemovie =>
                                  (<li key={Favoritemovie}>
                                    <p className="favoriteMovies">
                                    {
-                                     <MovieCard/>
+                                     <MovieCard key={Favoritemovie} movie={(movies).find(movie => movie._id == Favoritemovie)}
+                                        user={this.state.userDetail.Username} token={token}/>
                                     }
                                    <Button variant="secondary" size="sm" onClick={(event) => this.removeFavoriteMovie(event, Favoritemovie)}>
                                      Remove
@@ -222,20 +201,8 @@ export class ProfileView extends React.Component {
     }
 }
 
-// const mapStateToProps = state => {
-//     const { movies } = state;
-//     return { movies };
-// };
-
 let mapStateToProps = state => {
-    return { movies: state.movies, users: state.users }
+    return { movies: state.movies, users: state.users, favorites: state.favorites }
 }
 
-export default connect(mapStateToProps,{setUser})(ProfileView);
-//186 <MovieCard key={Favoritemovie} movie={(movies).find(movie => movie._id == Favoritemovie)}
-// user={userDetail.Username} token={token}/>
-
-    //    let user = (users).find(user => user.Username = localStorage.getItem('user'));
-    //    console.log(user);
-
-    //    if (!user) return null;
+export default connect(mapStateToProps,{setMovies, setUser, setFavorites})(ProfileView);

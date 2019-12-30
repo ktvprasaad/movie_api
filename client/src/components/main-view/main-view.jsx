@@ -3,8 +3,7 @@ import axios from 'axios';
 
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
-import setMovies from '../../actions/actions';
-import { setUser } from '../../actions/actions';
+import { setMovies, setUser } from '../../actions/actions';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -20,7 +19,7 @@ import { RegistrationView } from '../registration-view/registration-view';
 import { MovieView } from '../movie-view/movie-view';
 import { GenreView } from '../genre-view/genre-view';
 import { DirectorView } from '../director-view/director-view';
-import { ProfileView } from '../profile-view/profile-view';
+import  ProfileView  from '../profile-view/profile-view';
 
 export class MainView extends React.Component {
 
@@ -43,7 +42,7 @@ export class MainView extends React.Component {
 
         if (accessToken !== null) {
           this.getMovies(accessToken);
-        //   this.getUser(accessToken);
+          this.getUser(accessToken);
         }
     }
 
@@ -150,15 +149,11 @@ export class MainView extends React.Component {
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href={`/users/${user}`}>Profile</Nav.Link>
                      </Nav>
-                     <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-info">Search</Button>
-                     </Form>
                      <Button variant="outline-info" type="button" onClick={() => this.handleLogout()}>
                         Logout
                      </Button>
                 </Navbar>
-                <Router>
+                <Router basename="/client">
                     <Route exact path="/" render={() => {
                         if (!user && register === false) {
                             return <LoginView onLoggedIn={user => this.onLoggedIn(user)} onClick={() => this.onRegistration()}/>;

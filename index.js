@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -28,6 +29,10 @@ mongoose.connect('mongodb+srv://webFlixDBadmin:Hyperb0l@@cluster0-3axny.mongodb.
 
 //To send all the static files - html,css,images,javascript
 app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, "client", "dist")));
+app.get("/client/*", (req,res) => {
+	res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 //To log requests with timestamp, method, url, status and string length
 app.use(morgan('common'));
 
