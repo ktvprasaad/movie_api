@@ -134,9 +134,6 @@ export class MainView extends React.Component {
         let { movies } = this.props;
         let { user, register, token  } = this.state;
 
-        console.log('MainView - props :' , this.props);
-        console.log('MainView - state :' , this.state);
-        console.log('users :', this.props.users);
         // if (!movies) return <div className="main-view"/>;
 
         // 1st render: this.state.token === null, console.log(token) => null, componentDidMount => this.setState(token)
@@ -184,7 +181,6 @@ export class MainView extends React.Component {
 }
 
 let mapStateToProps = state => {
-    console.log(state.movies, ' movies : users', state.users);
     return { movies: state.movies, users: state.users }
 }
   
