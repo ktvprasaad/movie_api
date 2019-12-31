@@ -71,7 +71,6 @@ class ProfileView extends React.Component {
             Birthday: this.state.newBirthday
         })
         .then(response => {
-            console.log(response.data);
             alert('Profile udpated!');
         })
         .catch(() => {
@@ -81,11 +80,8 @@ class ProfileView extends React.Component {
 
     removeFavoriteMovie(e,favoriteMovie) {
 
-        console.log('delete :', this.state.userDetail.Username, 'favoriteMovie ' , favoriteMovie);
-
         this.moviesAPI.delete(`/users/${this.state.userDetail.Username}/movie/${favoriteMovie}`)
         .then(response => {
-            console.log(response.data);
             alert('Movie removed from your favorite list.')
         })
         .catch(() => {
@@ -100,7 +96,6 @@ class ProfileView extends React.Component {
         this.moviesAPI.delete(`users/${this.state.userDetail.Username}`)
         .then(response => {
             const data = response.data;
-            console.log(response.data);
             localStorage.removeItem('user');
             localStorage.removeItem('token');
             alert('Profile deleted!')
@@ -113,7 +108,6 @@ class ProfileView extends React.Component {
     render() {
         const { userDetail, token } = this.state;
         const { movies, users } = this.props;
-        console.log(users);
 
         if (users !== null ) {
             this.state.userDetail = users.find(u => u.Username == localStorage.getItem('user'));

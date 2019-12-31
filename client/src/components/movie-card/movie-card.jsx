@@ -39,7 +39,6 @@ export class MovieCard extends React.Component {
         //     headers: { Authorization: `Bearer ${props.token}`}
         // })
         .then(response => {
-            console.log('Added movie');
             alert('Movie added to your favorite list.');
         })
         .catch(() => {
@@ -49,7 +48,6 @@ export class MovieCard extends React.Component {
 
     render() {
         const { movie, user, token } = this.props;
-        console.log('MovieCard ', this.props);
 
         let image=`https://webflix-api-2019.herokuapp.com/img/${movie.ImagePath}`;
         return (

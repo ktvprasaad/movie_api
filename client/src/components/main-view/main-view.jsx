@@ -78,7 +78,6 @@ export class MainView extends React.Component {
             //     movies: response.data,
             //     token: token
             // });
-            console.log('response movies:', response.data)
             this.props.setMovies(response.data);
         })
         .catch(function (error) {
@@ -95,7 +94,6 @@ export class MainView extends React.Component {
             // this.setState({
             //     users: response.data
             // });
-            console.log('response user:', response.data)
             this.props.setUser(response.data);
         })
         .catch(function (error) {
@@ -104,14 +102,12 @@ export class MainView extends React.Component {
     }
 
     onRegistration() {
-        console.log('onRegistration');
         this.setState({
             register: true
         });
     }
 
     addNewUser(user) {
-        console.log(user);
         this.setState({
             user: user,
             register: false
