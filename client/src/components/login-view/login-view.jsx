@@ -27,12 +27,10 @@ export function LoginView(props) {
         })
         .then(response => {
             const data = response.data;
-            console.log('Login props:', response.data);
             props.onLoggedIn(data);
         })
         .catch( e => {
-            console.log('Username does not exist!');
-            alert('User does not exist. Please sign up!');
+            alert('Username does not exist. Please sign up!');
         });
     };
 
