@@ -43910,7 +43910,6 @@ function (_React$Component) {
       //     headers: { Authorization: `Bearer ${props.token}`}
       // })
       .then(function (response) {
-        console.log('Added movie');
         alert('Movie added to your favorite list.');
       }).catch(function () {
         console.log('Movie not updated!');
@@ -43925,8 +43924,9 @@ function (_React$Component) {
           movie = _this$props.movie,
           user = _this$props.user,
           token = _this$props.token;
-      console.log('MovieCard ', this.props);
       var image = "https://webflix-api-2019.herokuapp.com/img/".concat(movie.ImagePath);
+      console.log('Card :', this.props, 'image :', image);
+      if (!movie) return null;
       return _react.default.createElement(_Card.default, {
         style: {
           width: "12rem"
@@ -44078,11 +44078,9 @@ function LoginView(props) {
       Password: password
     }).then(function (response) {
       var data = response.data;
-      console.log('Login props:', response.data);
       props.onLoggedIn(data);
     }).catch(function (e) {
-      console.log('Username does not exist!');
-      alert('User does not exist. Please sign up!');
+      alert('Username does not exist. Please sign up!');
     });
   };
 
@@ -44808,7 +44806,6 @@ function (_React$Component) {
         Email: this.state.newEmail,
         Birthday: this.state.newBirthday
       }).then(function (response) {
-        console.log(response.data);
         alert('Profile udpated!');
       }).catch(function () {
         console.log('Profile not updated!');
@@ -44817,9 +44814,7 @@ function (_React$Component) {
   }, {
     key: "removeFavoriteMovie",
     value: function removeFavoriteMovie(e, favoriteMovie) {
-      console.log('delete :', this.state.userDetail.Username, 'favoriteMovie ', favoriteMovie);
       this.moviesAPI.delete("/users/".concat(this.state.userDetail.Username, "/movie/").concat(favoriteMovie)).then(function (response) {
-        console.log(response.data);
         alert('Movie removed from your favorite list.');
       }).catch(function () {
         console.log('Movie not removed!');
@@ -44833,7 +44828,6 @@ function (_React$Component) {
       // })
       this.moviesAPI.delete("users/".concat(this.state.userDetail.Username)).then(function (response) {
         var data = response.data;
-        console.log(response.data);
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         alert('Profile deleted!');
@@ -44852,7 +44846,6 @@ function (_React$Component) {
       var _this$props = this.props,
           movies = _this$props.movies,
           users = _this$props.users;
-      console.log(users);
 
       if (users !== null) {
         this.state.userDetail = users.find(function (u) {
@@ -44917,11 +44910,9 @@ function (_React$Component) {
         variant: "flush"
       }, _react.default.createElement(_ListGroup.default.Item, null, "Favourite Movies:", _react.default.createElement("div", null, this.state.userDetail.Favoritemovies.length === 0 && _react.default.createElement("div", {
         className: "value"
-      }, "No Favorite Movies have been added"), this.state.userDetail.Favoritemovies.length > 0 && _react.default.createElement("ul", null, this.state.userDetail.Favoritemovies.map(function (Favoritemovie) {
+      }, "No Favorite Movies have been added"), this.state.userDetail.Favoritemovies.length > 0 && movies.length !== 0 && _react.default.createElement("ul", null, this.state.userDetail.Favoritemovies.map(function (Favoritemovie) {
         return _react.default.createElement("li", {
           key: Favoritemovie
-        }, _react.default.createElement("p", {
-          className: "favoriteMovies"
         }, _react.default.createElement(_movieCard.MovieCard, {
           key: Favoritemovie,
           movie: movies.find(function (movie) {
@@ -44935,7 +44926,7 @@ function (_React$Component) {
           onClick: function onClick(event) {
             return _this2.removeFavoriteMovie(event, Favoritemovie);
           }
-        }, "Remove")));
+        }, "Remove"));
       })))))));
     }
   }]);
@@ -45095,8 +45086,6 @@ function (_React$Component) {
         //     movies: response.data,
         //     token: token
         // });
-        console.log('response movies:', response.data);
-
         _this2.props.setMovies(response.data);
       }).catch(function (error) {
         console.log(error);
@@ -45116,8 +45105,6 @@ function (_React$Component) {
         // this.setState({
         //     users: response.data
         // });
-        console.log('response user:', response.data);
-
         _this3.props.setUser(response.data);
       }).catch(function (error) {
         console.log(error);
@@ -45126,7 +45113,6 @@ function (_React$Component) {
   }, {
     key: "onRegistration",
     value: function onRegistration() {
-      console.log('onRegistration');
       this.setState({
         register: true
       });
@@ -45134,7 +45120,6 @@ function (_React$Component) {
   }, {
     key: "addNewUser",
     value: function addNewUser(user) {
-      console.log(user);
       this.setState({
         user: user,
         register: false
@@ -45160,10 +45145,7 @@ function (_React$Component) {
       var _this$state = this.state,
           user = _this$state.user,
           register = _this$state.register,
-          token = _this$state.token;
-      console.log('MainView - props :', this.props);
-      console.log('MainView - state :', this.state);
-      console.log('users :', this.props.users); // if (!movies) return <div className="main-view"/>;
+          token = _this$state.token; // if (!movies) return <div className="main-view"/>;
       // 1st render: this.state.token === null, console.log(token) => null, componentDidMount => this.setState(token)
       // 2nd render: this.state.token === 'e7hhsdif', console.log(token) => 'e7'
 
@@ -45175,9 +45157,9 @@ function (_React$Component) {
       }, _react.default.createElement(_Nav.default, {
         className: "mr-auto"
       }, _react.default.createElement(_Nav.default.Link, {
-        href: "/"
+        href: "/client"
       }, "Home"), _react.default.createElement(_Nav.default.Link, {
-        href: "/users/".concat(user)
+        href: "/client/users/".concat(user)
       }, "Profile")), _react.default.createElement(_Button.default, {
         variant: "outline-info",
         type: "button",
@@ -45269,7 +45251,6 @@ function (_React$Component) {
 exports.MainView = MainView;
 
 var mapStateToProps = function mapStateToProps(state) {
-  console.log(state.movies, ' movies : users', state.users);
   return {
     movies: state.movies,
     users: state.users
@@ -45523,7 +45504,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62564" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52328" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

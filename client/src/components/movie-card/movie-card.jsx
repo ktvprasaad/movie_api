@@ -48,8 +48,13 @@ export class MovieCard extends React.Component {
 
     render() {
         const { movie, user, token } = this.props;
-
+        
         let image=`https://webflix-api-2019.herokuapp.com/img/${movie.ImagePath}`;
+
+        console.log('Card :', this.props, 'image :' , image);
+
+        if (!movie) return null;
+
         return (
           <Card style={{ width: "12rem" }}>
             <Card.Img variant="top" src={image} />

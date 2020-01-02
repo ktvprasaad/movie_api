@@ -169,19 +169,15 @@ class ProfileView extends React.Component {
                            {this.state.userDetail.Favoritemovies.length === 0 &&
                              <div className="value">No Favorite Movies have been added</div>
                            }
-                           {this.state.userDetail.Favoritemovies.length > 0 &&
+                           {this.state.userDetail.Favoritemovies.length > 0 &&  movies.length !== 0 &&
                              <ul>
                                {this.state.userDetail.Favoritemovies.map(Favoritemovie =>
                                  (<li key={Favoritemovie}>
-                                   <p className="favoriteMovies">
-                                   {
-                                     <MovieCard key={Favoritemovie} movie={(movies).find(movie => movie._id == Favoritemovie)}
-                                        user={this.state.userDetail.Username} token={token}/>
-                                    }
+                                    <MovieCard key={Favoritemovie} movie={(movies).find(movie => movie._id == Favoritemovie)}
+                                       user={this.state.userDetail.Username} token={token}/>
                                    <Button variant="secondary" size="sm" onClick={(event) => this.removeFavoriteMovie(event, Favoritemovie)}>
                                      Remove
                                    </Button>
-                                   </p>
                                  </li>)
                                )}
                              </ul>
