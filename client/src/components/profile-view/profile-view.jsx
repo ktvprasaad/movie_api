@@ -95,10 +95,11 @@ class ProfileView extends React.Component {
         // })
         this.moviesAPI.delete(`users/${this.state.userDetail.Username}`)
         .then(response => {
+            alert('Profile deleted!');
             const data = response.data;
             localStorage.removeItem('user');
             localStorage.removeItem('token');
-            alert('Profile deleted!')
+            window.open('/client', '_self');
         })
         .catch(() => {
             console.log('Profile not deleted!');
@@ -157,10 +158,10 @@ class ProfileView extends React.Component {
                 <div className="profile-delete">
                     <Link to="/">
                         <Button variant="link">Back</Button>
-                        <Button variant="primary" type="button" onClick={() => this.deleteProfile()}>
-                            Delete my profile
-                        </Button>
                     </Link>
+                    <Button variant="primary" type="button" onClick={() => this.deleteProfile()}>
+                        Delete my profile
+                    </Button>
                 </div>
                 <div className="favoriteMovies">
                     <ListGroup className="list-group-flush" variant="flush">

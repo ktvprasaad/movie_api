@@ -43925,7 +43925,6 @@ function (_React$Component) {
           user = _this$props.user,
           token = _this$props.token;
       var image = "https://webflix-api-2019.herokuapp.com/img/".concat(movie.ImagePath);
-      console.log('Card :', this.props, 'image :', image);
       if (!movie) return null;
       return _react.default.createElement(_Card.default, {
         style: {
@@ -44827,10 +44826,11 @@ function (_React$Component) {
       //     headers: { Authorization: `Bearer ${props.token}`}
       // })
       this.moviesAPI.delete("users/".concat(this.state.userDetail.Username)).then(function (response) {
+        alert('Profile deleted!');
         var data = response.data;
         localStorage.removeItem('user');
         localStorage.removeItem('token');
-        alert('Profile deleted!');
+        window.open('/client', '_self');
       }).catch(function () {
         console.log('Profile not deleted!');
       });
@@ -44897,13 +44897,13 @@ function (_React$Component) {
         to: "/"
       }, _react.default.createElement(_Button.default, {
         variant: "link"
-      }, "Back"), _react.default.createElement(_Button.default, {
+      }, "Back")), _react.default.createElement(_Button.default, {
         variant: "primary",
         type: "button",
         onClick: function onClick() {
           return _this2.deleteProfile();
         }
-      }, "Delete my profile"))), _react.default.createElement("div", {
+      }, "Delete my profile")), _react.default.createElement("div", {
         className: "favoriteMovies"
       }, _react.default.createElement(_ListGroup.default, {
         className: "list-group-flush",
@@ -45130,10 +45130,10 @@ function (_React$Component) {
     value: function handleLogout() {
       localStorage.removeItem('user');
       localStorage.removeItem('token');
-      this.setState({
-        user: null,
-        token: null
-      });
+      window.open('/client', '_self'); // this.setState({
+      //     user:  null,
+      //     token: null
+      // });
     }
   }, {
     key: "render",
@@ -45151,80 +45151,141 @@ function (_React$Component) {
 
       return _react.default.createElement("div", {
         className: "mainview"
-      }, _react.default.createElement(_Navbar.default, {
-        bg: "dark",
-        variant: "dark"
-      }, _react.default.createElement(_Nav.default, {
-        className: "mr-auto"
-      }, _react.default.createElement(_Nav.default.Link, {
-        href: "/client"
-      }, "Home"), _react.default.createElement(_Nav.default.Link, {
-        href: "/client/users/".concat(user)
-      }, "Profile")), _react.default.createElement(_Button.default, {
-        variant: "outline-info",
-        type: "button",
-        onClick: function onClick() {
-          return _this4.handleLogout();
-        }
-      }, "Logout")), _react.default.createElement(_reactRouterDom.BrowserRouter, {
+      }, _react.default.createElement(_reactRouterDom.BrowserRouter, {
         basename: "/client"
       }, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/",
         render: function render() {
           if (!user && register === false) {
-            return _react.default.createElement(_loginView.LoginView, {
+            return _react.default.createElement("div", null, _react.default.createElement(_Navbar.default, {
+              bg: "dark",
+              variant: "dark"
+            }, _react.default.createElement(_Nav.default, {
+              className: "mr-auto"
+            }, _react.default.createElement(_Nav.default.Link, {
+              className: "text-info",
+              href: "/client"
+            }, _react.default.createElement("h3", null, "Webflix Online Movie World!")))), _react.default.createElement(_loginView.LoginView, {
               onLoggedIn: function onLoggedIn(user) {
                 return _this4.onLoggedIn(user);
               },
               onClick: function onClick() {
                 return _this4.onRegistration();
               }
-            });
+            }));
           }
 
-          return _react.default.createElement(_moviesList.default, {
+          return _react.default.createElement("div", null, _react.default.createElement(_Navbar.default, {
+            bg: "dark",
+            variant: "dark"
+          }, _react.default.createElement(_Nav.default, {
+            className: "mr-auto"
+          }, _react.default.createElement(_Nav.default.Link, {
+            href: "/client"
+          }, "Home"), _react.default.createElement(_Nav.default.Link, {
+            href: "/client/users/".concat(user)
+          }, "Profile")), _react.default.createElement(_Button.default, {
+            variant: "outline-info",
+            type: "button",
+            onClick: function onClick() {
+              return _this4.handleLogout();
+            }
+          }, "Logout")), _react.default.createElement(_moviesList.default, {
             movies: movies
-          });
+          }));
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/register",
         render: function render() {
-          return _react.default.createElement(_registrationView.RegistrationView, {
+          return _react.default.createElement("div", null, _react.default.createElement(_Navbar.default, {
+            bg: "dark",
+            variant: "dark"
+          }, _react.default.createElement(_Nav.default, {
+            className: "mr-auto"
+          }, _react.default.createElement(_Nav.default.Link, {
+            className: "text-info",
+            href: "/client"
+          }, _react.default.createElement("h3", null, "Webflix Online Movie World!")))), _react.default.createElement(_registrationView.RegistrationView, {
             addNewUser: function addNewUser(user) {
               return _this4.addNewUser(user);
             }
-          });
+          }));
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/movies/:movieId",
         render: function render(_ref) {
           var match = _ref.match;
-          return _react.default.createElement(_movieView.MovieView, {
+          return _react.default.createElement("div", null, _react.default.createElement(_Navbar.default, {
+            bg: "dark",
+            variant: "dark"
+          }, _react.default.createElement(_Nav.default, {
+            className: "mr-auto"
+          }, _react.default.createElement(_Nav.default.Link, {
+            href: "/client"
+          }, "Home"), _react.default.createElement(_Nav.default.Link, {
+            href: "/client/users/".concat(user)
+          }, "Profile")), _react.default.createElement(_Button.default, {
+            variant: "outline-info",
+            type: "button",
+            onClick: function onClick() {
+              return _this4.handleLogout();
+            }
+          }, "Logout")), _react.default.createElement(_movieView.MovieView, {
             movie: movies.find(function (m) {
               return m._id === match.params.movieId;
             })
-          });
+          }));
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/genres/:genreName",
         render: function render(_ref2) {
           var match = _ref2.match;
-          return _react.default.createElement(_genreView.GenreView, {
+          return _react.default.createElement("div", null, _react.default.createElement(_Navbar.default, {
+            bg: "dark",
+            variant: "dark"
+          }, _react.default.createElement(_Nav.default, {
+            className: "mr-auto"
+          }, _react.default.createElement(_Nav.default.Link, {
+            href: "/client"
+          }, "Home"), _react.default.createElement(_Nav.default.Link, {
+            href: "/client/users/".concat(user)
+          }, "Profile")), _react.default.createElement(_Button.default, {
+            variant: "outline-info",
+            type: "button",
+            onClick: function onClick() {
+              return _this4.handleLogout();
+            }
+          }, "Logout")), _react.default.createElement(_genreView.GenreView, {
             genre: movies.find(function (g) {
               return g.Genre.Name === match.params.genreName;
             })
-          });
+          }));
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/description/:directorName",
         render: function render(_ref3) {
           var match = _ref3.match;
-          return _react.default.createElement(_directorView.DirectorView, {
+          return _react.default.createElement("div", null, _react.default.createElement(_Navbar.default, {
+            bg: "dark",
+            variant: "dark"
+          }, _react.default.createElement(_Nav.default, {
+            className: "mr-auto"
+          }, _react.default.createElement(_Nav.default.Link, {
+            href: "/client"
+          }, "Home"), _react.default.createElement(_Nav.default.Link, {
+            href: "/client/users/".concat(user)
+          }, "Profile")), _react.default.createElement(_Button.default, {
+            variant: "outline-info",
+            type: "button",
+            onClick: function onClick() {
+              return _this4.handleLogout();
+            }
+          }, "Logout")), _react.default.createElement(_directorView.DirectorView, {
             director: movies.find(function (d) {
               return d.Director.Name === match.params.directorName;
             })
-          });
+          }));
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/users/:user",
@@ -45235,11 +45296,26 @@ function (_React$Component) {
           // redirect back to Home
           if (!token) {
             return _react.default.createElement(_reactRouterDom.Redirect, {
-              to: "/"
+              to: "/client"
             });
           }
 
-          return _react.default.createElement(_profileView.default, null);
+          return _react.default.createElement("div", null, _react.default.createElement(_Navbar.default, {
+            bg: "dark",
+            variant: "dark"
+          }, _react.default.createElement(_Nav.default, {
+            className: "mr-auto"
+          }, _react.default.createElement(_Nav.default.Link, {
+            href: "/client"
+          }, "Home"), _react.default.createElement(_Nav.default.Link, {
+            href: "/client/users/".concat(user)
+          }, "Profile")), _react.default.createElement(_Button.default, {
+            variant: "outline-info",
+            type: "button",
+            onClick: function onClick() {
+              return _this4.handleLogout();
+            }
+          }, "Logout")), _react.default.createElement(_profileView.default, null));
         }
       })));
     }
@@ -45504,7 +45580,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52328" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49689" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
