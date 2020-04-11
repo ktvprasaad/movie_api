@@ -13,6 +13,11 @@ import Navbar from 'react-bootstrap/Navbar';
 
 import PropTypes from 'prop-types';
 
+/**
+ * @function LoginView
+ * @description Function component, which accepts props and referred as stateless.
+ * @param {props} props
+ */
 export function LoginView(props) {
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');

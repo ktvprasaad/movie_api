@@ -2,6 +2,10 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 
+/**
+ * @class GenreView
+ * @extends React.Component
+ */
 export class GenreView extends React.Component {
 
     constructor(props) {

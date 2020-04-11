@@ -1,4 +1,32 @@
-const path = require('path');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: index.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: index.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -24,7 +52,7 @@ var auth=require('./auth')(app);
 // var allowedOrigins = * ;
 
 // mongoose.connect('mongodb://127.0.0.1/WebFlixDB', {useNewUrlParser: true});
-mongoose.connect('mongodb+srv://webFlixDBadmin:Hyperb0l@@cluster0-3axny.mongodb.net/WebFlixDB?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://webFlixDBadmin:Hyperb0l@@cluster0-3axny.mongodb.net/WebFlixDB?retryWrites=true&amp;w=majority',
 	{useNewUrlParser: true});
 
 /** To send all the static files - html,css,images,javascript */
@@ -51,8 +79,8 @@ app.use(morgan('common'));
  * @function get-movies
  * @param {string} movies
  * @param {function} token - passport authentication
- * @param {function}  reqRes - req & res
- * @description To get Title, Description, Genre, Director & Image
+ * @param {function}  reqRes - req &amp; res
+ * @description To get Title, Description, Genre, Director &amp; Image
  */
 app.get('/movies', passport.authenticate('jwt', {session: false }), function(req, res) {
 	Movies.find().then(function(movies) {
@@ -66,8 +94,8 @@ app.get('/movies', passport.authenticate('jwt', {session: false }), function(req
  * @function get-users
  * @param {string} users
  * @param {function} token - passport authentication
- * @param {function} reqRes - req & res
- * @description To get Title, Description, Genre, Director & Image
+ * @param {function} reqRes - req &amp; res
+ * @description To get Title, Description, Genre, Director &amp; Image
  */
 app.get('/users', passport.authenticate('jwt', {session: false }), function(req, res) {
 	Users.find().then(function(users) {
@@ -81,8 +109,8 @@ app.get('/users', passport.authenticate('jwt', {session: false }), function(req,
  * @function get-movies-title
  * @param {string} movies - get movie passing title
  * @param {function} token - passport authentication
- * @param {function}  reqRes - req & res
- * @description To get Title, Description, Genre, Director & Image
+ * @param {function}  reqRes - req &amp; res
+ * @description To get Title, Description, Genre, Director &amp; Image
  */
 // app.get('/movies/:title', passport.authenticate('jwt', {session: false}), function(req, res){
 app.get('/movies/:title', function(req, res){
@@ -103,8 +131,8 @@ app.get('/movies/:title', function(req, res){
  * @function get-movies-genre
  * @param {string} movies - get movies passing genre
  * @param {function} token - passport authentication
- * @param {function}  reqRes - req & res
- * @description To get Title, Description, Genre, Director & Image
+ * @param {function}  reqRes - req &amp; res
+ * @description To get Title, Description, Genre, Director &amp; Image
  */
 app.get('/movies/genre/:genre', passport.authenticate('jwt', {session: false}), function(req, res) {
 	Movies.findOne({'Genre.Name': req.params.genre}).then(function(movie) {
@@ -123,8 +151,8 @@ app.get('/movies/genre/:genre', passport.authenticate('jwt', {session: false}), 
  * @function get-movies-director
  * @param {string} movies - get director detail passing director name
  * @param {function} token - passport authentication
- * @param {function}  reqRes - req & res
- * @description To get Name, Bio, Birth & Death details
+ * @param {function}  reqRes - req &amp; res
+ * @description To get Name, Bio, Birth &amp; Death details
  */
 app.get('/movies/director/:director', passport.authenticate('jwt', {session: false}), function(req, res) {
 	Movies.findOne({'Director.Name': req.params.director}).then( function(movie) {
@@ -143,7 +171,7 @@ app.get('/movies/director/:director', passport.authenticate('jwt', {session: fal
  * @function get-users-username
  * @param {string} users - get users' profile passing username
  * @param {function} token - passport authentication
- * @param {function}  reqRes - req & res
+ * @param {function}  reqRes - req &amp; res
  */
 app.get('/users/:username', passport.authenticate('jwt', {session: false}), function(req, res) {
 	Users.findOne({Username: req.params.username}).then( function(user) {
@@ -164,7 +192,7 @@ app.get('/users/:username', passport.authenticate('jwt', {session: false}), func
  * @function get-users-add
  * @param {string} users - get users' profile passing username
  * @param {function} token - passport authentication
- * @param {function}  reqRes - req & res
+ * @param {function}  reqRes - req &amp; res
  * @description - Validates user's details whether they are valid or not and add it to the database provided the user
  * not already signed up.
  */
@@ -211,7 +239,7 @@ app.post('/users',
  * @function get-users-update
  * @param {string} users - get users' profile passing username
  * @param {function} token - passport authentication
- * @param {function}  reqRes - req & res
+ * @param {function}  reqRes - req &amp; res
  * @description - Update user details.
  */
 app.put('/users/:Username', passport.authenticate ('jwt',{session: false}),
@@ -245,7 +273,7 @@ app.put('/users/:Username', passport.authenticate ('jwt',{session: false}),
  * @function get-users-favorite
  * @param {string} users - get users' profile passing username
  * @param {function} token - passport authentication
- * @param {function}  reqRes - req & res
+ * @param {function}  reqRes - req &amp; res
  * @description - Updates favorite movie to the user's list.
  */
 app.post('/users/:Username/movie/:movie', passport.authenticate('jwt',{session: false}), function( req, res) {
@@ -268,7 +296,7 @@ app.post('/users/:Username/movie/:movie', passport.authenticate('jwt',{session: 
  * @function get-users-favorite
  * @param {string} users - get users' profile passing username
  * @param {function} token - passport authentication
- * @param {function}  reqRes - req & res
+ * @param {function}  reqRes - req &amp; res
  * @description - Delete favorite movie from the user's list.
  */
 app.delete('/users/:Username/movie/:movie', passport.authenticate('jwt', {session: false}),function(req, res) {
@@ -292,7 +320,7 @@ app.delete('/users/:Username/movie/:movie', passport.authenticate('jwt', {sessio
  * @function get-users-favorite
  * @param {string} users - get users' profile passing username
  * @param {function} token - passport authentication
- * @param {function}  reqRes - req & res
+ * @param {function}  reqRes - req &amp; res
  * @description - Deletes user profile.
  */
 app.delete('/users/:Username', passport.authenticate('jwt', {session: false}), function(req, res) {
@@ -319,3 +347,26 @@ var port = process.env.PORT || 3000;
 app.listen(port, '0.0.0.0', function() {
 	console.log('Listening to the port 3000');
 });
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#get-movies">get-movies</a></li><li><a href="global.html#get-movies-director">get-movies-director</a></li><li><a href="global.html#get-movies-genre">get-movies-genre</a></li><li><a href="global.html#get-movies-title">get-movies-title</a></li><li><a href="global.html#get-users">get-users</a></li><li><a href="global.html#get-users-add">get-users-add</a></li><li><a href="global.html#get-users-favorite">get-users-favorite</a></li><li><a href="global.html#get-users-update">get-users-update</a></li><li><a href="global.html#get-users-username">get-users-username</a></li><li><a href="global.html#usemorgan">use</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Thu Apr 09 2020 15:02:17 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
