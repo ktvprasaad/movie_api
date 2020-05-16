@@ -1,3 +1,5 @@
+import './movies-list.scss';
+
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -20,9 +22,11 @@ function MoviesList(props) {
 
     if (!movies) return <div class="main-view"/>;
 
-    return <div className="movies-list">
+    return <div> 
         <VisibilityFilterInput visibilityFilter={visibilityFilter}/>
-        {filteredMovies.map(m => <MovieCard key={m._id} movie={m}/>)}
+        <div className="movies-list">
+            {filteredMovies.map(m => <MovieCard key={m._id} movie={m}/>)}
+        </div>
         </div>;
 }
 

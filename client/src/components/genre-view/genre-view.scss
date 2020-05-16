@@ -1,0 +1,37 @@
+.genre-view {
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+    color: white;
+    margin: 0 auto;
+    max-width: 900px;
+    height: 100vh;
+}
+.genre-view a {
+        width: 50px;
+        height: 10px;
+        margin: .5em 2em;
+}
+.genre-view.col-right {
+    padding: 2em;
+    display: block;
+    justify-content: center;
+    margin: 0 auto;
+    width: 700px;
+    color: silver;
+
+}
+.genre-description span.value, .genre-name span.value {
+    font-size: 1.2em;    
+}
+.genre-description span.label, .genre-name span.label {
+    color: grey;
+    font-size: 1em;
+    margin-right: .5em;
+    text-transform: uppercase;;
+}
+.genre-name span.value {
+    font-size: 1.7em;
+    font-weight: bold;
+    color: white;   
+}

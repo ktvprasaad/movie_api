@@ -1,3 +1,5 @@
+import './movie-card.scss';
+
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -18,7 +20,8 @@ export class MovieCard extends React.Component {
         this.state = {
             movie: null,
             user: null,
-            token: null
+            token: null,
+            isShown: false
         };
 
         // axios instance
@@ -33,7 +36,7 @@ export class MovieCard extends React.Component {
 
     addFavMovie(props) {
 
-        this.moviesAPI.post(`/users/${localStorage.getItem('user')}/movie/${props.movie._id}`)
+        this.moviesAPI.post(`/users/${localStorage.getItem('user')}/movie/${props.movie._id}`,{upsert: true})
         // null is needed for post
         // axios.post(`https://webflix-api-2019.herokuapp.com`, null, {
         //     headers: { Authorization: `Bearer ${props.token}`}
@@ -46,26 +49,36 @@ export class MovieCard extends React.Component {
         });
     };
 
+
+    setIsShown(state) {
+        this.setState({
+            isShown: state
+        });
+    }
+
     render() {
         const { movie, user, token } = this.props;
+        const { isShown } = this.state;
         
         let image=`https://webflix-api-2019.herokuapp.com/img/${movie.ImagePath}`;
 
         if (!movie) return null;
 
         return (
-          <Card style={{ width: "12rem" }}>
-            <Card.Img variant="top" src={image} />
-            <Card.Body>
-                <Card.Title>{movie.Title}</Card.Title>
-                <Card.Text>{movie.Description}</Card.Text>
-                <Link to={`/movies/${movie._id}`}>
-                    <Button variant="link">Open</Button>
-                </Link>
-                <Button variant="primary" type="button" onClick={(props) => this.addFavMovie(this.props)}>
-                    Add to my Favorite List
-                </Button>
-            </Card.Body>
+            <Card>
+            <Card.Img variant="top" src={image} onMouseEnter={() => this.setIsShown(true)}/>
+            { isShown && (
+                <Card.Body onMouseLeave={() => this.setIsShown(false)}>
+                    <Card.Title>{movie.Title}</Card.Title>
+                    <Card.Text>{movie.Description}</Card.Text>
+                    <Link to={`/movies/${movie._id}`}>
+                        <Button class="open" variant="link">Open</Button>
+                    </Link>
+                    <Button class="add" variant="primary" type="button" onClick={(props) => this.addFavMovie(this.props)}>
+                        Add to my Favorite List
+                    </Button>
+                </Card.Body>
+            )}
         </Card>
         );
     }

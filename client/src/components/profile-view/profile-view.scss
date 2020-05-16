@@ -1,0 +1,41 @@
+ul {
+    list-style: none;
+}
+
+.list-group-item {
+    padding: 0;
+    background: none;
+    color: white;
+    display: block;
+    text-align: center;
+    font-size: xx-large;
+}
+.list-group-item ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 300px));    
+    // grid-template-columns: repeat(3, 300px);    
+    grid-gap: 1em;
+    justify-content: center;
+    height: 300px;
+    text-align: left; 
+    font-size: medium;
+}
+.list-group-item li {
+    display: block;
+    justify-content: center;
+    padding: 0;
+    position: relative;
+}
+.favoriteMovies {
+    margin: 2em;
+}
+#remove {
+    display: block;
+    // justify-content: center;
+    // position: absolute;
+    margin: 0 auto 1em;
+}
+.profile-delete {
+    display: inline-block;
+    float: right;
+}

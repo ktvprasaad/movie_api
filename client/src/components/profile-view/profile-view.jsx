@@ -1,3 +1,4 @@
+import './profile-view.scss'
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
@@ -120,6 +121,9 @@ class ProfileView extends React.Component {
 
         return (
             <div className="profile-view">
+                <Link to="/">
+                    <Button variant="link">Back</Button>
+                </Link>
                 <div className="profileUpdate-view">
                     <Row className="justify-content-center">
                     <Col xs={11} sm={8} md={6} className="form-container">
@@ -153,22 +157,20 @@ class ProfileView extends React.Component {
                                 Update my profile
                             </Button>
                         </Link>
+                        <div className="profile-delete">
+                            <Button variant="light" type="button" onClick={() => this.deleteProfile()}>
+                                Delete my profile
+                            </Button>
+                        </div>
                     </Form></Col></Row>
                 </div>
-                <div className="profile-delete">
-                    <Link to="/">
-                        <Button variant="link">Back</Button>
-                    </Link>
-                    <Button variant="primary" type="button" onClick={() => this.deleteProfile()}>
-                        Delete my profile
-                    </Button>
-                </div>
+
                 <div className="favoriteMovies">
                     <ListGroup className="list-group-flush" variant="flush">
-                       <ListGroup.Item>Favourite Movies:
+                       <ListGroup.Item>My Favourite Movies!
                         <div>
                            {this.state.userDetail.Favoritemovies.length === 0 &&
-                             <div className="value">No Favorite Movies have been added</div>
+                             <div className="value">Not Added Your Favorite Movies Yet!</div>
                            }
                            {this.state.userDetail.Favoritemovies.length > 0 &&  movies.length !== 0 &&
                              <ul>
@@ -176,7 +178,7 @@ class ProfileView extends React.Component {
                                  (<li key={Favoritemovie}>
                                     <MovieCard key={Favoritemovie} movie={(movies).find(movie => movie._id == Favoritemovie)}
                                        user={this.state.userDetail.Username} token={token}/>
-                                   <Button variant="secondary" size="sm" onClick={(event) => this.removeFavoriteMovie(event, Favoritemovie)}>
+                                   <Button id="remove" variant="secondary" size="sm" onClick={(event) => this.removeFavoriteMovie(event, Favoritemovie)}>
                                      Remove
                                    </Button>
                                  </li>)

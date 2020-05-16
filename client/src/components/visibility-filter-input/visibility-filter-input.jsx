@@ -10,14 +10,15 @@ import { setFilter } from '../../actions/actions';
 
 function VisibilityFilterInput(props) {
     return (
-        <Row className="justify-content-left">
-        <Col xs={11} sm={8} md={6} className="form-container">
-        <Form.Control 
-            onChange={e => props.setFilter(e.target.value)} 
-            value={props.visibilityFilter} 
-            placeholder="filter"
-        />
-        </Col>
+        <Row>
+            <Col>1 of 1</Col>
+            <Col xs={11} sm={8} md={3} className="form-container">
+            <Form.Control 
+                onChange={e => props.setFilter(e.target.value)} 
+                value={props.visibilityFilter} 
+                placeholder="filter"
+            />
+            </Col>
         </Row>
     );
 }
