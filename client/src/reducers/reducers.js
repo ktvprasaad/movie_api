@@ -15,7 +15,7 @@ function movies(state = [], action) {
     switch (action.type) {
         case SET_MOVIES:
             return action.value;
-        default:combineReducers
+        default: 
             return state;
     }
 }

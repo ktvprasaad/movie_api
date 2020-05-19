@@ -1,5 +1,6 @@
-import './profile-view.scss'
+import './profile-view.scss';
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
@@ -64,15 +65,18 @@ class ProfileView extends React.Component {
         });
     }
 
-    updateProfile(props) {
+    updateProfile() {
 
-        this.moviesAPI.put(`users/${this.state.userDetail.Username}`,{
+        this.moviesAPI.put(`users/${this.props.user}`,{
             Password: this.state.newPassword,
             Email: this.state.newEmail,
             Birthday: this.state.newBirthday
         })
         .then(response => {
             alert('Profile udpated!');
+        })
+        .then(response => {
+            document.location.reload(true);
         })
         .catch(() => {
             console.log('Profile not updated!');
@@ -81,9 +85,12 @@ class ProfileView extends React.Component {
 
     removeFavoriteMovie(e,favoriteMovie) {
 
-        this.moviesAPI.delete(`/users/${this.state.userDetail.Username}/movie/${favoriteMovie}`)
+        this.moviesAPI.delete(`/users/${this.props.user}/movie/${favoriteMovie}`)
         .then(response => {
             alert('Movie removed from your favorite list.')
+        })
+        .then(response => {
+            document.location.reload(true);
         })
         .catch(() => {
             console.log('Movie not removed!');
@@ -94,7 +101,7 @@ class ProfileView extends React.Component {
         // axios.delete(`https://webflix-api-2019.herokuapp.com/users/${props.userDetail.Username}`, {
         //     headers: { Authorization: `Bearer ${props.token}`}
         // })
-        this.moviesAPI.delete(`users/${this.state.userDetail.Username}`)
+        this.moviesAPI.delete(`users/${this.props.user}`)
         .then(response => {
             alert('Profile deleted!');
             const data = response.data;
@@ -108,16 +115,17 @@ class ProfileView extends React.Component {
     };
 
     render() {
-        const { userDetail, token } = this.state;
-        const { movies, users } = this.props;
+        const { movies, users, user } = this.props;
+
+        let userDetail;
+        let favoriteList;
 
         if (users !== null ) {
-            this.state.userDetail = users.find(u => u.Username == localStorage.getItem('user'));
+            userDetail = users.find(u => u.Username == user);
+            favoriteList = movies.filter(movie => userDetail.Favoritemovies.includes(movie._id));
         }
-        
-       // let image=`https://webflix-api-2019.herokuapp.com/img/${userDetail.movie.ImagePath}`;
 
-        if (!this.state.userDetail) return null;
+        if (!userDetail) return null;
 
         return (
             <div className="profile-view">
@@ -152,11 +160,9 @@ class ProfileView extends React.Component {
                                 placeholder="Enter New Date of Birth"
                                 onChange={this.onBirthdayChange}/>
                         </Form.Group>
-                        <Link to="/">
-                            <Button variant="primary" type="button" onClick={(props) => this.updateProfile(this.props)}>
-                                Update my profile
-                            </Button>
-                        </Link>
+                        <Button variant="primary" type="button" onClick={() => this.updateProfile()}>
+                            Update my profile
+                        </Button>
                         <div className="profile-delete">
                             <Button variant="light" type="button" onClick={() => this.deleteProfile()}>
                                 Delete my profile
@@ -169,16 +175,16 @@ class ProfileView extends React.Component {
                     <ListGroup className="list-group-flush" variant="flush">
                        <ListGroup.Item>My Favourite Movies!
                         <div>
-                           {this.state.userDetail.Favoritemovies.length === 0 &&
+                           {userDetail.Favoritemovies.length === 0 &&
                              <div className="value">Not Added Your Favorite Movies Yet!</div>
                            }
-                           {this.state.userDetail.Favoritemovies.length > 0 &&  movies.length !== 0 &&
+                           {userDetail.Favoritemovies.length > 0 &&  movies.length !== 0 &&
                              <ul>
-                               {this.state.userDetail.Favoritemovies.map(Favoritemovie =>
-                                 (<li key={Favoritemovie}>
-                                    <MovieCard key={Favoritemovie} movie={(movies).find(movie => movie._id == Favoritemovie)}
-                                       user={this.state.userDetail.Username} token={token}/>
-                                   <Button id="remove" variant="secondary" size="sm" onClick={(event) => this.removeFavoriteMovie(event, Favoritemovie)}>
+                               {favoriteList.map(favMovie =>
+                                 (<li key={favMovie._id}>
+                                    <MovieCard key={favMovie._id} movie={(movies).find(movie => movie._id == favMovie._id)}
+                                       />
+                                   <Button id="remove" variant="secondary" size="sm" onClick={(event) => this.removeFavoriteMovie(event, favMovie._id)}>
                                      Remove
                                    </Button>
                                  </li>)
@@ -199,3 +205,32 @@ let mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps,{setMovies, setUser, setFavorites})(ProfileView);
+
+ProfileView.propTypes = {
+    users: PropTypes.shape({
+      _id: PropTypes.string,
+      Username: PropTypes.string,
+      Password: PropTypes.string,
+      Birthday: PropTypes.date
+    }),
+    movies: PropTypes.arrayOf(
+      PropTypes.shape({
+        _id: PropTypes.string,
+        Title: PropTypes.string,
+        ImagePath: PropTypes.string,
+        Description: PropTypes.string,
+        Genre: PropTypes.shape({
+          Name: PropTypes.string,
+          Description: PropTypes.string
+        }),
+        Director: PropTypes.shape({
+          Name: PropTypes.string,
+          Bio: PropTypes.string,
+          Birth: PropTypes.date,
+          Death: PropTypes.date
+        }),
+        Featured: PropTypes.boolean,
+        Actors: PropTypes.array
+      })
+    ).isRequired
+  }

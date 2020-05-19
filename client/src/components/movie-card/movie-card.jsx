@@ -1,11 +1,8 @@
 import './movie-card.scss';
 
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import PropTypes from 'prop-types';
-
-import { connect } from 'react-redux';
-import { setMovies, setUser } from '../../actions/actions';
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -26,29 +23,29 @@ export class MovieCard extends React.Component {
 
         // axios instance
         // keeping it DRY (don't repeat yourself)
-        this.moviesAPI = axios.create({
-            baseURL: 'https://webflix-api-2019.herokuapp.com',
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        })
+        // this.moviesAPI = axios.create({
+        //     baseURL: 'https://webflix-api-2019.herokuapp.com',
+        //     headers: {
+        //         Authorization: `Bearer ${localStorage.getItem('token')}`
+        //     }
+        // })
     }
 
-    addFavMovie(props) {
+    // addFavMovie() {
+    //     const  { movie } = this.props;
 
-        this.moviesAPI.post(`/users/${localStorage.getItem('user')}/movie/${props.movie._id}`,{upsert: true})
-        // null is needed for post
-        // axios.post(`https://webflix-api-2019.herokuapp.com`, null, {
-        //     headers: { Authorization: `Bearer ${props.token}`}
-        // })
-        .then(response => {
-            alert('Movie added to your favorite list.');
-        })
-        .catch(() => {
-            console.log('Movie not updated!');
-        });
-    };
-
+    //     this.moviesAPI.post(`/users/${localStorage.getItem('user')}/movie/${movie._id}`)
+    //     // null is needed for post
+    //     // axios.post(`https://webflix-api-2019.herokuapp.com`, null, {
+    //     //     headers: { Authorization: `Bearer ${props.token}`}
+    //     // })
+    //     .then(response => {
+    //         alert('Movie added to your favorite list.');
+    //     })
+    //     .catch(() => {
+    //         console.log('Movie not updated!');
+    //     });
+    // };
 
     setIsShown(state) {
         this.setState({
@@ -57,7 +54,7 @@ export class MovieCard extends React.Component {
     }
 
     render() {
-        const { movie, user, token } = this.props;
+        const { movie } = this.props;
         const { isShown } = this.state;
         
         let image=`https://webflix-api-2019.herokuapp.com/img/${movie.ImagePath}`;
@@ -66,24 +63,27 @@ export class MovieCard extends React.Component {
 
         return (
             <Card>
-            <Card.Img variant="top" src={image} onMouseEnter={() => this.setIsShown(true)}/>
-            { isShown && (
-                <Card.Body onMouseLeave={() => this.setIsShown(false)}>
-                    <Card.Title>{movie.Title}</Card.Title>
-                    <Card.Text>{movie.Description}</Card.Text>
-                    <Link to={`/movies/${movie._id}`}>
-                        <Button class="open" variant="link">Open</Button>
-                    </Link>
-                    <Button class="add" variant="primary" type="button" onClick={(props) => this.addFavMovie(this.props)}>
-                        Add to my Favorite List
-                    </Button>
-                </Card.Body>
-            )}
-        </Card>
+                <Card.Img variant="top" src={image} onMouseEnter={() => this.setIsShown(true)}/>
+                { isShown && (
+                    <Card.Body onMouseLeave={() => this.setIsShown(false)}>
+                        <Card.Title>{movie.Title}</Card.Title>
+                        <Card.Text>{movie.Description.substring(0,150)} ...</Card.Text>
+                        <Card.Footer>
+                           <Link to={`/movies/${movie._id}`}>
+                                <Button class="open" variant="link">Know more...</Button>
+                            </Link>
+                        </Card.Footer>
+                    </Card.Body>
+                )}
+            </Card>
         );
     }
 }
 
+/** 
+ * static propTypes on MovieCard set to object that contains special values provided as utilities by prop-types module.
+ * This values help specify how MovieCard's props should look*
+ */
 MovieCard.propTypes = {
     movie: PropTypes.shape({
         Title: PropTypes.string.isRequired,

@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+import './main-view.scss';
 
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
@@ -29,14 +31,8 @@ export class MainView extends React.Component {
         let accessToken = localStorage.getItem('token');
 
         this.state = {
-            // movies: [],
-            // selectedMovie: null,
-            // users: [],
             user: accessToken ? localStorage.getItem('user') : null,
-            // userDetail: null,
             register: false,
-            // genre: null,
-            // director: null,
             token: accessToken || null
         };
 
@@ -128,7 +124,7 @@ export class MainView extends React.Component {
 
         // const { movies, selectedMovie, users, user, userDetail, register, genre, director, token } = this.state;
         
-        let { movies } = this.props;
+        let { movies, users } = this.props;
         let { user, register, token  } = this.state;
 
         // if (!movies) return <div className="main-view"/>;
@@ -143,7 +139,7 @@ export class MainView extends React.Component {
                         if (!user && register === false) {
                             return (
                                 <div>
-                                    <Navbar bg="dark" variant="dark">
+                                    <Navbar variant="dark">
                                     <Nav className="mr-auto">
                                         <Nav.Link className="text-info" href="/client"><h3>Webflix Online Movie World!</h3></Nav.Link>
                                     </Nav>
@@ -154,12 +150,13 @@ export class MainView extends React.Component {
                         }
                         return ( 
                             <div>
-                            <Navbar bg="dark" variant="dark">
+                            <Navbar variant="dark">
                                 <Nav className="mr-auto">
+                                    <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
                                     <Nav.Link href="/client">Home</Nav.Link>
                                     <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                                 </Nav>
-                                <Button variant="outline-info" type="button" onClick={() => this.handleLogout()}>
+                                <Button id="logout" variant="outline-info" type="button" onClick={() => this.handleLogout()}>
                                     Logout
                                 </Button>
                             </Navbar>
@@ -171,7 +168,7 @@ export class MainView extends React.Component {
                     <Route path="/register" render={() => {
                         return (
                                 <div>
-                                    <Navbar bg="dark" variant="dark">
+                                    <Navbar variant="dark">
                                     <Nav className="mr-auto">
                                         <Nav.Link className="text-info" href="/client"><h3>Webflix Online Movie World!</h3></Nav.Link>
                                     </Nav>
@@ -187,8 +184,9 @@ export class MainView extends React.Component {
                             {
                                 return (
                                     <div>
-                                        <Navbar bg="dark" variant="dark">
+                                        <Navbar variant="dark">
                                         <Nav className="mr-auto">
+                                            <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
                                             <Nav.Link href="/client">Home</Nav.Link>
                                             <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                                         </Nav>
@@ -206,8 +204,9 @@ export class MainView extends React.Component {
                             {
                                 return (
                                     <div>
-                                        <Navbar bg="dark" variant="dark">
+                                        <Navbar variant="dark">
                                         <Nav className="mr-auto">
+                                            <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
                                             <Nav.Link href="/client">Home</Nav.Link>
                                             <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                                         </Nav>
@@ -215,7 +214,8 @@ export class MainView extends React.Component {
                                             Logout
                                         </Button>
                                         </Navbar>
-                                        <GenreView genre={movies.find(g => g.Genre.Name === match.params.genreName)}/>
+                                        <GenreView genre={movies.find(g => g.Genre.Name === match.params.genreName)}
+                                            movies={movies}/>
                                     </div>
                                 );
                             }
@@ -225,8 +225,9 @@ export class MainView extends React.Component {
                             {
                                 return (
                                     <div>
-                                        <Navbar bg="dark" variant="dark">
+                                        <Navbar variant="dark">
                                         <Nav className="mr-auto">
+                                            <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
                                             <Nav.Link href="/client">Home</Nav.Link>
                                             <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                                         </Nav>
@@ -234,7 +235,8 @@ export class MainView extends React.Component {
                                             Logout
                                         </Button>
                                         </Navbar>
-                                        <DirectorView director={movies.find(d => d.Director.Name === match.params.directorName)}/>
+                                        <DirectorView director={movies.find(d => d.Director.Name === match.params.directorName)}
+                                            movies={movies}/>
                                     </div>
                                 );
                             }
@@ -249,8 +251,9 @@ export class MainView extends React.Component {
                                 }
                                 return (
                                     <div>
-                                        <Navbar bg="dark" variant="dark">
+                                        <Navbar variant="dark">
                                             <Nav className="mr-auto">
+                                                <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
                                                 <Nav.Link href="/client">Home</Nav.Link>
                                                 <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                                             </Nav>
@@ -258,7 +261,7 @@ export class MainView extends React.Component {
                                                 Logout
                                             </Button>
                                         </Navbar>
-                                        <ProfileView />
+                                        <ProfileView users={users} user={user} movies={movies}/>
                                     </div>
                                 );
                             }
@@ -271,8 +274,42 @@ export class MainView extends React.Component {
 
 let mapStateToProps = state => {
     return { movies: state.movies, users: state.users }
-}
+}   
   
-export default connect(mapStateToProps, { setMovies, setUser })(MainView);
+const mapDispatchToProps = {
+    setMovies,
+    setUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainView);
 // return <ProfileView userDetail={users.find(u => u.Username === match.params.user)}
 // handleLogout={() => this.handleLogout()} token={token} movies={movies} />
+
+MainView.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      Title: PropTypes.string,
+      ImagePath: PropTypes.string,
+      Description: PropTypes.string,
+      Genre: PropTypes.shape({
+        Name: PropTypes.string,
+        Description: PropTypes.string
+      }),
+      Director: PropTypes.shape({
+        Name: PropTypes.string,
+        Bio: PropTypes.string,
+        Birth: PropTypes.date,
+        Death: PropTypes.date
+      }),
+      Featured: PropTypes.boolean,
+      Actors: PropTypes.array
+    })
+  ),
+  users: PropTypes.shape({
+    _id: PropTypes.string,
+    Username: PropTypes.string,
+    Password: PropTypes.string,
+    Birthday: PropTypes.date
+  }).isRequired
+};

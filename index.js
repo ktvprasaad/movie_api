@@ -12,6 +12,7 @@ require('./passport');
 const Movies = Models.Movie;
 const Users = Models.User;
 
+//Initializing app variable
 const app = express();
 app.use(bodyParser.json());
 

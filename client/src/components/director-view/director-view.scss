@@ -1,27 +1,53 @@
+.director-name span.value {
+    font-size: 1.7em;
+    font-weight: bold;
+    color: white;   
+}
 .director-view {
+    display: grid;
+    grid-template-columns: repeat(1fr, auto);
+    color: white;
+}
+.col-left {
     padding: 2em;
     display: flex;
+    flex: auto;
     justify-content: center;
     color: white;
     margin: 0 auto;
     max-width: 900px;
-    height: 100vh;
+    height: 100%;  
+}
+.col-right {
+    margin: 0 auto;
 }
 .director-view a {
         width: 50px;
         height: 10px;
         margin: .5em 2em;
 }
-.director-view.col-right {
-    padding: 2em;
-    display: block;
-    justify-content: center;
-    margin: 0 auto;
-    width: 700px;
-    color: silver;
 
+.director-name, .director-bio, .director-birth, .director-death {
+    color: grey;
+    padding: .5em;
 }
-.director-name span.value {
+.genre-description span.value, .genre-name span.value {
+    font-size: 1.2em;    
+}
+h4 {
+    margin: 0;
+    display: block;
+    // justify-content: center;    
+    text-align: center;
+}
+
+span.label {
+    font-size: 1em;
+    padding: .2em;
+    // margin-right: .5em;
+    text-transform: uppercase;;
+}
+.genre-name span.value {
     font-size: 1.7em;
     font-weight: bold;
     color: white;   

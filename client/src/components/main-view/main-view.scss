@@ -1,0 +1,27 @@
+h3 {
+    color: coral;
+}
+.navbar {
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+}
+a.nav-link {
+    padding: 0;
+}
+a.nav-link:nth-child(2), a.nav-link:nth-child(3) {
+    padding-top: .5em;
+}
+
+button.btn.btn-outline-info {
+    color: ivory;
+    border-color: rgba(255,255,255,0.5);
+}
+button.btn.btn-outline-info:hover, button.btn.btn-outline-info:focus {
+    color: rgba(255,255,255,0.5);
+    border-color: rgba(255,255,255,0.5);
+    background: black;
+}
+// #logout {
+//     color: ivory;
+//     // font-weight: bold;
+//     border-color: rgba(255,255,255,0.5);
+// }

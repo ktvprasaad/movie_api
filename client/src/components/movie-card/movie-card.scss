@@ -25,3 +25,15 @@ p.card-text {
   overflow: hidden;
   max-height: 120px;
 }
+div.card-footer {
+  margin: 2em auto 0 0;
+  padding: 0;
+}
+.card-footer {
+  border: none;
+  background: none;
+}
+.card-footer button.btn {
+  padding: 0;
+  margin: 0;
+}

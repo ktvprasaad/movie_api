@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Form from 'react-bootstrap/Form';
@@ -13,10 +12,10 @@ function VisibilityFilterInput(props) {
         <Row>
             <Col>1 of 1</Col>
             <Col xs={11} sm={8} md={3} className="form-container">
-            <Form.Control 
+            <Form.Control id="fm"
                 onChange={e => props.setFilter(e.target.value)} 
                 value={props.visibilityFilter} 
-                placeholder="filter"
+                placeholder="Search..."
             />
             </Col>
         </Row>

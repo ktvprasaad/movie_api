@@ -1,3 +1,29 @@
+h3 {
+  color: coral;
+}
+
+.navbar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+a.nav-link {
+  padding: 0;
+}
+
+a.nav-link:nth-child(2), a.nav-link:nth-child(3) {
+  padding-top: 0.5em;
+}
+
+button.btn.btn-outline-info {
+  color: ivory;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+button.btn.btn-outline-info:hover, button.btn.btn-outline-info:focus {
+  color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.5);
+  background: black;
+}
 html, body {
   padding: 0;
   margin: 0;
@@ -21,8 +47,26 @@ html, body {
   cursor: pointer;
 }
 
-.form-container {
-  margin-bottom: 2em;
+div.col {
+  display: none;
+}
+
+div.row {
+  justify-content: center;
+}
+
+#fm {
+  display: block;
+  justify-content: center;
+  border-radius: 1em;
+  margin: 1em auto;
+  background: none;
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: none;
+}
+
+#fm:focus {
+  background: white;
 }
 .card-img-top {
   transition-duration: 0.5s;
@@ -52,8 +96,27 @@ p.card-text {
   overflow: hidden;
   max-height: 120px;
 }
+
+div.card-footer {
+  margin: 2em auto 0 0;
+  padding: 0;
+}
+
+.card-footer {
+  border: none;
+  background: none;
+}
+
+.card-footer button.btn {
+  padding: 0;
+  margin: 0;
+}
 .form-text {
   color: white;
+}
+
+div.form-container {
+  padding: 2em;
 }
 h2 {
   color: white;
@@ -69,42 +132,42 @@ h2 {
   color: white;
   margin: 0 auto;
   max-width: 900px;
-  height: 100vh;
 }
 
 .movie-view a {
   width: 50px;
   height: 10px;
+  margin: 1.2em 2em;
 }
 
 .movie-poster {
   display: block;
-  width: 300px;
-  height: 420px;
+  padding: 0;
+  margin: 0;
 }
 
 .col-left {
-  margin: 0 1.5em auto;
+  margin: 0 auto;
 }
 
 .col-right {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  font-size: 1.4em;
   padding-top: 0;
+  padding-left: 0;
 }
 
 .label {
   color: grey;
-  font-size: 0.9em;
+  font-size: 1em;
   margin-right: 0.5em;
   text-transform: uppercase;
 }
 
 .col-right .value {
-  font-size: 1em;
-  color: silver;
+  font-size: 1.2em;
+  color: grey;
 }
 
 .movie-title .value {
@@ -122,19 +185,45 @@ span.label:before {
   position: absolute;
   background: ivory;
   opacity: 0.2;
-  width: 101%;
+  width: 100%;
   height: 92%;
   top: 3px;
   left: -2px;
 }
+
+.movie-title, .movie-genre, .genre-description, .genre-director {
+  padding-top: 1em;
+  color: grey;
+}
+
+button.btn.btn-primary, button.btn.btn-primary:visited {
+  color: black;
+  margin-top: 1.2em;
+  font-weight: bold;
+  background: tomato;
+  outline: none;
+  border-color: tomato;
+  box-shadow: none;
+}
 .genre-view {
+  display: grid;
+  grid-template-columns: repeat(1fr, auto);
+  color: white;
+}
+
+.col-left {
   padding: 2em;
   display: flex;
+  flex: auto;
   justify-content: center;
   color: white;
   margin: 0 auto;
   max-width: 900px;
-  height: 100vh;
+  height: 100%;
+}
+
+.col-right {
+  margin: 0 auto;
 }
 
 .genre-view a {
@@ -143,23 +232,24 @@ span.label:before {
   margin: 0.5em 2em;
 }
 
-.genre-view.col-right {
-  padding: 2em;
-  display: block;
-  justify-content: center;
-  margin: 0 auto;
-  width: 700px;
-  color: silver;
+.genre-description, .genre-name {
+  color: grey;
+  padding: 0.5em;
 }
 
 .genre-description span.value, .genre-name span.value {
   font-size: 1.2em;
 }
 
+h4 {
+  margin: 0;
+  display: block;
+  text-align: center;
+}
+
 .genre-description span.label, .genre-name span.label {
-  color: grey;
   font-size: 1em;
-  margin-right: 0.5em;
+  padding: 0.2em;
   text-transform: uppercase;
 }
 
@@ -168,14 +258,35 @@ span.label:before {
   font-weight: bold;
   color: white;
 }
+
+button.btn.btn-link {
+  color: tomato;
+}
+.director-name span.value {
+  font-size: 1.7em;
+  font-weight: bold;
+  color: white;
+}
+
 .director-view {
+  display: grid;
+  grid-template-columns: repeat(1fr, auto);
+  color: white;
+}
+
+.col-left {
   padding: 2em;
   display: flex;
+  flex: auto;
   justify-content: center;
   color: white;
   margin: 0 auto;
   max-width: 900px;
-  height: 100vh;
+  height: 100%;
+}
+
+.col-right {
+  margin: 0 auto;
 }
 
 .director-view a {
@@ -184,16 +295,28 @@ span.label:before {
   margin: 0.5em 2em;
 }
 
-.director-view.col-right {
-  padding: 2em;
-  display: block;
-  justify-content: center;
-  margin: 0 auto;
-  width: 700px;
-  color: silver;
+.director-name, .director-bio, .director-birth, .director-death {
+  color: grey;
+  padding: 0.5em;
 }
 
-.director-name span.value {
+.genre-description span.value, .genre-name span.value {
+  font-size: 1.2em;
+}
+
+h4 {
+  margin: 0;
+  display: block;
+  text-align: center;
+}
+
+span.label {
+  font-size: 1em;
+  padding: 0.2em;
+  text-transform: uppercase;
+}
+
+.genre-name span.value {
   font-size: 1.7em;
   font-weight: bold;
   color: white;
@@ -234,12 +357,13 @@ ul {
 
 #remove {
   display: block;
-  margin: 0 auto 1em;
+  margin: 1em auto 1em;
 }
 
 .profile-delete {
   display: inline-block;
   float: right;
+  margin-top: 1.2em;
 }
 .web-flix {
   color: steelblue;
