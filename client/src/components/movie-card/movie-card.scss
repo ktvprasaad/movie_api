@@ -1,11 +1,10 @@
 .card-img-top {
   transition-duration: .5s;
 }
-card, .card-img-top:hover {
-  opacity: 0.3;
-  position: relative;
-
-}
+// card, .card-img-top:hover {
+//   opacity: 0.3;
+//   position: relative;
+// }
 .card-body {
   position: absolute;
   background: rgb(237,232,238);
@@ -20,13 +19,13 @@ card, .card-img-top:hover {
   color: black;
   display: grid;
   place-content: center;
-}
+} 
 p.card-text {
   overflow: hidden;
   max-height: 120px;
 }
 div.card-footer {
-  margin: 2em auto 0 0;
+  margin: 2em 0 0;
   padding: 0;
 }
 .card-footer {
@@ -36,4 +35,6 @@ div.card-footer {
 .card-footer button.btn {
   padding: 0;
   margin: 0;
+  font-weight: bold;
+  font-size: 1.2em;
 }

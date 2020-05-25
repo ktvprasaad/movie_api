@@ -36,5 +36,36 @@ ul {
 .profile-delete {
     display: inline-block;
     float: right;
-    margin-top: 1.2em;
+    margin-top: 1em;
 }
+button.btn.btn-primary {
+    color: ivory;
+    background: none;
+}
+.pro-left {
+    display: flex;
+    margin: 0;
+}
+.profileUpdate-view {
+    flex: 0 0 98%;
+}
+
+.profile-view button.btn.btn-primary { 
+    color: black;
+    margin-top: 1em;
+    font-weight: bold;
+    background: tomato;
+    outline: none;
+    border-color: tomato;
+    box-shadow: none;
+}
+
+// @media all and (max-width: 450px) {
+//     .profile-delete {
+//         padding: .1em;
+//     }
+//     #updt {
+//         padding: .3em;
+//     }
+// }
+

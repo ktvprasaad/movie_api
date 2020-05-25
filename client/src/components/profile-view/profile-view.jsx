@@ -1,4 +1,6 @@
 import './profile-view.scss';
+import '../button/button.scss';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -129,46 +131,48 @@ class ProfileView extends React.Component {
 
         return (
             <div className="profile-view">
-                <Link to="/">
-                    <Button variant="link">Back</Button>
-                </Link>
-                <div className="profileUpdate-view">
-                    <Row className="justify-content-center">
-                    <Col xs={11} sm={8} md={6} className="form-container">
-                    <Form>
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                placeholder="Enter New Password"
-                                value={this.state.newPassword}
-                                onChange={this.onPasswordChange}/>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
-                                type="email"
-                                value={this.state.newEmail}
-                                placeholder="Enter New Email Id"
-                                onChange={this.onEmailChange}/>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Birthday</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={this.state.newBirthday}
-                                placeholder="Enter New Date of Birth"
-                                onChange={this.onBirthdayChange}/>
-                        </Form.Group>
-                        <Button variant="primary" type="button" onClick={() => this.updateProfile()}>
-                            Update my profile
-                        </Button>
-                        <div className="profile-delete">
-                            <Button variant="light" type="button" onClick={() => this.deleteProfile()}>
-                                Delete my profile
+                <div className="pro-left">
+                    <Link to="/">
+                        <Button id="back" variant="link">Back</Button>
+                    </Link>
+                    <div className="profileUpdate-view">
+                        <Row className="justify-content-center">
+                        <Col xs={11} sm={8} md={6} className="form-container">
+                        <Form>
+                            <Form.Group controlId="formBasicPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control
+                                    type="password"
+                                    placeholder="Enter New Password"
+                                    value={this.state.newPassword}
+                                    onChange={this.onPasswordChange}/>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control
+                                    type="email"
+                                    value={this.state.newEmail}
+                                    placeholder="Enter New Email Id"
+                                    onChange={this.onEmailChange}/>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Birthday</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    value={this.state.newBirthday}
+                                    placeholder="Enter New Date of Birth"
+                                    onChange={this.onBirthdayChange}/>
+                            </Form.Group>
+                            <Button id="updt" variant="primary" type="button" onClick={() => this.updateProfile()}>
+                                Update profile
                             </Button>
-                        </div>
-                    </Form></Col></Row>
+                            <div className="profile-delete">
+                                <Button variant="light" type="button" onClick={() => this.deleteProfile()}>
+                                    Delete profile
+                                </Button>
+                            </div>
+                        </Form></Col></Row>
+                    </div>
                 </div>
 
                 <div className="favoriteMovies">

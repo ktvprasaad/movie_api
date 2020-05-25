@@ -61,12 +61,18 @@ span.label:before {
     padding-top: 1em;
     color: grey;
 }
-button.btn.btn-primary, button.btn.btn-primary:visited {
-    color: black;
-    margin-top: 1.2em;
-    font-weight: bold;
-    background: tomato;
-    outline: none;
-    border-color: tomato;
-    box-shadow: none;
+.movie-view button.btn.btn-primary { 
+     color: black;
+     margin-top: 1.2em;
+     font-weight: bold;
+     background: tomato;
+     outline: none;
+     border-color: tomato;
+     box-shadow: none;
+}
+
+@media all and (max-width: 450px) {
+    .movie-view {
+        display: block;
+    }
 }

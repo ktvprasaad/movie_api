@@ -1,5 +1,6 @@
 import './genre-view.scss';
-import '../movie-card/movie-card.scss';
+import '../button/button.scss';
+// import '../movie-card/movie-card.scss';
 
 import React from 'react';
 import Button from 'react-bootstrap/Button';
@@ -41,7 +42,7 @@ export class GenreView extends React.Component {
             <div className="genre-view">
                 <div className="col-left">
                     <Link to="" onClick={() => history.back()}>
-                        <Button variant="link">Back</Button>
+                        <Button id="back" variant="link">Back</Button>
                     </Link>
                     <div className='desc'>
                         <div className="genre-name">
@@ -57,29 +58,19 @@ export class GenreView extends React.Component {
                 <div className="col-right">
                     <Container>
                     <h4>More {genre.Genre.Name} movies!</h4>
-                    <div className="d-flex row mt-3 ml-1">
-                        {movies.map(movie => {
-                            if (movie.Genre.Name === genre.Genre.Name) {
-                                return (
-                                    <div key={movie._id}>
-                                    <Card>
-                                        <Card.Img variant="top" src={`https://webflix-api-2019.herokuapp.com/img/${movie.ImagePath}`} 
-                                            onMouseEnter={() => this.setIsShown(true)}/>    
-                                        { isShown && (
-                                            <Card.Body onMouseLeave={() => this.setIsShown(false)}>
-                                                <Card.Title>{movie.Title}</Card.Title>
-                                                <Card.Text>{movie.Description.substring(0,100)} ...</Card.Text>
-                                                <Link to={`/movies/${movie._id}`}>
-                                                    <Button class="open" variant="link">Know more...</Button>
-                                                </Link>
-                                            </Card.Body>
-                                        )}
-                                    </Card>
-                                    </div>
-                                );
-                            }
-                        })}
-                    </div>
+                        <div className="d-flex row mt-3 ml-1">
+                            {movies.map(movie => {
+                                if (movie.Genre.Name === genre.Genre.Name) {
+                                    return (
+                                        <ul>
+                                            <li key={movie._id}>
+                                                <MovieCard movie={movie} />
+                                            </li>
+                                        </ul>
+                                    );
+                                }
+                            })}
+                        </div>
                     </Container>
                 </div>
             </div>

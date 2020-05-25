@@ -3,6 +3,7 @@ import './movies-list.scss';
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Col from 'react-bootstrap/Col';
 import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
 import { MovieCard } from '../movie-card/movie-card';
 
@@ -24,10 +25,10 @@ function MoviesList(props) {
 
     return <div> 
         <VisibilityFilterInput visibilityFilter={visibilityFilter}/>
-        <div className="movies-list">
-            {filteredMovies.map(m => <MovieCard key={m._id} movie={m}/>)}
+            <div className="movies-list">
+                {filteredMovies.map(m => <MovieCard key={m._id} movie={m}/>)}
+            </div>
         </div>
-        </div>;
 }
 
 export default connect(mapStateToProps)(MoviesList);

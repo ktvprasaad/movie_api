@@ -1,2 +1,9 @@
-.super-button {
+#back {
+    display: unset;
+}
+
+@media all and (max-width: 450px) {
+    #back {
+        display: none;
+    }
 }

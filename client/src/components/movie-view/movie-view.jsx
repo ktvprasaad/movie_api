@@ -1,4 +1,6 @@
 import './movie-view.scss';
+import '../button/button.scss';
+
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
@@ -52,7 +54,7 @@ export class MovieView extends React.Component {
         return (
             <div className="movie-view">
                 <Link to="/">
-                    <Button variant="link">Back</Button>
+                    <Button id="back" variant="link">Back</Button>
                 </Link>
                 <div className="col-left">
                     <img className="movie-poster" src={image} />

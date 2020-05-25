@@ -26,13 +26,9 @@
         height: 10px;
         margin: .5em 2em;
 }
-
 .director-name, .director-bio, .director-birth, .director-death {
     color: grey;
     padding: .5em;
-}
-.genre-description span.value, .genre-name span.value {
-    font-size: 1.2em;    
 }
 h4 {
     margin: 0;
@@ -51,4 +47,8 @@ span.label {
     font-size: 1.7em;
     font-weight: bold;
     color: white;   
+}
+.director-view button.btn.btn-link {
+    color: tomato;
+    float: left;
 }

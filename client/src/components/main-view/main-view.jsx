@@ -151,12 +151,11 @@ export class MainView extends React.Component {
                         return ( 
                             <div>
                             <Navbar variant="dark">
-                                <Nav className="mr-auto">
+                                <Nav className="mr-auto justify-content-between">
                                     <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
-                                    <Nav.Link href="/client">Home</Nav.Link>
                                     <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                                 </Nav>
-                                <Button id="logout" variant="outline-info" type="button" onClick={() => this.handleLogout()}>
+                                <Button id="logout" type="button" onClick={() => this.handleLogout()}>
                                     Logout
                                 </Button>
                             </Navbar>
@@ -187,10 +186,9 @@ export class MainView extends React.Component {
                                         <Navbar variant="dark">
                                         <Nav className="mr-auto">
                                             <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
-                                            <Nav.Link href="/client">Home</Nav.Link>
                                             <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                                         </Nav>
-                                        <Button variant="outline-info" type="button" onClick={() => this.handleLogout()}>
+                                        <Button id="logout" type="button" onClick={() => this.handleLogout()}>
                                             Logout
                                         </Button>
                                         </Navbar>
@@ -207,10 +205,9 @@ export class MainView extends React.Component {
                                         <Navbar variant="dark">
                                         <Nav className="mr-auto">
                                             <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
-                                            <Nav.Link href="/client">Home</Nav.Link>
                                             <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                                         </Nav>
-                                        <Button variant="outline-info" type="button" onClick={() => this.handleLogout()}>
+                                        <Button id="logout" type="button" onClick={() => this.handleLogout()}>
                                             Logout
                                         </Button>
                                         </Navbar>
@@ -228,10 +225,9 @@ export class MainView extends React.Component {
                                         <Navbar variant="dark">
                                         <Nav className="mr-auto">
                                             <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
-                                            <Nav.Link href="/client">Home</Nav.Link>
                                             <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                                         </Nav>
-                                        <Button variant="outline-info" type="button" onClick={() => this.handleLogout()}>
+                                        <Button id="logout" type="button" onClick={() => this.handleLogout()}>
                                             Logout
                                         </Button>
                                         </Navbar>
@@ -245,7 +241,7 @@ export class MainView extends React.Component {
                         ({match}) =>
                             {
                                 // when there isn't a user token, that means the user has been logged out
-                                // redirect back to Home
+                                // redirect back to Home/MainView
                                 if (!token) {
                                     return <Redirect to='/client' />
                                 }
@@ -254,10 +250,9 @@ export class MainView extends React.Component {
                                         <Navbar variant="dark">
                                             <Nav className="mr-auto">
                                                 <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
-                                                <Nav.Link href="/client">Home</Nav.Link>
                                                 <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                                             </Nav>
-                                            <Button variant="outline-info" type="button" onClick={() => this.handleLogout()}>
+                                            <Button id="logout" type="button" onClick={() => this.handleLogout()}>
                                                 Logout
                                             </Button>
                                         </Navbar>
@@ -265,8 +260,8 @@ export class MainView extends React.Component {
                                     </div>
                                 );
                             }
-                    }/>
-                </Router>
+                        }/>
+                    </Router>
             </div>
         )
     }

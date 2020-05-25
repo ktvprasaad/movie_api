@@ -14,8 +14,8 @@ html, body {
 
 .movies-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 300px));    
-    // grid-template-columns: repeat(3, 300px);    
+    // grid-template-columns: repeat(auto-fit, minmax(150px, 300px));    
+    grid-template-columns: repeat(5, 1fr);    
     grid-gap: 1em;
     justify-content: center;
     height: 300px;
@@ -36,10 +36,29 @@ div.row {
     justify-content: center ;
     border-radius: 1em;
     margin: 1em auto;
-    background: none;
+    background: white;
     border-color: rgba(255,255,255,0.5);
-    box-shadow: none;
 }
 #fm:focus {
-    background: white;
+    background: none;
+    box-shadow: 1px 1px 5px 1px rgba(255,255,255,0.891);
+}
+@media all and (max-width: 450px) {
+    .movies-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);    
+        grid-gap: 1em;
+        justify-content: center;
+        height: 300px;
+    }
+}
+
+@media all and (min-width: 450px) and (max-width: 900px) {
+    .movies-list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);    
+        grid-gap: 1em;
+        justify-content: center;
+        height: 300px;
+    }
 }

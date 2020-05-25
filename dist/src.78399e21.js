@@ -44057,6 +44057,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactRedux = require("react-redux");
 
+var _Col = _interopRequireDefault(require("react-bootstrap/Col"));
+
 var _visibilityFilterInput = _interopRequireDefault(require("../visibility-filter-input/visibility-filter-input"));
 
 var _movieCard = require("../movie-card/movie-card");
@@ -44100,7 +44102,7 @@ function MoviesList(props) {
 var _default = (0, _reactRedux.connect)(mapStateToProps)(MoviesList);
 
 exports.default = _default;
-},{"./movies-list.scss":"components/movies-list/movies-list.scss","react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../visibility-filter-input/visibility-filter-input":"components/visibility-filter-input/visibility-filter-input.jsx","../movie-card/movie-card":"components/movie-card/movie-card.jsx"}],"components/login-view/login-view.scss":[function(require,module,exports) {
+},{"./movies-list.scss":"components/movies-list/movies-list.scss","react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","../visibility-filter-input/visibility-filter-input":"components/visibility-filter-input/visibility-filter-input.jsx","../movie-card/movie-card":"components/movie-card/movie-card.jsx"}],"components/login-view/login-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -44367,6 +44369,11 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/button/button.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
 },{"_css_loader":"../../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/movie-view/movie-view.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -44376,6 +44383,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.MovieView = void 0;
 
 require("./movie-view.scss");
+
+require("../button/button.scss");
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -44459,6 +44468,7 @@ function (_React$Component) {
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_Button.default, {
+        id: "back",
         variant: "link"
       }, "Back")), _react.default.createElement("div", {
         className: "col-left"
@@ -44535,7 +44545,7 @@ MovieView.propTypes = {
     Actors: _propTypes.default.array
   }).isRequired
 };
-},{"./movie-view.scss":"components/movie-view/movie-view.scss","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react":"../node_modules/react/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/genre-view/genre-view.scss":[function(require,module,exports) {
+},{"./movie-view.scss":"components/movie-view/movie-view.scss","../button/button.scss":"components/button/button.scss","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react":"../node_modules/react/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/genre-view/genre-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -44594,7 +44604,7 @@ exports.GenreView = void 0;
 
 require("./genre-view.scss");
 
-require("../movie-card/movie-card.scss");
+require("../button/button.scss");
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -44606,7 +44616,7 @@ var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
 
 var _reactRouterDom = require("react-router-dom");
 
-var _movieCard2 = require("../movie-card/movie-card");
+var _movieCard = require("../movie-card/movie-card");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -44659,8 +44669,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       var _this$props = this.props,
           movies = _this$props.movies,
           genre = _this$props.genre;
@@ -44677,6 +44685,7 @@ function (_React$Component) {
           return history.back();
         }
       }, _react.default.createElement(_Button.default, {
+        id: "back",
         variant: "link"
       }, "Back")), _react.default.createElement("div", {
         className: "desc"
@@ -44698,24 +44707,11 @@ function (_React$Component) {
         className: "d-flex row mt-3 ml-1"
       }, movies.map(function (movie) {
         if (movie.Genre.Name === genre.Genre.Name) {
-          return _react.default.createElement("div", {
+          return _react.default.createElement("ul", null, _react.default.createElement("li", {
             key: movie._id
-          }, _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Img, {
-            variant: "top",
-            src: "https://webflix-api-2019.herokuapp.com/img/".concat(movie.ImagePath),
-            onMouseEnter: function onMouseEnter() {
-              return _this2.setIsShown(true);
-            }
-          }), isShown && _react.default.createElement(_Card.default.Body, {
-            onMouseLeave: function onMouseLeave() {
-              return _this2.setIsShown(false);
-            }
-          }, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Card.default.Text, null, movie.Description.substring(0, 100), " ..."), _react.default.createElement(_reactRouterDom.Link, {
-            to: "/movies/".concat(movie._id)
-          }, _react.default.createElement(_Button.default, {
-            "class": "open",
-            variant: "link"
-          }, "Know more...")))));
+          }, _react.default.createElement(_movieCard.MovieCard, {
+            movie: movie
+          })));
         }
       })))));
     }
@@ -44725,7 +44721,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.GenreView = GenreView;
-},{"./genre-view.scss":"components/genre-view/genre-view.scss","../movie-card/movie-card.scss":"components/movie-card/movie-card.scss","react":"../node_modules/react/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx"}],"components/director-view/director-view.scss":[function(require,module,exports) {
+},{"./genre-view.scss":"components/genre-view/genre-view.scss","../button/button.scss":"components/button/button.scss","react":"../node_modules/react/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx"}],"components/director-view/director-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -44740,6 +44736,8 @@ exports.DirectorView = void 0;
 
 require("./director-view.scss");
 
+require("../button/button.scss");
+
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _react = _interopRequireDefault(require("react"));
@@ -44751,6 +44749,8 @@ var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
 var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
 
 var _reactRouterDom = require("react-router-dom");
+
+var _movieCard = require("../movie-card/movie-card");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -44805,8 +44805,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       var _this$props = this.props,
           director = _this$props.director,
           movies = _this$props.movies;
@@ -44824,6 +44822,7 @@ function (_React$Component) {
           return history.back();
         }
       }, _react.default.createElement(_Button.default, {
+        id: "back",
         variant: "link"
       }, "Back")), _react.default.createElement("div", {
         className: "desc"
@@ -44859,24 +44858,11 @@ function (_React$Component) {
         className: "d-flex row mt-3 ml-1"
       }, movies.map(function (movie) {
         if (movie.Director.Name === director.Director.Name) {
-          return _react.default.createElement("div", {
+          return _react.default.createElement("ul", null, _react.default.createElement("li", {
             key: movie._id
-          }, _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Img, {
-            variant: "top",
-            src: "https://webflix-api-2019.herokuapp.com/img/".concat(movie.ImagePath),
-            onMouseEnter: function onMouseEnter() {
-              return _this2.setIsShown(true);
-            }
-          }), isShown && _react.default.createElement(_Card.default.Body, {
-            onMouseLeave: function onMouseLeave() {
-              return _this2.setIsShown(false);
-            }
-          }, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Card.default.Text, null, movie.Description.substring(0, 100), " ..."), _react.default.createElement(_reactRouterDom.Link, {
-            to: "/movies/".concat(movie._id)
-          }, _react.default.createElement(_Button.default, {
-            "class": "open",
-            variant: "link"
-          }, "Know more...")))));
+          }, _react.default.createElement(_movieCard.MovieCard, {
+            movie: movie
+          })));
         }
       })))));
     }
@@ -44894,7 +44880,7 @@ DirectorView.propTypes = {
     Death: _propTypes.default.string
   }).isRequired
 };
-},{"./director-view.scss":"components/director-view/director-view.scss","prop-types":"../node_modules/prop-types/index.js","react":"../node_modules/react/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/profile-view/profile-view.scss":[function(require,module,exports) {
+},{"./director-view.scss":"components/director-view/director-view.scss","../button/button.scss":"components/button/button.scss","prop-types":"../node_modules/prop-types/index.js","react":"../node_modules/react/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx"}],"components/profile-view/profile-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -45046,6 +45032,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 require("./profile-view.scss");
+
+require("../button/button.scss");
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -45215,9 +45203,12 @@ function (_React$Component) {
       if (!userDetail) return null;
       return _react.default.createElement("div", {
         className: "profile-view"
+      }, _react.default.createElement("div", {
+        className: "pro-left"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_Button.default, {
+        id: "back",
         variant: "link"
       }, "Back")), _react.default.createElement("div", {
         className: "profileUpdate-view"
@@ -45246,12 +45237,13 @@ function (_React$Component) {
         placeholder: "Enter New Date of Birth",
         onChange: this.onBirthdayChange
       })), _react.default.createElement(_Button.default, {
+        id: "updt",
         variant: "primary",
         type: "button",
         onClick: function onClick() {
           return _this2.updateProfile();
         }
-      }, "Update my profile"), _react.default.createElement("div", {
+      }, "Update profile"), _react.default.createElement("div", {
         className: "profile-delete"
       }, _react.default.createElement(_Button.default, {
         variant: "light",
@@ -45259,7 +45251,7 @@ function (_React$Component) {
         onClick: function onClick() {
           return _this2.deleteProfile();
         }
-      }, "Delete my profile")))))), _react.default.createElement("div", {
+      }, "Delete profile"))))))), _react.default.createElement("div", {
         className: "favoriteMovies"
       }, _react.default.createElement(_ListGroup.default, {
         className: "list-group-flush",
@@ -45330,7 +45322,7 @@ ProfileView.propTypes = {
     Actors: _propTypes.default.array
   })).isRequired
 };
-},{"./profile-view.scss":"components/profile-view/profile-view.scss","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/actions":"actions/actions.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/ListGroup":"../node_modules/react-bootstrap/esm/ListGroup.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
+},{"./profile-view.scss":"components/profile-view/profile-view.scss","../button/button.scss":"components/button/button.scss","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/actions":"actions/actions.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/ListGroup":"../node_modules/react-bootstrap/esm/ListGroup.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45559,17 +45551,14 @@ function (_React$Component) {
           return _react.default.createElement("div", null, _react.default.createElement(_Navbar.default, {
             variant: "dark"
           }, _react.default.createElement(_Nav.default, {
-            className: "mr-auto"
+            className: "mr-auto justify-content-between"
           }, _react.default.createElement(_Nav.default.Link, {
             className: "text-info",
             href: "/client"
           }, _react.default.createElement("h3", null, "Webfl!x")), _react.default.createElement(_Nav.default.Link, {
-            href: "/client"
-          }, "Home"), _react.default.createElement(_Nav.default.Link, {
             href: "/client/users/".concat(user)
           }, "Profile")), _react.default.createElement(_Button.default, {
             id: "logout",
-            variant: "outline-info",
             type: "button",
             onClick: function onClick() {
               return _this4.handleLogout();
@@ -45606,11 +45595,9 @@ function (_React$Component) {
             className: "text-info",
             href: "/client"
           }, _react.default.createElement("h3", null, "Webfl!x")), _react.default.createElement(_Nav.default.Link, {
-            href: "/client"
-          }, "Home"), _react.default.createElement(_Nav.default.Link, {
             href: "/client/users/".concat(user)
           }, "Profile")), _react.default.createElement(_Button.default, {
-            variant: "outline-info",
+            id: "logout",
             type: "button",
             onClick: function onClick() {
               return _this4.handleLogout();
@@ -45633,11 +45620,9 @@ function (_React$Component) {
             className: "text-info",
             href: "/client"
           }, _react.default.createElement("h3", null, "Webfl!x")), _react.default.createElement(_Nav.default.Link, {
-            href: "/client"
-          }, "Home"), _react.default.createElement(_Nav.default.Link, {
             href: "/client/users/".concat(user)
           }, "Profile")), _react.default.createElement(_Button.default, {
-            variant: "outline-info",
+            id: "logout",
             type: "button",
             onClick: function onClick() {
               return _this4.handleLogout();
@@ -45661,11 +45646,9 @@ function (_React$Component) {
             className: "text-info",
             href: "/client"
           }, _react.default.createElement("h3", null, "Webfl!x")), _react.default.createElement(_Nav.default.Link, {
-            href: "/client"
-          }, "Home"), _react.default.createElement(_Nav.default.Link, {
             href: "/client/users/".concat(user)
           }, "Profile")), _react.default.createElement(_Button.default, {
-            variant: "outline-info",
+            id: "logout",
             type: "button",
             onClick: function onClick() {
               return _this4.handleLogout();
@@ -45683,7 +45666,7 @@ function (_React$Component) {
           var match = _ref4.match;
 
           // when there isn't a user token, that means the user has been logged out
-          // redirect back to Home
+          // redirect back to Home/MainView
           if (!token) {
             return _react.default.createElement(_reactRouterDom.Redirect, {
               to: "/client"
@@ -45698,11 +45681,9 @@ function (_React$Component) {
             className: "text-info",
             href: "/client"
           }, _react.default.createElement("h3", null, "Webfl!x")), _react.default.createElement(_Nav.default.Link, {
-            href: "/client"
-          }, "Home"), _react.default.createElement(_Nav.default.Link, {
             href: "/client/users/".concat(user)
           }, "Profile")), _react.default.createElement(_Button.default, {
-            variant: "outline-info",
+            id: "logout",
             type: "button",
             onClick: function onClick() {
               return _this4.handleLogout();
@@ -45936,7 +45917,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54274" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50470" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

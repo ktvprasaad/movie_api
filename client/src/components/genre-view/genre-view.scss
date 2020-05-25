@@ -31,7 +31,7 @@
     font-size: 1.2em;    
 }
 h4 {
-    margin: 0;
+    margin: auto 0;
     display: block;
     // justify-content: center;    
     text-align: center;
@@ -48,6 +48,22 @@ h4 {
     font-weight: bold;
     color: white;   
 }
-button.btn.btn-link {
+.genre-view button.btn.btn-link {
     color: tomato;
+    float: left;
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+div.container {
+    padding: 0;
+}
+@media all and (max-width: 450px) {
+    div.col-left {
+        padding: 0;
+        width: 90%;
+        display: block;
+        justify-content: stretch;
+    }
 }

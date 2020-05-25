@@ -1,16 +1,23 @@
 h3 {
-  color: coral;
+  color: tomato;
 }
 
 .navbar {
+  background: #1a1a1a;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: space-around;
 }
 
 a.nav-link {
   padding: 0;
 }
 
-a.nav-link:nth-child(2), a.nav-link:nth-child(3) {
+a.nav-link:nth-child(1) {
+  flex: 0 0 65%;
+}
+
+a.nav-link:nth-child(2) {
   padding-top: 0.5em;
 }
 
@@ -24,6 +31,17 @@ button.btn.btn-outline-info:hover, button.btn.btn-outline-info:focus {
   border-color: rgba(255, 255, 255, 0.5);
   background: black;
 }
+
+#logout {
+  margin: 0;
+  color: ivory;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: none;
+}
+
+button.btn.btn-link {
+  color: tomato;
+}
 html, body {
   padding: 0;
   margin: 0;
@@ -36,7 +54,7 @@ html, body {
 
 .movies-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 300px));
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 1em;
   justify-content: center;
   height: 300px;
@@ -60,21 +78,35 @@ div.row {
   justify-content: center;
   border-radius: 1em;
   margin: 1em auto;
-  background: none;
+  background: white;
   border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: none;
 }
 
 #fm:focus {
-  background: white;
+  background: none;
+  box-shadow: 1px 1px 5px 1px rgba(255, 255, 255, 0.891);
+}
+
+@media all and (max-width: 450px) {
+  .movies-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1em;
+    justify-content: center;
+    height: 300px;
+  }
+}
+@media all and (min-width: 450px) and (max-width: 900px) {
+  .movies-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1em;
+    justify-content: center;
+    height: 300px;
+  }
 }
 .card-img-top {
   transition-duration: 0.5s;
-}
-
-card, .card-img-top:hover {
-  opacity: 0.3;
-  position: relative;
 }
 
 .card-body {
@@ -98,7 +130,7 @@ p.card-text {
 }
 
 div.card-footer {
-  margin: 2em auto 0 0;
+  margin: 2em 0 0;
   padding: 0;
 }
 
@@ -110,6 +142,8 @@ div.card-footer {
 .card-footer button.btn {
   padding: 0;
   margin: 0;
+  font-weight: bold;
+  font-size: 1.2em;
 }
 .form-text {
   color: white;
@@ -196,7 +230,7 @@ span.label:before {
   color: grey;
 }
 
-button.btn.btn-primary, button.btn.btn-primary:visited {
+.movie-view button.btn.btn-primary {
   color: black;
   margin-top: 1.2em;
   font-weight: bold;
@@ -204,6 +238,21 @@ button.btn.btn-primary, button.btn.btn-primary:visited {
   outline: none;
   border-color: tomato;
   box-shadow: none;
+}
+
+@media all and (max-width: 450px) {
+  .movie-view {
+    display: block;
+  }
+}
+#back {
+  display: unset;
+}
+
+@media all and (max-width: 450px) {
+  #back {
+    display: none;
+  }
 }
 .genre-view {
   display: grid;
@@ -242,7 +291,7 @@ button.btn.btn-primary, button.btn.btn-primary:visited {
 }
 
 h4 {
-  margin: 0;
+  margin: auto 0;
   display: block;
   text-align: center;
 }
@@ -259,8 +308,27 @@ h4 {
   color: white;
 }
 
-button.btn.btn-link {
+.genre-view button.btn.btn-link {
   color: tomato;
+  float: left;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+div.container {
+  padding: 0;
+}
+
+@media all and (max-width: 450px) {
+  div.col-left {
+    padding: 0;
+    width: 90%;
+    display: block;
+    justify-content: stretch;
+  }
 }
 .director-name span.value {
   font-size: 1.7em;
@@ -300,10 +368,6 @@ button.btn.btn-link {
   padding: 0.5em;
 }
 
-.genre-description span.value, .genre-name span.value {
-  font-size: 1.2em;
-}
-
 h4 {
   margin: 0;
   display: block;
@@ -320,6 +384,11 @@ span.label {
   font-size: 1.7em;
   font-weight: bold;
   color: white;
+}
+
+.director-view button.btn.btn-link {
+  color: tomato;
+  float: left;
 }
 ul {
   list-style: none;
@@ -363,7 +432,31 @@ ul {
 .profile-delete {
   display: inline-block;
   float: right;
-  margin-top: 1.2em;
+  margin-top: 1em;
+}
+
+button.btn.btn-primary {
+  color: ivory;
+  background: none;
+}
+
+.pro-left {
+  display: flex;
+  margin: 0;
+}
+
+.profileUpdate-view {
+  flex: 0 0 98%;
+}
+
+.profile-view button.btn.btn-primary {
+  color: black;
+  margin-top: 1em;
+  font-weight: bold;
+  background: tomato;
+  outline: none;
+  border-color: tomato;
+  box-shadow: none;
 }
 .web-flix {
   color: steelblue;
