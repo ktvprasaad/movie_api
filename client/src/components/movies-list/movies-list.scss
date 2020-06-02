@@ -38,10 +38,12 @@ div.row {
     margin: 1em auto;
     background: white;
     border-color: rgba(255,255,255,0.5);
+    width: 100%;
 }
 #fm:focus {
     background: none;
     box-shadow: 1px 1px 5px 1px rgba(255,255,255,0.891);
+    color: tomato;
 }
 @media all and (max-width: 450px) {
     .movies-list {

@@ -5,3 +5,37 @@ div.form-container {
     // margin: 2em auto;
     padding: 2em;
 }
+.login-view button.btn.btn-primary { 
+    color: black;
+    margin-top: 1em;
+    font-weight: bold;
+    background: tomato;
+    outline: none;
+    border-color: tomato;
+    box-shadow: none;
+}
+
+.login-view button.btn.btn-primary:active {
+    color: white;
+    background: tomato;
+}
+h3 {    
+    animation: fadeIn 1.2s .7s forwards;
+    opacity: 0;
+}
+
+.login-view {
+    animation: fadeIn .9s .3s forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
