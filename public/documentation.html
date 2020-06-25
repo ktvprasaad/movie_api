@@ -4,72 +4,99 @@
     <title>WebFlix API Documentation</title>
     <link rel="shortcut icon" href="img/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Caveat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body style="width: 1200px; margin: auto;" class="main__content">
-    <header class="page-header">
-        <h1><img src="img/wf-32x32.png" alt="WebFlix image">WebFlix - Movies API</h1>
-        <nav class="main-navigation page-header__item">
+    <header>
+        <!-- <h1><img src="img/wf-32x32.png" alt="WebFlix image">WebFlix - Movies API</h1> -->
+         <h1>webfl<span>!</span>x - movies API</h1>
+        <nav id="nav">
             <ul role="menubar" class="navigation-list">
-                <li role="presentation">
-                    <a href="#url" role="menuitem" class="navigation-list__item">URL</a>
-                </li>
                 <li role="presentation">
                     <a href="#info" role="menuitem" class="navigation-list__item">Info</a>
                 </li>
+                <li role="presentation" class='sub'>
+                    <a href="#" role="menuitem" class="navigation-list__item">Parameters</a>
+                    <div class='submenu'>
+                        <ul>
+                            <li role="presentation">
+                                <a href="#allMovies" role="menuitem">Get All Movies</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#oneMovie" role="menuitem">Get Movie</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#genre" role="menuitem">Get Genre</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#director" role="menuitem">Get Director</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#newUser" role="menuitem">Register User</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#addMovie" role="menuitem">Add Movie</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#updateUser" role="menuitem">Update User</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#deleteMovie" role="menuitem">Delete Movie</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#deleteUser" role="menuitem">Unregister User</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <li role="presentation">
-                    <a href="#parameters" role="menuitem" class="navigation-list__item">Parameters</a>
+                    <a href="https://github.com/ktvprasaad/movie_api" target="_blank" role="menuitem" class="navigation-list__item">GitHub</a>
                 </li>
             </ul>
         </nav>
     </header>
-    <!--<div style="width: 1000px; margin: auto;" class="main__content"> -->
-    <div>
-        <p>The web application provides the users to access the information about different movies, directors, and genres. Users may sign up, update their personal information, create and maintain their favorite movies list. Besides that it provides the users about the main url, authentication and parameters using that how to perform a lot of operations with the WebFlix Online Movie App.</p>
-        <div>
-            <h2><a name="url"></a>Resource URL</h2>
-            <p><a href="https://github.com/ktvprasaad/movie_api" target="_blank">WebFlix Movie Api</a></p>
-        </div>
-        <div>
+    <main>
+        <p>It's a web application that provides the users to access the information about different movies, directors, and genres. 
+            Users may sign up, update their personal information, create and maintain their favorite movies list. 
+            Besides that it provides the users about the main url, authentication and parameters using that 
+            how to perform a few other operations with the WebFlix Online Movie App.
+        </p>
+        <section id='info'>
             <h2><a name="info"></a>Resource Information</h2>
-            <table>
-                <tr>
-                    <td>Resource formats</td>
-                    <td>JSON</td>
-                </tr>
-                <tr>
-                    <td>Requires Authentication?</td>
-                    <td>Yes</td>
-                </tr>
-                <tr>
-                    <td>Rate Limited?</td>
-                    <td>No</td>
-                </tr>
-            </table>
-        </div>
-        <div>
+            <div class='info'>
+                <div>Resource formats</div>
+                <div>JSON</div>
+                <div>Requires Authentication ?</div>
+                <div>Yes</div>
+                <div>Rate Limited ?</div>
+                <div>No</div>
+            </div>
+        </section>
+        <section id='parameters'>
             <h2><a name="parameters"></a>Parameters</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Client Request</th>
-                        <th>HTTP Method</th>
-                        <th>Path/URL</th>
-                        <th>Request Body Data Format</th>
-                        <th>Response Body Data Format</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Get all Movies</td>
-                        <td>GET</td>
-                        <td>/movies</td>
-                        <td>None</td>
-                        <td>
+            <h3 id='allMovies'>Get All Movies</h3>
+            <div class='parm'>
+                <div class='left'>
+                    <div class='parm-item'>
+                        <h4>HTTP Method</h4>
+                        <p>GET</p>
+                    </div>
+                    <div class='parm-item'>
+                        <h4>Path/URL</h4>
+                        <p>/movies</p>
+                    </div>
+                </div>
+                <div class='right'>
+                    <div>
+                        <h4>Request Body Data Format</h4>
+                        <p class='req'><pre>None</pre></p>
+                    </div>
+                    <div>
+                        <h4>Response Body Data Format</h4>
+                        <p class='resp'>
                             <pre>
-Example of a JSON object holding all the
-movies :
+<span>Example of a JSON object holding all the movies :</span>
 
 [
     {
@@ -123,18 +150,32 @@ movies :
     }
 ]
                             </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Get specific movie</td>
-                        <td>GET</td>
-                        <td>/movies/:title</td>
-                        <td>None</td>
-                        <td>
-                            <pre>
-Example of a JSON object holding a single
-movie user searched :
-
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <h3 id='oneMovie'>Get Specific Movie</h3>
+            <div class='parm'>
+                <div class='left'>
+                    <div class='parm-item'>
+                        <h4>HTTP Method</h4>
+                        <p>GET</p>
+                    </div>
+                    <div class='parm-item'>
+                        <h4>Path/URL</h4>
+                        <p>/movies/:title</p>
+                    </div>
+                </div>
+                <div class='right'>
+                    <div>
+                        <h4>Request Body Data Format</h4>
+                        <p class='req'><pre>None</pre></p>
+                    </div>
+                    <div>
+                        <h4>Response Body Data Format</h4>
+                        <pre>
+<span>Example of a JSON object holding a single
+movie user searched :</span>
 
 {
     "Genre": {
@@ -165,37 +206,63 @@ movie user searched :
     "ImagePath": "silenceofthelambs.png",
     "Featured": true
 }
-
-                            </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Get specific genre description</td>
-                        <td>GET</td>
-                        <td>/movies/genre/:genre</td>
-                        <td>None</td>
-                        <td>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+            <h3 id='genre'>Get Specific Genre Description</h3>
+            <div class='parm'>
+                <div class='left'>
+                    <div class='parm-item'>
+                        <h4>HTTP Method</h4>
+                        <p>GET</p>
+                    </div>
+                    <div class='parm-item'>
+                        <h4>Path/URL</h4>
+                        <p>/movies/genre/:genre</p>
+                    </div>
+                </div>
+                <div class='right'>
+                    <div class='req'>
+                        <h4>Request Body Data Format</h4>
+                        <p><pre>None</pre></p>
+                    </div>
+                    <div class='resp'>
+                        <h4>Response Body Data Format</h4>
                             <pre>
-Example of a JSON object holding the
-description of a particular genre (Thriller) :
-
+<span>Example of a JSON object holding the
+description of a particular genre (Thriller) :</span>
+                
 {
     "Thriller": "Thriller film, also known as
-    suspense film or suspense thriller,
-    is a broad film genre that involves
-    excitement and suspense in the audience."
+        suspense film or suspense thriller,
+        is a broad film genre that involves
+        excitement and suspense in the audience."
 }
-
-                            </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Get specific director info</td>
-                        <td>GET</td>
-                        <td>/movies/director/:director</td>
-                        <td>None</td>
-                        <td>
-                            <pre>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+            <h3 id='director'>Get Specific Director Information</h3>
+            <div class='parm'>
+                <div class='left'>
+                    <div class='parm-item'>
+                        <h4>HTTP Method</h4>
+                        <p>GET</p>
+                    </div>
+                    <div class='parm-item'>
+                        <h4>Path/URL</h4>
+                        <p>/movies/director/:director</p>
+                    </div>
+                </div>
+                <div class='right'>
+                    <div class='req'>
+                        <h4>Request Body Data Format</h4>
+                        <p><pre>None</pre></p>
+                    </div>
+                    <div class='req'>
+                        <h4>Response Body Data Format</h4>
+                        <p><pre>
 A JSON object holding data about the
 director, structured like :
 
@@ -205,48 +272,76 @@ director, structured like :
     "Birth": "1970-02-03T00:00:00.000Z",
     "Death": null
 }
-
-                            </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Register New User</td>
-                        <td>POST</td>
-                        <td>/users</td>
-                        <td>
+                        </pre></p>
+                    </div>    
+                </div>
+            </div>
+            <h3 id='newUser'>Register New User</h3>
+            <div class='parm'>
+                <div class='left'>
+                    <div class='parm-item'>
+                        <h4>HTTP Method</h4>
+                        <p>POST</p>
+                    </div>
+                    <div class='parm-item'>
+                        <h4>Path/URL</h4>
+                        <p>/users</p>
+                    </div>
+                </div>
+                <div class='right'>
+                    <div class='req'>
+                        <h4>Request Body Data Format</h4>
+                        <p>
                             <pre>
-Example of a JSON object holding data
+<span>Example of a JSON object holding data
 about the users to be added, structured
-like :
+like :</span>
 
 {
-	"username": "Leo",
-	"password": "abc123XYZ",
-	"emailID": "leo_tall@gmail.com",
-	"birth": new Date("2001-01-15")
+    "username": "Leo",
+    "password": "abc123XYZ",
+    "emailID": "leo_tall@gmail.com",
+    "birth": new Date("2001-01-15")
 }
                             </pre>
-                        </td>
-                        <td>
-                            <pre>
-Example of a string holding data
-about the users that was added :
+                        </p>
+                    </div>
+                    <div class='resp'>
+                        <h4>Response Body Data Format</h4>
+                        <p><pre>
+<span>Example of a string holding data
+about the users that was added :</span>
 
-Congratulations Jack! Your account has been created.
+Congratulations Leo! Your account has been created.
                             </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Add movies to users' favorite list</td>
-                        <td>POST</td>
-                        <td>/users/:username/movie/:movie</td>
-                        <td>None</td>
-                        <td>
-                            <pre>
-Example of a JSON object holding data
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <h3 id='addMovie'>Add Movie To User's Favorite List</h3>
+            <div class='parm'>
+                <div class='left'>
+                    <div class='parm-item'>
+                        <h4>HTTP Method</h4>
+                        <p>POST</p>
+                    </div>
+                    <div class='parm-item'>
+                        <h4>Path/URL</h4>
+                        <p>/users/:username/movie/:movie</p>
+                    </div>
+                </div>
+                <div class='right'>
+                    <div class='req'>
+                        <h4>Request Body Data Format</h4>
+                        <p><pre>None</pre></p>
+                    </div>
+                    <div class='resp'>
+                        <h4>Response Body Data Format</h4>
+                        <p><pre>
+<span>Example of a JSON object holding data
 about the users' favorite movie (ref id
 from movies collection)
-that was added :
+that was added :</span>
 
 {
     "Username": "Chip",
@@ -256,43 +351,76 @@ that was added :
         "5dba417df90a580f64bd30ea"
     ]
 }
-                        </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Update users' personal details</td>
-                        <td>PUT</td>
-                        <td>/users/:username</td>
-                        <td>
-                            <pre>
-Example of a JSON object holding data about
-the users to be updated, structured like :
+                            </pre>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id='updateUser'>
+                <h3>Update User's Personal Details</h3>
+                <a href="#" role="top"><img class='arrow' src='img/uparrow.png' alt='arrow Image'></a>
+            </div>
+            <div class='parm'>
+                <div class='left'>
+                    <div class='parm-item'>
+                        <h4>HTTP Method</h4>
+                        <p>PUT</p>
+                    </div>
+                    <div class='parm-item'>
+                        <h4>Path/URL</h4>
+                        <p>/users/:username</p>
+                    </div>
+                </div>
+                <div class='right'>
+                    <div class='req'>
+                        <h4>Request Body Data Format</h4>
+                        <p><pre>
+<span>Example of a JSON object holding data about
+the users to be updated, structured like :</span>
 
 {
     "password": "asdfa1310!",
     "emailID": "vjxyz@gmail.com",
     "birth": "1983-01-15T00:00:00.000Z"
 }
-                            </pre>
-                        </td>
-                        <td>
-                            <pre>
+                        </pre></p>
+                    </div>
+                    <div class='resp'>
+                        <h4>Response Body Data Format</h4>
+                        <p><pre>
 Below message will be sent as response :
-
 Your personal details have been updated.
                             </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Delete movie from the favorite list</td>
-                        <td>DELETE</td>
-                        <td>/users/:username/movie/:movie</td>
-                        <td>None</td>
-                        <td>
-                            <pre>
-A JSON object holding in users' favorite
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id='deleteMovie'>
+                <h3>Delete Movie From Favorite List</h3>
+                <!-- <a href="#" role="top"><img class='arrow' src='img/uparrow.png' alt='arrow Image'></a> -->
+            </div>
+            <div class='parm'>
+                <div class='left'>
+                    <div class='parm-item'>
+                        <h4>HTTP Method</h4>
+                        <p>DELETE</p>
+                    </div>
+                    <div class='parm-item'>
+                        <h4>Path/URL</h4>
+                        <p>/users/:username/movie/:movie</p>
+                    </div>
+                </div>
+                <div class='right'>
+                    <div class='req'>
+                        <h4>Request Body Data Format</h4>
+                        <p><pre>None</pre></p>
+                    </div>
+                    <div class='resp'>
+                        <h4>Response Body Data Format</h4>
+                        <p><pre>
+<span>Example of a JSON object holding in users' favorite
 movie list was deleted and responds the
-updated document.
+updated document.</span>
 
 {
     "Username": "Chip",
@@ -301,25 +429,43 @@ updated document.
     "Favoritemovies": []
 }
                             </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Delete user registeration</td>
-                        <td>DELETE</td>
-                        <td>/users/:userName</td>
-                        <td>None</td>
-                        <td>
-                            <pre>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id='deleteUser'>
+                <h3>Unregister User</h3>
+                <!-- <a href="#" role="top"><img class='arrow' src='img/uparrow.png' alt='arrow Image'></a> -->
+            </div>
+            <div class='parm'>
+                <div class='left'>
+                    <div class='parm-item'>
+                        <h4>HTTP Method</h4>
+                        <p>DELETE</p>
+                    </div>
+                    <div class='parm-item'>
+                        <h4>Path/URL</h4>
+                        <p>/users/:username</p>
+                    </div>
+                </div>
+                <div class='right'>
+                    <div class='req'>
+                        <h4>Request Body Data Format</h4>
+                        <p><pre>None</pre></p>
+                    </div>
+                    <div class='resp'>
+                        <h4>Response Body Data Format</h4>
+                        <p><pre>
 A String holding user was deleted.
 
-Example:
+<span>Example:</span>
 Jack - your account has been unregistered.
                             </pre>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

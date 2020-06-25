@@ -45538,7 +45538,7 @@ function (_React$Component) {
             }, _react.default.createElement(_Nav.default.Link, {
               className: "text-info",
               href: "/client"
-            }, _react.default.createElement("h3", null, "Webflix Online Movie World!")))), _react.default.createElement(_loginView.LoginView, {
+            }, _react.default.createElement("h3", null, "webfl!x")))), _react.default.createElement(_loginView.LoginView, {
               onLoggedIn: function onLoggedIn(user) {
                 return _this4.onLoggedIn(user);
               },
@@ -45555,7 +45555,7 @@ function (_React$Component) {
           }, _react.default.createElement(_Nav.default.Link, {
             className: "text-info",
             href: "/client"
-          }, _react.default.createElement("h3", null, "Webfl!x")), _react.default.createElement(_Nav.default.Link, {
+          }, _react.default.createElement("h3", null, "webfl!x")), _react.default.createElement(_Nav.default.Link, {
             href: "/client/users/".concat(user)
           }, "Profile")), _react.default.createElement(_Button.default, {
             id: "logout",
@@ -45577,7 +45577,7 @@ function (_React$Component) {
           }, _react.default.createElement(_Nav.default.Link, {
             className: "text-info",
             href: "/client"
-          }, _react.default.createElement("h3", null, "Webflix Online Movie World!")))), _react.default.createElement(_registrationView.RegistrationView, {
+          }, _react.default.createElement("h3", null, "webfl!x")))), _react.default.createElement(_registrationView.RegistrationView, {
             addNewUser: function addNewUser(user) {
               return _this4.addNewUser(user);
             }
@@ -45594,7 +45594,7 @@ function (_React$Component) {
           }, _react.default.createElement(_Nav.default.Link, {
             className: "text-info",
             href: "/client"
-          }, _react.default.createElement("h3", null, "Webfl!x")), _react.default.createElement(_Nav.default.Link, {
+          }, _react.default.createElement("h3", null, "webfl!x")), _react.default.createElement(_Nav.default.Link, {
             href: "/client/users/".concat(user)
           }, "Profile")), _react.default.createElement(_Button.default, {
             id: "logout",
@@ -45619,7 +45619,7 @@ function (_React$Component) {
           }, _react.default.createElement(_Nav.default.Link, {
             className: "text-info",
             href: "/client"
-          }, _react.default.createElement("h3", null, "Webfl!x")), _react.default.createElement(_Nav.default.Link, {
+          }, _react.default.createElement("h3", null, "webfl!x")), _react.default.createElement(_Nav.default.Link, {
             href: "/client/users/".concat(user)
           }, "Profile")), _react.default.createElement(_Button.default, {
             id: "logout",
@@ -45645,7 +45645,7 @@ function (_React$Component) {
           }, _react.default.createElement(_Nav.default.Link, {
             className: "text-info",
             href: "/client"
-          }, _react.default.createElement("h3", null, "Webfl!x")), _react.default.createElement(_Nav.default.Link, {
+          }, _react.default.createElement("h3", null, "webfl!x")), _react.default.createElement(_Nav.default.Link, {
             href: "/client/users/".concat(user)
           }, "Profile")), _react.default.createElement(_Button.default, {
             id: "logout",
@@ -45680,7 +45680,7 @@ function (_React$Component) {
           }, _react.default.createElement(_Nav.default.Link, {
             className: "text-info",
             href: "/client"
-          }, _react.default.createElement("h3", null, "Webfl!x")), _react.default.createElement(_Nav.default.Link, {
+          }, _react.default.createElement("h3", null, "webfl!x")), _react.default.createElement(_Nav.default.Link, {
             href: "/client/users/".concat(user)
           }, "Profile")), _react.default.createElement(_Button.default, {
             id: "logout",
@@ -45917,7 +45917,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50470" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57234" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
