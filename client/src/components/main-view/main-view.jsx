@@ -141,7 +141,7 @@ export class MainView extends React.Component {
                                 <div>
                                     <Navbar variant="dark">
                                     <Nav className="mr-auto">
-                                        <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
+                                        <Nav.Link className="text-info" href="/client"><h3>webfl!x</h3></Nav.Link>
                                     </Nav>
                                     </Navbar>
                                     <LoginView onLoggedIn={user => this.onLoggedIn(user)} onClick={() => this.onRegistration()}/>
@@ -152,7 +152,7 @@ export class MainView extends React.Component {
                             <div>
                             <Navbar variant="dark">
                                 <Nav className="mr-auto justify-content-between">
-                                    <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
+                                    <Nav.Link className="text-info" href="/client"><h3>webfl!x</h3></Nav.Link>
                                     <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                                 </Nav>
                                 <Button id="logout" type="button" onClick={() => this.handleLogout()}>
@@ -169,7 +169,7 @@ export class MainView extends React.Component {
                                 <div>
                                     <Navbar variant="dark">
                                     <Nav className="mr-auto">
-                                        <Nav.Link className="text-info" href="/client"><h3>Webflix Online Movie World!</h3></Nav.Link>
+                                        <Nav.Link className="text-info" href="/client"><h3>webfl!x</h3></Nav.Link>
                                     </Nav>
                                     </Navbar>
                                     <RegistrationView addNewUser={(user) => this.addNewUser(user)}/>
@@ -185,7 +185,7 @@ export class MainView extends React.Component {
                                     <div>
                                         <Navbar variant="dark">
                                         <Nav className="mr-auto">
-                                            <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
+                                            <Nav.Link className="text-info" href="/client"><h3>webfl!x</h3></Nav.Link>
                                             <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                                         </Nav>
                                         <Button id="logout" type="button" onClick={() => this.handleLogout()}>
@@ -204,7 +204,7 @@ export class MainView extends React.Component {
                                     <div>
                                         <Navbar variant="dark">
                                         <Nav className="mr-auto">
-                                            <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
+                                            <Nav.Link className="text-info" href="/client"><h3>webfl!x</h3></Nav.Link>
                                             <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                                         </Nav>
                                         <Button id="logout" type="button" onClick={() => this.handleLogout()}>
@@ -224,7 +224,7 @@ export class MainView extends React.Component {
                                     <div>
                                         <Navbar variant="dark">
                                         <Nav className="mr-auto">
-                                            <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
+                                            <Nav.Link className="text-info" href="/client"><h3>webfl!x</h3></Nav.Link>
                                             <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                                         </Nav>
                                         <Button id="logout" type="button" onClick={() => this.handleLogout()}>
@@ -249,7 +249,7 @@ export class MainView extends React.Component {
                                     <div>
                                         <Navbar variant="dark">
                                             <Nav className="mr-auto">
-                                                <Nav.Link className="text-info" href="/client"><h3>Webfl!x</h3></Nav.Link>
+                                                <Nav.Link className="text-info" href="/client"><h3>webfl!x</h3></Nav.Link>
                                                 <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
                                             </Nav>
                                             <Button id="logout" type="button" onClick={() => this.handleLogout()}>
