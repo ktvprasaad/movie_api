@@ -150,17 +150,17 @@ export class MainView extends React.Component {
                         }
                         return ( 
                             <div>
-                            <Navbar variant="dark">
-                                <Nav className="mr-auto justify-content-between">
-                                    <Nav.Link className="text-info" href="/client"><h3>webfl!x</h3></Nav.Link>
-                                    <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
-                                </Nav>
-                                <Button id="logout" type="button" onClick={() => this.handleLogout()}>
-                                    Logout
-                                </Button>
-                            </Navbar>
-                            <MoviesList movies={movies}/>
-                        </div>
+                                <Navbar variant="dark">
+                                    <Nav className="mr-auto justify-content-between">
+                                        <Nav.Link className="text-info" href="/client"><h3>webfl!x</h3></Nav.Link>
+                                        <Nav.Link href={`/client/users/${user}`}>Profile</Nav.Link>
+                                    </Nav>
+                                    <Button id="logout" type="button" onClick={() => this.handleLogout()}>
+                                        Logout
+                                    </Button>
+                                </Navbar>
+                                <MoviesList movies={movies}/>
+                            </div>      
                         );
                     }}/>
 

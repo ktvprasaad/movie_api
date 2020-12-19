@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <title>WebFlix API Documentation</title>
     <link rel="shortcut icon" href="img/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
-<body style="width: 1200px; margin: auto;" class="main__content">
+<body>
     <header>
         <!-- <h1><img src="img/wf-32x32.png" alt="WebFlix image">WebFlix - Movies API</h1> -->
          <h1>webfl<span>!</span>x - movies API</h1>
+         <!-- <svg class="menu" id="menu-btn" viewBox="0 0 27.329 17">
+            <g transform="translate(-415.671 -19)">
+                <line  x1="24.329" transform="translate(417.171 34.5)" fill="none" stroke="#AEB6BF" stroke-linecap="round" stroke-width="3"></line>
+                <line x1="24.329" transform="translate(417.171 27.5)" fill="none" stroke="#AEB6BF" stroke-linecap="round" stroke-width="3"></line>
+                <line x1="24.329" transform="translate(417.171 20.5)" fill="none" stroke="#AEB6BF" stroke-linecap="round" stroke-width="3"></line>
+                <line x1="17" transform="translate(424.5 20.5)" fill="none" stroke="#fff1cf" stroke-linecap="round" stroke-width="3"></line>
+            </g>
+          </svg> -->
         <nav id="nav">
+            <!-- <svg class="exit" id="exit-btn" xmlns="http://www.w3.org/2000/svg" width="48.968" height="48.968" viewBox="0 0 48.968 48.968">
+                <g transform="translate(-378.092 -80.939)">
+                    <path id="Path_21" data-name="Path 21" d="M383,82l-46.847,46.847" transform="translate(43)" fill="none" stroke="#566573" stroke-width="3"></path>
+                    <path id="Path_22" data-name="Path 22" d="M336.153,82l46.673,46.673" transform="translate(43)" fill="none" stroke="#566573" stroke-width="3"></path>
+                </g>
+            </svg> -->
             <ul role="menubar" class="navigation-list">
                 <li role="presentation">
                     <a href="#info" role="menuitem" class="navigation-list__item">Info</a>
@@ -66,11 +82,11 @@
             <h2><a name="info"></a>Resource Information</h2>
             <div class='info'>
                 <div>Resource formats</div>
-                <div>JSON</div>
+                <div class='info-data'>JSON</div>
                 <div>Requires Authentication ?</div>
-                <div>Yes</div>
+                <div class='info-data'>Yes</div>
                 <div>Rate Limited ?</div>
-                <div>No</div>
+                <div class='info-data'>No</div>
             </div>
         </section>
         <section id='parameters'>
@@ -467,5 +483,6 @@ Jack - your account has been unregistered.
             </div>
         </section>
     </main>
+    <script src='js/index.js'></script>
 </body>
 </html>

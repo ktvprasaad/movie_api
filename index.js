@@ -26,7 +26,7 @@ var auth=require('./auth')(app);
 
 // mongoose.connect('mongodb://127.0.0.1/WebFlixDB', {useNewUrlParser: true});
 mongoose.connect('mongodb+srv://webFlixDBadmin:Hyperb0l@@cluster0-3axny.mongodb.net/WebFlixDB?retryWrites=true&w=majority',
-	{useNewUrlParser: true});
+	{useNewUrlParser: true, useUnifiedTopology: true});
 
 /** To send all the static files - html,css,images,javascript */
 app.use(express.static('public'));

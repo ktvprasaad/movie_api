@@ -23,6 +23,7 @@ import PropTypes from 'prop-types';
 export function LoginView(props) {
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ notExists, setNotExists ] = useState('');
     // const [ register, setRegister ] = useState('false');
 
     const handleLogin = (e) => {
@@ -37,7 +38,24 @@ export function LoginView(props) {
             props.onLoggedIn(data);
         })
         .catch( e => {
-            alert('Username does not exist. Please sign up!');
+            setNotExists('Username does not exist. Please sign up!');
+        });
+    };
+
+    const guestLogin = (e) => {
+        e.preventDefault();
+
+        axios.post('https://webflix-api-2019.herokuapp.com/login', {
+            Username: 'guest',
+            Password: 'guest'
+        })
+        .then(response => {
+            // setNotExists('');
+            const data = response.data;
+            props.onLoggedIn(data);
+        })
+        .catch( e => {
+            // alert('Username does not exist. Please sign up!');
         });
     };
 
@@ -49,6 +67,7 @@ export function LoginView(props) {
                 <Form.Group controlId="formBasicUsername">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
+                        onFocus={()=>setNotExists('')} 
                         type='text'
                         placeholder="Enter username"
                         value={username}
@@ -58,6 +77,7 @@ export function LoginView(props) {
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
+                        onFocus={()=>setNotExists('')} 
                         type="password"
                         placeholder="Password"
                         value={password}
@@ -67,6 +87,9 @@ export function LoginView(props) {
                 <Button variant="primary" type="button" onClick={handleLogin}>
                     Login
                 </Button>
+                <Button id="guest" type="button" onClick={guestLogin}>
+                    Continue as a guest
+                </Button>
                 <Form.Group controlId='newUser'>
                     <Form.Text>New User? Click
                         <Link to="/register">
@@ -75,6 +98,7 @@ export function LoginView(props) {
                     </Form.Text>
                 </Form.Group>
             </Form>
+            <div className="notExists">{notExists}</div>
         </Col>
         </Row>
         </div>

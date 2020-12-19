@@ -5,3 +5,20 @@ h2 {
 .form-label {
     color: white;
 }
+
+button.btn.btn-primary {
+    color: black;
+    background-color: tomato;
+    border-color: tomato;
+    outline: none;
+    box-shadow: none;
+}
+button.btn.btn-primary:focus {
+    outline: none;
+    border-color: tomato;
+    box-shadow: none;
+}
+
+.missingValues {
+    color: #fff !important; 
+}

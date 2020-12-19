@@ -163,12 +163,15 @@ class ProfileView extends React.Component {
                                     placeholder="Enter New Date of Birth"
                                     onChange={this.onBirthdayChange}/>
                             </Form.Group>
-                            <Button id="updt" variant="primary" type="button" onClick={() => this.updateProfile()}>
-                                Update profile
+                            <Button id="updt" variant="primary" type="button" 
+                                disabled={user === 'guest'}
+                                onClick={() => this.updateProfile()}>
+                                    Update profile
                             </Button>
                             <div className="profile-delete">
-                                <Button variant="light" type="button" onClick={() => this.deleteProfile()}>
-                                    Delete profile
+                                <Button variant="light" type="button" disabled={user === 'guest'}
+                                    onClick={() => this.deleteProfile()}>
+                                        Delete profile
                                 </Button>
                             </div>
                         </Form></Col></Row>

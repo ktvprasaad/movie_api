@@ -31,22 +31,6 @@ export class MovieCard extends React.Component {
         // })
     }
 
-    // addFavMovie() {
-    //     const  { movie } = this.props;
-
-    //     this.moviesAPI.post(`/users/${localStorage.getItem('user')}/movie/${movie._id}`)
-    //     // null is needed for post
-    //     // axios.post(`https://webflix-api-2019.herokuapp.com`, null, {
-    //     //     headers: { Authorization: `Bearer ${props.token}`}
-    //     // })
-    //     .then(response => {
-    //         alert('Movie added to your favorite list.');
-    //     })
-    //     .catch(() => {
-    //         console.log('Movie not updated!');
-    //     });
-    // };
-
     setIsShown(state) {
         this.setState({
             isShown: state

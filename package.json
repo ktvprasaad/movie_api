@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "cleanup": "rm -rf .cache dist",
     "start": "node index.js"
   },
   "repository": {

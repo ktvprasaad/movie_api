@@ -35,10 +35,9 @@ export class MovieView extends React.Component {
         //     headers: { Authorization: `Bearer ${props.token}`}
         // })
         .then(response => {
-            alert(`${movie.Title} added to your favorite list.`);
         })
         .catch((error) => {
-            alert(`${movie.Title} not added to your favorite list!` + error);
+            console.log(error);
         });
     };
 
@@ -84,7 +83,7 @@ export class MovieView extends React.Component {
                     </div>
                     <div>
                         <Button class="add" variant="primary" type="button" onClick={(props) => this.addFavMovie(this.props)}>
-                            Add to my Favorite List
+                            Add{} to my Favorite List
                         </Button>
                     </div>
                 </div>

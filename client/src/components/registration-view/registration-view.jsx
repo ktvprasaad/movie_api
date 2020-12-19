@@ -17,6 +17,7 @@ export function RegistrationView(props) {
     const [ password, setPassword ] = useState('');
     const [ email, setEmail ] = useState('');
     const [ birthday, setBirthday ] = useState('');
+    const [ missingValues, setMissingValues ] = useState('');
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -30,11 +31,11 @@ export function RegistrationView(props) {
         })
         .then(response => {
             const data = response.data;
-            alert('Registered Successfully!');
+            // alert('Registered Successfully!');
             window.open('/client','_self');
         })
         .catch(e => {
-            console.log('error registering the user');
+            setMissingValues('Missing one or more details or invalid values');
         });
     };
 
@@ -47,6 +48,7 @@ export function RegistrationView(props) {
                 <Form.Group controlId="formBasicUsername">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
+                        onFocus={()=>setMissingValues('')}
                         type="text"
                         value={username}
                         placeholder="Enter username"
@@ -55,6 +57,7 @@ export function RegistrationView(props) {
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
+                        onFocus={()=>setMissingValues('')}
                         type="password"
                         placeholder="Enter password"
                         value={password}
@@ -63,6 +66,7 @@ export function RegistrationView(props) {
                 <Form.Group>
                     <Form.Label>Email</Form.Label>
                     <Form.Control
+                        onFocus={()=>setMissingValues('')}
                         type="text"
                         value={email}
                         placeholder="Enter Email Id"
@@ -71,12 +75,14 @@ export function RegistrationView(props) {
                 <Form.Group>
                     <Form.Label>Birthday</Form.Label>
                     <Form.Control
+                        onFocus={()=>setMissingValues('')}
                         type="text"
                         value={birthday}
-                        placeholder="Enter Date of Birth"
+                        placeholder="Enter Date of Birth (mm/dd/yyyy)"
                         onChange={e => setBirthday(e.target.value)} required />
                 </Form.Group>
-                <Button variant="primary" type="submit" onClick={handleClick}>Register</Button>
+                <Button type="submit" onClick={handleClick}>Register</Button>
+                <div className="missingValues">{missingValues}</div>
             </Form>
             </Col>
             </Row>

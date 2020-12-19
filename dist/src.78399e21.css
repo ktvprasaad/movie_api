@@ -1,77 +1,63 @@
 h3 {
-  color: tomato;
-}
+  color: tomato; }
 
 .navbar {
   background: #1a1a1a;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   display: flex;
-  justify-content: space-around;
-}
+  justify-content: space-around; }
 
 a.nav-link {
-  padding: 0;
-}
+  padding: 0; }
 
 a.nav-link:nth-child(1) {
-  flex: 0 0 65%;
-}
+  flex: 0 0 65%; }
 
 a.nav-link:nth-child(2) {
-  padding-top: 0.5em;
-}
+  padding-top: .5em; }
 
 button.btn.btn-outline-info {
   color: ivory;
-  border-color: rgba(255, 255, 255, 0.5);
-}
+  border-color: rgba(255, 255, 255, 0.5); }
 
 button.btn.btn-outline-info:hover, button.btn.btn-outline-info:focus {
   color: rgba(255, 255, 255, 0.5);
   border-color: rgba(255, 255, 255, 0.5);
-  background: black;
-}
+  background: black; }
 
 #logout {
   margin: 0;
   color: ivory;
   border-color: rgba(255, 255, 255, 0.5);
-  background: none;
-}
+  background: none; }
 
 button.btn.btn-link {
-  color: tomato;
-}
+  color: tomato; }
+
 html, body {
   padding: 0;
-  margin: 0;
-}
+  margin: 0; }
 
 .card {
   display: block;
-  margin: 1em;
-}
+  margin: 1em; }
 
 .movies-list {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 1em;
   justify-content: center;
-  height: 300px;
-}
+  height: 300px; }
 
 .card-img-top {
   height: 50vh;
-  cursor: pointer;
-}
+  cursor: pointer; }
 
 div.col {
-  display: none;
-}
+  display: none; }
 
 div.row {
-  justify-content: center;
-}
+  justify-content: center; }
 
 #fm {
   display: block;
@@ -80,14 +66,12 @@ div.row {
   margin: 1em auto;
   background: white;
   border-color: rgba(255, 255, 255, 0.5);
-  width: 100%;
-}
+  width: 100%; }
 
 #fm:focus {
   background: none;
   box-shadow: 1px 1px 5px 1px rgba(255, 255, 255, 0.891);
-  color: tomato;
-}
+  color: tomato; }
 
 @media all and (max-width: 450px) {
   .movies-list {
@@ -95,18 +79,16 @@ div.row {
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1em;
     justify-content: center;
-    height: 300px;
-  }
-}
+    height: 300px; } }
+
 @media all and (min-width: 450px) and (max-width: 900px) {
   .movies-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 1em;
     justify-content: center;
-    height: 300px;
-  }
-}
+    height: 300px; } }
+
 .card-body {
   position: absolute;
   background: #ede8ee;
@@ -114,43 +96,37 @@ div.row {
   top: 0;
   left: 0;
   z-index: 1;
-  opacity: 0.8;
+  opacity: .8;
   width: 100%;
   height: 100%;
   color: black;
   display: grid;
   place-content: center;
-  transition: 10s ease-in-out;
-}
+  transition: 10s ease-in-out; }
 
 p.card-text {
   overflow: hidden;
-  max-height: 120px;
-}
+  max-height: 120px; }
 
 div.card-footer {
   margin: 2em 0 0;
-  padding: 0;
-}
+  padding: 0; }
 
 .card-footer {
   border: none;
-  background: none;
-}
+  background: none; }
 
 .card-footer button.btn {
   padding: 0;
   margin: 0;
   font-weight: bold;
-  font-size: 1.2em;
-}
+  font-size: 1.2em; }
+
 .form-text {
-  color: white;
-}
+  color: white; }
 
 div.form-container {
-  padding: 2em;
-}
+  padding: 2em; }
 
 .login-view button.btn.btn-primary {
   color: black;
@@ -160,110 +136,120 @@ div.form-container {
   outline: none;
   border-color: tomato;
   box-shadow: none;
-}
+  margin-right: 1em; }
+
+#guest {
+  color: tomato;
+  margin-top: 1em;
+  font-weight: bold;
+  background: ivory;
+  outline: none;
+  border-color: ivory;
+  box-shadow: none; }
 
 .login-view button.btn.btn-primary:active {
   color: white;
-  background: tomato;
-}
+  background: tomato; }
 
 .login-view h3 {
-  animation: fadeIn 1.2s 0.7s forwards;
-  opacity: 0;
-}
+  animation: fadeIn 1.2s .7s forwards;
+  opacity: 0; }
 
 .login-view {
-  animation: fadeIn 0.9s 0.3s forwards;
-  opacity: 0;
-}
+  animation: fadeIn .9s .3s forwards;
+  opacity: 0; }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-20%);
-  }
+    transform: translateY(-20%); }
   to {
     opacity: 1;
-    transform: translateY(0);
-  }
-}
+    transform: translateY(0); } }
+
+.notExists {
+  color: #fff !important; }
+
 h2 {
-  color: white;
-}
+  color: white; }
 
 .form-label {
-  color: white;
-}
+  color: white; }
+
+button.btn.btn-primary {
+  color: black;
+  background-color: tomato;
+  border-color: tomato;
+  outline: none;
+  box-shadow: none; }
+
+button.btn.btn-primary:focus {
+  outline: none;
+  border-color: tomato;
+  box-shadow: none; }
+
+.missingValues {
+  color: #fff !important; }
+
 .movie-view {
   padding: 2em;
   display: flex;
   justify-content: center;
   color: white;
   margin: 0 auto;
-  max-width: 900px;
-}
+  max-width: 900px; }
 
 .movie-view a {
   width: 50px;
   height: 10px;
-  margin: 1.2em 2em;
-}
+  margin: 1.2em 2em; }
 
 .movie-poster {
   display: block;
   padding: 0;
-  margin: 0;
-}
+  margin: 0; }
 
 .col-left {
-  margin: 0 auto;
-}
+  margin: 0 auto; }
 
 .col-right {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding-top: 0;
-  padding-left: 0;
-}
+  padding-left: 0; }
 
 .label {
   color: grey;
   font-size: 1em;
-  margin-right: 0.5em;
-  text-transform: uppercase;
-}
+  margin-right: .5em;
+  text-transform: uppercase; }
 
 .col-right .value {
   font-size: 1.2em;
-  color: grey;
-}
+  color: grey; }
 
 .movie-title .value {
   font-size: 1.7em;
   font-weight: bold;
-  color: white;
-}
+  color: white; }
 
 span.label {
-  position: relative;
-}
+  position: relative; }
 
 span.label:before {
-  content: "";
+  content: '';
   position: absolute;
   background: ivory;
-  opacity: 0.2;
+  opacity: .2;
   width: 100%;
   height: 92%;
   top: 3px;
-  left: -2px;
-}
+  left: -2px; }
 
 .movie-title, .movie-genre, .genre-description, .genre-director {
   padding-top: 1em;
-  color: grey;
-}
+  color: grey; }
 
 .movie-view button.btn.btn-primary {
   color: black;
@@ -272,28 +258,23 @@ span.label:before {
   background: tomato;
   outline: none;
   border-color: tomato;
-  box-shadow: none;
-}
+  box-shadow: none; }
 
 @media all and (max-width: 450px) {
   .movie-view {
-    display: block;
-  }
-}
+    display: block; } }
+
 #back {
-  display: unset;
-}
+  display: unset; }
 
 @media all and (max-width: 450px) {
   #back {
-    display: none;
-  }
-}
+    display: none; } }
+
 .genre-view {
   display: grid;
   grid-template-columns: repeat(1fr, auto);
-  color: white;
-}
+  color: white; }
 
 .col-left {
   padding: 2em;
@@ -303,79 +284,65 @@ span.label:before {
   color: white;
   margin: 0 auto;
   max-width: 900px;
-  height: 100%;
-}
+  height: 100%; }
 
 .col-right {
-  margin: 0 auto;
-}
+  margin: 0 auto; }
 
 .genre-view a {
   width: 50px;
   height: 10px;
-  margin: 0.5em 2em;
-}
+  margin: .5em 2em; }
 
 .genre-description, .genre-name {
   color: grey;
-  padding: 0.5em;
-}
+  padding: .5em; }
 
 .genre-description span.value, .genre-name span.value {
-  font-size: 1.2em;
-}
+  font-size: 1.2em; }
 
 h4 {
   margin: auto 0;
   display: block;
-  text-align: center;
-}
+  text-align: center; }
 
 .genre-description span.label, .genre-name span.label {
   font-size: 1em;
-  padding: 0.2em;
-  text-transform: uppercase;
-}
+  padding: .2em;
+  text-transform: uppercase; }
 
 .genre-name span.value {
   font-size: 1.7em;
   font-weight: bold;
-  color: white;
-}
+  color: white; }
 
 .genre-view button.btn.btn-link {
   color: tomato;
-  float: left;
-}
+  float: left; }
 
 ul {
   margin: 0;
-  padding: 0;
-}
+  padding: 0; }
 
 div.container {
-  padding: 0;
-}
+  padding: 0; }
 
 @media all and (max-width: 450px) {
   div.col-left {
     padding: 0;
     width: 90%;
     display: block;
-    justify-content: stretch;
-  }
-}
+    justify-content: stretch; } }
+
 .director-name span.value {
   font-size: 1.7em;
   font-weight: bold;
-  color: white;
-}
+  color: white; }
 
 .director-view {
   display: grid;
   grid-template-columns: repeat(1fr, auto);
-  color: white;
-}
+  color: white; }
 
 .col-left {
   padding: 2em;
@@ -385,49 +352,41 @@ div.container {
   color: white;
   margin: 0 auto;
   max-width: 900px;
-  height: 100%;
-}
+  height: 100%; }
 
 .col-right {
-  margin: 0 auto;
-}
+  margin: 0 auto; }
 
 .director-view a {
   width: 50px;
   height: 10px;
-  margin: 0.5em 2em;
-}
+  margin: .5em 2em; }
 
 .director-name, .director-bio, .director-birth, .director-death {
   color: grey;
-  padding: 0.5em;
-}
+  padding: .5em; }
 
 h4 {
   margin: 0;
   display: block;
-  text-align: center;
-}
+  text-align: center; }
 
 span.label {
   font-size: 1em;
-  padding: 0.2em;
-  text-transform: uppercase;
-}
+  padding: .2em;
+  text-transform: uppercase; }
 
 .genre-name span.value {
   font-size: 1.7em;
   font-weight: bold;
-  color: white;
-}
+  color: white; }
 
 .director-view button.btn.btn-link {
   color: tomato;
-  float: left;
-}
+  float: left; }
+
 ul {
-  list-style: none;
-}
+  list-style: none; }
 
 .list-group-item {
   padding: 0;
@@ -435,8 +394,7 @@ ul {
   color: white;
   display: block;
   text-align: center;
-  font-size: xx-large;
-}
+  font-size: xx-large; }
 
 .list-group-item ul {
   display: grid;
@@ -445,44 +403,36 @@ ul {
   justify-content: center;
   height: 300px;
   text-align: left;
-  font-size: medium;
-}
+  font-size: medium; }
 
 .list-group-item li {
   display: block;
   justify-content: center;
   padding: 0;
-  position: relative;
-}
+  position: relative; }
 
 .favoriteMovies {
-  margin: 2em;
-}
+  margin: 2em; }
 
 #remove {
   display: block;
-  margin: 1em auto 1em;
-}
+  margin: 1em auto 1em; }
 
 .profile-delete {
   display: inline-block;
   float: right;
-  margin-top: 1em;
-}
+  margin-top: 1em; }
 
 button.btn.btn-primary {
   color: ivory;
-  background: none;
-}
+  background: none; }
 
 .pro-left {
   display: flex;
-  margin: 0;
-}
+  margin: 0; }
 
 .profileUpdate-view {
-  flex: 0 0 98%;
-}
+  flex: 0 0 98%; }
 
 .profile-view button.btn.btn-primary {
   color: black;
@@ -491,15 +441,14 @@ button.btn.btn-primary {
   background: tomato;
   outline: none;
   border-color: tomato;
-  box-shadow: none;
-}
+  box-shadow: none; }
+
 .web-flix {
-  color: steelblue;
-}
+  color: steelblue; }
 
 body {
   background: url(/bg.c5f0adfe.jpg) no-repeat center center fixed;
-  background-size: cover;
-}
+  background-size: cover; }
+
 
 /*# sourceMappingURL=/src.78399e21.css.map */
